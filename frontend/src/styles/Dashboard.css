@@ -1,0 +1,483 @@
+/* ======================================= */
+/* ====== GÜNCELLENMİŞ DASHBOARD STİLİ ===== */
+/* ======================================= */
+
+/* --- Genel Stil --- */
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8fafc; /* Hafif, ferah bir arka plan (bg-slate-50) */
+  margin: 0;
+  padding: 0;
+  color: #334155; /* Varsayılan metin rengi (text-slate-700) */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dashboard {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.loading, .error, .empty {
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.125rem;
+    color: #475569;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* --- Sayfa Başlığı --- */
+h1 {
+  font-size: 2.25rem; /* text-4xl'ye yakınlaştı */
+  font-weight: 800;
+  color: #0f172a; /* text-slate-900 */
+  margin-bottom: 2rem;
+  border-bottom: 5px solid #6366f1; /* border-indigo-500 */
+  padding-bottom: 0.75rem;
+  display: inline-block;
+  letter-spacing: -0.025em;
+}
+
+/* --- Maç Kartları Izgarası --- */
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+/* === Kartlar (Maç Kartları) === */
+.match-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.match-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+/* Kart Başlığı */
+.match-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #2c3e50;
+}
+
+.match-card-header > div {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+
+
+/* Kart Gövdesi */
+/* Kart Gövdesi (Dolgu dikeyde daha da artırıldı) */
+.match-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Dikey dolgu 2rem'den 3rem'e çıkarıldı (Üst ve alt boşluk artırıldı) */
+    padding: 3rem 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-grow: 1;
+}
+
+.match-card-body > div:first-child { text-align: left; max-width: 30%; }
+.match-card-body > div:last-child { text-align: right; max-width: 30%; }
+
+/* Skor Kutusu */
+.score-box {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: #eef2ff;
+  color: #4338ca;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);
+  line-height: 1;
+}
+
+/* Kazanan & Beraberlik Yazısı */
+.winner-text {
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.winner-text.green {
+  color: #16a34a; /* text-green-600 */
+}
+
+.winner-text.yellow {
+  color: #d97706; /* text-amber-600 */
+}
+
+/* Kart Alt Kısmı */
+.match-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.btn-details {
+    background: #6366f1; /* indigo-500 */
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-details:hover {
+    background: #4f46e5; /* indigo-600 */
+    transform: translateY(-1px);
+}
+
+
+/* --- Highlight Sınıfları (JSX'ten Geliyor) --- */
+/* Galip Takım Vurgusu */
+.highlight-a {
+    color: #4f46e5; /* indigo-600 */
+    font-weight: 900;
+}
+.highlight-b {
+    color: #059669; /* green-600 */
+    font-weight: 900;
+}
+
+/* ======================================= */
+/* =========== MODAL STİLLERİ ============ */
+/* ======================================= */
+
+/* --- Modal --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.85); /* bg-slate-900 opacity-85 */
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 50;
+  /* Animasyon başlangıcı */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+/* Modal açıldığında opacity 1 olacak */
+.modal-overlay { opacity: 1; }
+
+.modal-box {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 72rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(20px);
+  animation: modalSlideUp 0.3s ease-out forwards;
+}
+
+/* Modal başlık */
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+}
+
+.modal-close {
+  color: #94a3b8;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.75rem;
+  transition: all 0.2s ease-in-out;
+  line-height: 1;
+  font-size: 1.5rem;
+}
+
+.modal-close:hover {
+  color: #475569;
+  background: #f1f5f9;
+  transform: rotate(90deg);
+}
+
+/* --- Modal Skor Alanı --- */
+.modal-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.modal-score > div {
+    flex-basis: 35%;
+}
+
+.modal-score h3 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #334155;
+}
+
+.modal-score p {
+    font-size: 0.875rem;
+    color: #334155; /* text-slate-700 */
+        font-weight: 600;
+
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.modal-score .score-box {
+    flex-basis: 30%;
+    font-size: 3rem; /* Modal'da daha büyük skor */
+}
+
+/* --- Modal İstatistik Alanı --- */
+.modal-stats {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.modal-stats h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+/* StatBar (İstatistik Çubuğu) Modal İçi Stil */
+.stat-bar {
+  background: #fff;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.stat-bar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-bar-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.stat-bar-progress {
+  height: 0.65rem;
+  border-radius: 9999px;
+  display: flex;
+  overflow: hidden;
+  background-color: #f1f5f9;
+}
+
+.stat-a {
+  background: #4f46e5;
+  transition: width 0.6s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+
+.stat-b {
+  background: #059669;
+  transition: width 0.6s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+
+/* --- Modal Anlatım Alanı --- */
+.modal-commentary {
+    padding: 0 2rem 2rem 2rem;
+}
+
+.modal-commentary h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.commentary {
+  max-height: 24rem;
+  overflow-y: auto;
+  padding-right: 0.75rem; /* Kaydırma çubuğu için boşluk */
+}
+
+.commentary-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #fff;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  border: 1px solid #f1f5f9;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.commentary-item:hover {
+  background: #f8fafc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.commentary-icon {
+  font-size: 1.35rem;
+  color: #4f46e5;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* --- Modal Alt Kısım --- */
+.modal-footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #f1f5f9;
+    text-align: right;
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    z-index: 10;
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+
+.btn-close {
+    background: #64748b; /* slate-500 */
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s;
+}
+
+.btn-close:hover {
+    background: #475569; /* slate-600 */
+    transform: translateY(-1px);
+}
+
+/* --- Animasyonlar --- */
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Scrollbar (Kaydırma Çubuğu) --- */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* --- Medya Sorgusu: Mobil Uyumluluk (Opsiyonel) --- */
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 1rem;
+    }
+
+    .modal-box {
+        max-width: 100%;
+        margin: 0.5rem;
+    }
+
+    .modal-score {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .modal-score > div {
+        flex-basis: 100%;
+    }
+
+    .modal-score .score-box {
+        font-size: 2.5rem;
+    }
+}

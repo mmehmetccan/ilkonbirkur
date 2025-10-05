@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7b806064-63ed-4ca2-8f7b-c4db132211ee" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="31LNVmm3JBUHVdh6YdyMjIecwhI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/PC/Desktop/Footbalsim/frontend/public",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.3.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PC\Desktop\Footbalsim\frontend\public" />
+      <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src\data" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PC\Desktop\Footbalsim\frontend\public" />
+      <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src\data" />
+      <recent name="C:\Users\PC\Desktop\Footbalsim\backend" />
+      <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src" />
+      <recent name="C:\Users\PC\Desktop\Footbalsim" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Footbalsim" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220" />
+        <option value="bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7b806064-63ed-4ca2-8f7b-c4db132211ee" name="Changes" comment="" />
+      <created>1755299418461</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755299418461</updated>
+      <workItem from="1755299419603" duration="12141000" />
+      <workItem from="1755379876781" duration="7017000" />
+      <workItem from="1755440351771" duration="3186000" />
+      <workItem from="1755531225582" duration="11272000" />
+      <workItem from="1755629415271" duration="18745000" />
+      <workItem from="1755723710467" duration="14805000" />
+      <workItem from="1755812374637" duration="6938000" />
+      <workItem from="1755895930748" duration="6194000" />
+      <workItem from="1756039947992" duration="841000" />
+      <workItem from="1756075616176" duration="8276000" />
+      <workItem from="1756159373180" duration="11821000" />
+      <workItem from="1756251612520" duration="10081000" />
+      <workItem from="1756333949953" duration="10294000" />
+      <workItem from="1756392472765" duration="11798000" />
+      <workItem from="1756563865225" duration="6094000" />
+      <workItem from="1756645886358" duration="12327000" />
+      <workItem from="1756764398014" duration="8809000" />
+      <workItem from="1756847015029" duration="7548000" />
+      <workItem from="1757021066557" duration="4627000" />
+      <workItem from="1757632977318" duration="2050000" />
+      <workItem from="1757951074039" duration="3468000" />
+      <workItem from="1757968826887" duration="68000" />
+      <workItem from="1757968908155" duration="495000" />
+      <workItem from="1758578617243" duration="1464000" />
+      <workItem from="1758580553938" duration="3983000" />
+      <workItem from="1758806144642" duration="40000" />
+      <workItem from="1758806206846" duration="55000" />
+      <workItem from="1758806297274" duration="2861000" />
+      <workItem from="1758809668789" duration="10421000" />
+      <workItem from="1758832328027" duration="6000" />
+      <workItem from="1758832356105" duration="311000" />
+      <workItem from="1758832722203" duration="6494000" />
+      <workItem from="1758898630761" duration="9694000" />
+      <workItem from="1758926636507" duration="13104000" />
+      <workItem from="1759017442577" duration="8755000" />
+      <workItem from="1759064871670" duration="13317000" />
+      <workItem from="1759155208322" duration="15643000" />
+      <workItem from="1759354252652" duration="6906000" />
+      <workItem from="1759361899023" duration="4626000" />
+      <workItem from="1759366682004" duration="5835000" />
+      <workItem from="1759413854410" duration="15470000" />
+      <workItem from="1759442330433" duration="1208000" />
+      <workItem from="1759580660732" duration="28728000" />
+      <workItem from="1759662506337" duration="5968000" />
+      <workItem from="1759668738231" duration="1431000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -1,0 +1,338 @@
+/* ========================================= */
+/* 1. GENEL KAPSAYICI VE BAŞLIK */
+/* ========================================= */
+
+.room-list-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f8fafc; /* Dashboard ile uyumlu arka plan */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Yumuşak gölge */
+    border: 1px solid #e2e8f0;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #334155;
+}
+
+.room-list-container .main-title {
+    text-align: center;
+    color: #1a237e; /* Koyu Mavi */
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #1976d2; /* Mavi Çizgi */
+    padding-bottom: 15px;
+}
+
+/* ========================================= */
+/* 2. KONTROLLER (ARAMA VE OLUŞTUR) */
+/* ========================================= */
+
+.room-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.search-input-group {
+    flex: 1;
+    position: relative;
+    max-width: 700px
+}
+
+.search-input-group input[type="text"] {
+    width: 100%;
+    padding: 12px 15px 12px 45px; /* İkon için soldan boşluk */
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input-group input[type="text"]:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b; /* Gri ikon */
+}
+
+.create-room-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    padding: 12px 20px;
+    background-color: #43a047; /* Yeşil */
+    color: white;
+    font-weight: 600;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.1s;
+    white-space: nowrap; /* Butonun tek satırda kalmasını sağlar */
+}
+
+.create-room-button:hover {
+    background-color: #388e3c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================= */
+/* 3. ODA LİSTESİ VE KUTUCUK STİLİ */
+/* ========================================= */
+
+.room-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.room-item {
+    /* position relative bandı konumlandırmak için önemli */
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    padding-top: 30px; /* Banta yer açmak için */
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    overflow: hidden; /* Bandın köşelerinin yuvarlak görünmesi için */
+}
+
+/* --- YENİ EKLENEN BAŞLIK BANDI STİLİ --- */
+.room-header-band {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px; /* İstenen bandın yüksekliği */
+    background-color: #2c3e50;
+}
+/* --- YENİ EKLENEN BAŞLIK BANDI STİLİ BİTTİ --- */
+
+.room-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.room-name {
+    font-size: 1.4em;
+    color: #1a237e;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lock-icon {
+    color: #f9a825; /* Sarı kilit ikonu */
+}
+
+.room-info {
+    font-size: 0.95em;
+    color: #64748b;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.room-info .icon {
+    color: #1976d2; /* Mavi ikonlar */
+}
+
+.player-count {
+    font-weight: 600;
+    color: #43a047; /* Yeşil sayı */
+}
+
+.player-count.full {
+    color: #d32f2f; /* Kırmızı sayı */
+}
+
+/* ========================================= */
+/* 4. BUTONLAR VE AKSİYONLAR */
+/* ========================================= */
+
+.room-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.btn-join {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s, transform 0.1s;
+    font-size: 0.9em;
+}
+
+/* Genel Katıl Butonu (Primary) */
+.btn-join.primary {
+    background-color: #1976d2; /* Mavi */
+    color: white;
+}
+.btn-join.primary:hover {
+    background-color: #1565c0;
+    transform: translateY(-1px);
+}
+
+/* Şifreli Katıl Butonu (Password) */
+.btn-join.password {
+    background-color: #f9a825; /* Turuncu */
+    color: #333;
+}
+.btn-join.password:hover {
+    background-color: #fbc02d;
+    transform: translateY(-1px);
+}
+
+/* Odaya Geri Dön Butonu (Active) */
+.btn-join.active {
+    background-color: #43a047; /* Yeşil */
+    color: white;
+}
+.btn-join.active:hover {
+    background-color: #388e3c;
+    transform: translateY(-1px);
+}
+
+/* Oda Dolu Butonu (Disabled/Full) */
+.btn-join.full {
+    background-color: #e0e0e0;
+    color: #888;
+    cursor: not-allowed;
+}
+
+/* Şifre Giriş Alanı */
+.password-input-area {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.password-input-area input {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    width: 100px;
+    font-size: 0.9em;
+}
+
+.btn-join.primary-join {
+    background-color: #1976d2;
+    color: white;
+    padding: 8px 12px;
+}
+
+/* ========================================= */
+/* 5. BOŞ DURUM VE YÜKLEME */
+/* ========================================= */
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px dashed #cbd5e1;
+    color: #64748b;
+    font-size: 1.1em;
+}
+
+.empty-state svg {
+    margin-bottom: 15px;
+    color: #1976d2;
+}
+@media (max-width: 768px) {
+    /* Genel Kapsayıcı: Kenar boşlukları azaltılır */
+    .room-list-container {
+        margin: 20px 10px;
+        padding: 20px 15px;
+    }
+
+    .room-list-container .main-title {
+        font-size: 2em;
+    }
+
+    /* Kontroller: Arama ve Buton alt alta hizalanır */
+    .room-controls {
+        flex-direction: column;
+        align-items: stretch; /* Öğelerin tam genişlik almasını sağlar */
+        gap: 15px;
+    }
+
+    /* Arama Çubuğu: Tam genişlik alır */
+    .search-input-group {
+        max-width: 80%;
+    }
+
+    /* Oda Kutucukları: Tek sütun (zaten minmax(300px) sayesinde bu sağlanıyordu, ama emin olmak için) */
+    .room-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* Oda Öğesi: Detaylar ve buton dikey olarak hizalanır */
+    .room-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        padding-top: 30px;
+    }
+
+    .room-details-left {
+        width: 100%;
+        margin-bottom: 15px; /* Buton alanından ayırmak için */
+    }
+
+    .room-actions {
+        width: 100%;
+        align-items: stretch; /* Butonların tam genişlik almasını sağlar */
+    }
+
+    /* Tüm aksiyon butonları tam genişlik alır */
+    .btn-join {
+        width: 100%;
+        justify-content: center; /* İçeriği ortalar */
+    }
+
+    /* Şifre Giriş Alanı: Mobil için daha iyi hizalama */
+    .room-actions > div {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto; /* Input ve Buton yan yana */
+        gap: 10px;
+    }
+
+    .room-actions input[type="password"] {
+        width: 100%;
+    }
+
+    /* Yeni Oda Oluştur Butonu: Tam genişlik */
+    .create-room-button {
+        width: 80%;
+        justify-content: center;
+    }
+}

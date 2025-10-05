@@ -1,0 +1,427 @@
+/* frontend/src/styles/MatchResult.css */
+
+.match-page-container {
+    padding: 20px;
+    max-width: 1100px;
+    margin: 20px auto;
+    background: linear-gradient(135deg, #f9fbff, #eef2f7);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Başlık */
+.header h2 {
+    text-align: center;
+    font-size: 2.2em;
+    color: #1a237e;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* Fikstür ve oynanan maçlar */
+.match-section, .last-match-results, .match-stats-summary h4 {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.match-section h3, .last-match-results h3,.match-stats-summary h4 {
+    text-align: center;
+    font-size: 1.4em;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+/* Fikstür listesi */
+.fixture-list, .played-matches-list,.match-stats-summary h4 {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fixture-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.fixture-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.fixture-item.played {
+    background: #e8f5e9;
+    border-color: #c8e6c9;
+}
+
+.fixture-team.teamA { color: #1976d2; font-weight: bold; }
+.fixture-team.teamB { color: #d32f2f; font-weight: bold; }
+.vs { color: #555; font-weight: 600; margin: 0 8px; }
+
+.match-result {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #1a237e;
+}
+
+/* Başlat butonu */
+.start-match-button {
+    background: linear-gradient(90deg, #43a047, #2e7d32);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.start-match-button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #2e7d32, #1b5e20);
+}
+
+/* Canlı maç kutusu */
+.live-match-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* Skor tablosu */
+.live-match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+.team-info.team-a .team-name { color: #1976d2; }
+.team-info.team-b .team-name { color: #d32f2f; }
+.score {
+    background: #1a237e;
+    color: #fff;
+    font-size: 1.4em;
+    padding: 8px 14px;
+    border-radius: 50%;
+    min-width: 45px;
+    text-align: center;
+}
+.match-status {
+    text-align: center;
+}
+.match-status .minute {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #222;
+}
+.match-status .half-status {
+    font-size: 0.9em;
+    color: #666;
+}
+/* Kartlar */
+.commentary-item.yellow {
+  color: #f9a825;
+  font-weight: bold;
+}
+.commentary-item.red {
+  color: #d32f2f;
+  font-weight: bold;
+}
+.stats-table-cell.cards {
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+
+/* İstatistikler */
+.live-stats {
+    margin: 20px 0;
+    display: flex; /* StatBar'lar için eklendi */
+    flex-direction: column; /* StatBar'lar için eklendi */
+    gap: 15px; /* StatBar'lar arası boşluk */
+}
+/* ESKİ .stat-item ve .stat-row SİLLERİ KALDIRILDI */
+
+
+/* --- EKLENEN İSTATİSTİK ÇUBUĞU (StatBar) STİLLERİ --- */
+.match-stats-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Çubuklar arası boşluk */
+    margin-bottom: 25px;
+}
+
+.stat-bar {
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s;
+}
+
+.stat-bar:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.stat-bar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-bar-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1em;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.stat-bar-progress {
+  height: 0.65rem;
+  border-radius: 9999px;
+  display: flex;
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.stat-a {
+  background: #1976d2; /* Team A color - Blue */
+  transition: width 0.6s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+
+.stat-b {
+  background: #d32f2f; /* Team B color - Red */
+  transition: width 0.6s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+
+.highlight-a {
+    color: #1976d2;
+    font-weight: 900;
+}
+.highlight-b {
+    color: #d32f2f;
+    font-weight: 900;
+}
+/* --- EKLENEN İSTATİSTİK ÇUBUĞU (StatBar) STİLLERİ BİTTİ --- */
+
+/* Canlı anlatım */
+.live-commentary-box {
+    background: #f9fbff;
+    border-left: 4px solid #1976d2;
+    border-radius: 10px;
+    padding: 15px;
+    max-height: 320px;
+    overflow-y: auto;
+}
+.live-commentary-box h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #1a237e;
+}
+.commentary-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.commentary-item {
+    display: flex;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px dashed #ddd;
+    font-size: 0.95em;
+}
+.commentary-item:last-child { border-bottom: none; }
+.commentary-item::before {
+    content: "⏱";
+    color: #555;
+}
+
+/* Oynanan maç özetleri */
+.match-stats-summary {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 12px;
+}
+.match-stats-summary h4 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+}
+/* ESKİ .stats-table stilleri KALDIRILDI */
+
+
+.commentary-summary-list {
+    list-style: none; /* Varsayılan madde işaretlerini kaldır */
+    padding: 0;
+    margin: 15px 0 0 0;
+    border-left: 3px solid #3498db; /* Yorum akışı için sol tarafta dikey çizgi */
+    max-height: 400px; /* Yüksekliği sınırlayarak scroll ekle */
+    overflow-y: auto; /* Dikey kaydırma çubuğu */
+    padding-left: 10px; /* Çizgi ile yorumlar arasında boşluk */
+}
+.commentary-summary-list li {
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    font-size: 0.95em;
+    line-height: 1.4;
+    position: relative;
+    /* Metin rengi ve yumuşak geçiş */
+    color: #34495e;
+    background-color: #f9f9f9;
+    transition: background-color 0.2s ease;
+
+    /* Yorum çizgisi üzerindeki daire için (opsiyonel) */
+    /*
+    &::before {
+        content: '';
+        position: absolute;
+        left: -18px;
+        top: 12px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #3498db;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 0 1px #3498db;
+    }
+    */
+}
+.commentary-summary-list li:last-child { border-bottom: none; }
+/* Yorum türlerine göre arka plan rengi */
+.commentary-summary-list li:hover {
+    background-color: #f0f0f0;
+}
+.commentary-summary-list li:has(.goal-icon) {
+    background-color: #e6ffe6; /* Açık yeşil */
+    border-left: 5px solid #2ecc71;
+    font-weight: 600;
+}
+
+/* Kırmızı Kart Yorumları İçin Vurgu */
+.commentary-summary-list li:has(.red-card-icon) {
+    background-color: #ffe6e6; /* Açık kırmızı */
+    border-left: 5px solid #e74c3c;
+    font-weight: 700;
+}
+
+/* Özel İkon Stilleri (Mavi, küçük ve düzenli) */
+.commentary-summary-list li span {
+    margin-right: 5px;
+    font-size: 1.1em;
+    color: #3498db;
+}
+
+/* Maçın sonunda oluşan son yorum için özel stil */
+.commentary-summary-list li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .match-page-container {
+        margin: 0;
+        padding: 15px;
+        border-radius: 0; /* Tam ekran kaplaması için */
+    }
+
+    .header h2 {
+        font-size: 1.8em;
+    }
+
+    /* Canlı Maç Skoru (Header) */
+    .live-match-header {
+        flex-direction: column; /* Alt alta hizala */
+        gap: 10px;
+        text-align: center;
+    }
+
+    .team-info {
+        justify-content: center;
+        width: 100%;
+        font-size: 0.95em;
+    }
+
+    .match-status {
+        order: -1; /* Skoru en üste taşı */
+        margin-bottom: 10px;
+    }
+
+    .score {
+        font-size: 1.2em;
+        padding: 6px 12px;
+    }
+
+    .match-status .minute {
+        font-size: 1.1em;
+    }
+
+    /* Fikstür Öğeleri */
+    .fixture-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+    }
+    .fixture-item > * {
+        margin: 4px 0;
+    }
+    .fixture-item button {
+        width: 100%; /* Butonu tam genişlik yap */
+    }
+
+    /* İstatistik Çubukları */
+    .stat-bar-header, .stat-bar-values {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 500px) {
+    /* Çok küçük ekranlarda padding ve başlık ayarları */
+    .match-page-container {
+        padding: 10px;
+    }
+    .header h2 {
+        font-size: 1.5em;
+    }
+
+    /* Butonlar için daha küçük padding */
+    .start-match-button {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+
+    /* Canlı Anlatım Kutusu */
+    .live-commentary-box {
+        max-height: 250px;
+    }
+}

@@ -1,0 +1,184 @@
+/* frontend/src/styles/Auth.css */
+
+/* Genel Konteyner ve İki Sütunlu Düzen */
+.auth-page-wrapper {
+    display: flex; /* Flexbox ile iki sütun oluştur */
+    min-height: 100vh;
+    background-color: #f0f2f5; /* Hafif gri arka plan */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Sol Sütun: Resim Alanı */
+.auth-image-side {
+    flex: 1; /* Sol sütun genişliği kaplar */
+    background: url('../../public/edit.png') center/cover no-repeat; /* KENDİ RESİM DOSYA YOLUNUZU BURAYA YAZIN */
+    position: relative;
+    /* Resmin üzerine hafif bir karartma/kaplama */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+/* Opsiyonel: Resim üzerine başlık/logo eklemek için */
+.auth-image-side::before {
+    content: ""; /* Marka adı veya slogan */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3.5em;
+    font-weight: 900;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+    z-index: 10;
+}
+
+
+/* Sağ Sütun: Form Alanı */
+.auth-form-side {
+    flex: 0 0 650px; /* Form alanını sabit 450px genişlikte tutar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: white; /* Form kartının arka plan rengi */
+}
+
+
+/* Form Kartı Stili */
+.auth-container { /* Formu çevreleyen kart */
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: #ffffff; /* Beyaz kart */
+}
+
+.auth-container h2 {
+    font-size: 2em;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-weight: 700;
+    text-align: center;
+}
+.auth-container .message {
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid transparent; /* Sınır için yer açar */
+}
+.auth-container .message-success {
+    color: #0f5132; /* Koyu yeşil metin */
+    background-color: #d1e7dd; /* Açık yeşil arka plan */
+    border-color: #badbcc; /* Sınır rengi */
+}
+
+/* BAŞARISIZ MESAJ: KIRMIZI */
+.auth-container .message-error {
+    color: #842029; /* Koyu kırmızı metin */
+    background-color: #f8d7da; /* Açık kırmızı arka plan */
+    border-color: #f5c2c7; /* Sınır rengi */
+}
+/* Form Grupları */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #34495e;
+    font-size: 0.95em;
+}
+
+/* İsteğe Bağlı Alan Notu */
+.optional-note {
+    font-size: 0.85em;
+    color: #95a5a6;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    background: #ecf0f1;
+    color: #2c3e50;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3); /* Mavi vurgu */
+}
+
+/* Buton Stili */
+.auth-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    margin-top: 15px;
+}
+
+.auth-container button[type="submit"]:hover {
+    background-color: #27ae60;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Mesaj Alanı */
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 500;
+    background: #e74c3c;
+    color: white;
+    text-align: center;
+}
+
+/* Link Stilleri (Şifremi Unuttum vb.) */
+.auth-container p {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+    text-align: center;
+}
+
+.auth-container p a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.auth-container p a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+
+/* Mobil Uyumlu Tasarım */
+@media (max-width: 900px) {
+    .auth-image-side {
+        display: none; /* Küçük ekranlarda resmi gizle */
+    }
+    .auth-form-side {
+        flex: 1; /* Form alanının tüm genişliği kaplamasını sağla */
+        padding: 20px;
+    }
+}

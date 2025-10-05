@@ -1,0 +1,866 @@
+/* ======================================= */
+/* ====== GÜNCEL VE DÜZELTİLMİŞ KADRO STİLLERİ ====== */
+/* ======================================= */
+
+.squad-builder-container {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #f7f7f7;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+.page-title { color: #333; margin-bottom: 30px; font-size: 2.2em; font-weight: 700; }
+
+/* Diziliş seçiminin sağ sidebar'da olması için stil */
+.formation-selection {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+/* PAYLAŞ BUTONU STİLİ */
+.share-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+}
+.share-button:hover {
+    background-color: #1565c0;
+    transform: translateY(-2px);
+}
+
+
+h3 { color: #444; margin-bottom: 20px; font-size: 1.5em; }
+h4 { color: #555; margin-bottom: 15px; font-size: 1.2em; }
+.formation-grid {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.formation-button {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    transition: all 0.2s ease-in-out;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    font-weight: 600;
+    font-size: 0.9em;
+}
+.formation-button:hover {
+    border-color: #4CAF50;
+    transform: translateY(-2px);
+    background-color: #e8f5e9;
+}
+.formation-button.active-formation {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+}
+
+/* --- YENİ DÜZEN: SAHA SOLDA, SEÇİM SAĞDA --- */
+.main-content-wrapper {
+    display: grid;
+    grid-template-columns: 3.5fr 1.5fr;
+    gap: 30px;
+    max-width: 1800px;
+    margin: 0 auto;
+    text-align: left;
+    align-items: flex-start;
+}
+
+/* 1. SAHA ALANI: 3D Perspektifi Tanımla */
+.field-area-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    perspective: 1500px;
+    background-color: #e8e5e5;
+    border-radius: 12px;
+}
+
+/* 2. SAHA KONTEYNERİ (3D Dönüşüm) */
+.field-container {
+    width: 100%;
+    max-width: 850px;
+    aspect-ratio: 16 / 10;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+    transform: rotateX(20deg) scale(0.98);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+}
+.field-container img{
+    width: 15%;
+    height: 15%;
+}
+
+
+/* 3. SAHA ZEMİNİ, ŞERİTLER VE LOGO */
+.soccer-field {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    /* KOYU ÇİM RENGİ */
+    background-color: #faf9f9;
+
+    /* Taç ve Kale Çizgileri (Saha Sınırı) */
+    border: 3px solid #fff; /* Çizgi 3px'e düşürüldü */
+    box-sizing: border-box;
+    border-radius: 15px;
+
+    /* LOGO VE YATAY ŞERİT DÜZENİ - KRİTİK HATA DÜZELTİLDİ: VİRGÜL EKLENDİ */
+    background-repeat: no-repeat, repeat;
+    background-position: right 27px top 20px, 0 0;
+    background-size: 22% auto, 100% 100%;
+    background-image:
+        url('../../public/ms-icon-310x310.png'), /* LOGO */
+        repeating-linear-gradient(to bottom,
+            #38761D 0%, #38761D 9%,
+            #4a9e34 9%, #4a9e34 18%
+        );
+
+}
+.soccer-field::before,
+.soccer-field::after,
+.penalty-box,
+.six-yard-box {
+    z-index: 5 !important;
+}
+/* OYUNCU SLOTLARINI DİKEYDE HİZALAYAN VE TAŞMAYI ENGELLEYEN KAPSAYICI */
+/* NOT: Bu div'in JSX/HTML'de .soccer-field içinde, .row elemanlarını sarmalaması GEREKLİDİR. */
+.field-rows {
+    position: absolute;
+    inset: 0; /* Sahanın tamamını kapla */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; /* Satırları dikeyde eşit aralıkla dağıt */
+    padding: 0;
+    margin: 0;
+    z-index: 30; /* Oyuncuların çizgilerin üzerinde kalmasını sağlar */
+}
+
+/* KARIŞIKLIĞI ÖNLEMEK İÇİN KULLANILMAYAN KISIM SİLİNDİ */
+/* soccer-field::before, .soccer-field::after, .penalty-box, .six-yard-box { ... } bloğu silindi */
+
+
+/* Orta Yuvarlak (eskiden ::before) */
+ /* Orta çizgi */
+                .soccer-field::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 5px;
+                    width: calc(100% - 10px);
+                    height: 2px;
+                    background: white;
+                    transform: translateY(-50%);
+                        z-index: 20;
+
+                }
+
+                /* Orta yuvarlak */
+                .soccer-field::after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 200px; /* Orta yuvarlak büyütüldü */
+                    height: 200px; /* Orta yuvarlak büyütüldü */
+                    border: 2px solid white;
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+
+/* Ceza sahaları - Konumlandırmayı Basitleştir */
+.penalty-box, .six-yard-box {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 3px solid #fff;
+    z-index: 15;
+    pointer-events: none;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.penalty-box.top {
+    width: 50%;
+    height: 25%;
+    top: 0;
+    border-top: none;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.penalty-box.bottom {
+    width: 50%;
+    height: 25%;
+    bottom: 0;
+    border-bottom: none;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* 6 Pas Alanları */
+.six-yard-box.top {
+    width: 25%;
+    height: 8%;
+    top: 0;
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.six-yard-box.bottom {
+    width: 25%;
+    height: 8%;
+    bottom: 0;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+
+/* --- ROW VE SLOT STİLLERİ (TAŞMA SORUNU DÜZELTİLDİ) --- */
+.row {
+    display: flex;
+    justify-content: center;
+    /* Oyuncu slotları 120px olduğu için gap: 80px yeterli boşluk bırakır */
+    gap: 80px;
+    width: 100%;
+
+    min-width: 100%;
+    flex-wrap: nowrap;
+    /* Yükseklik field-rows tarafından yönetildiği için bu kaldırıldı */
+    /* min-height: 160px; */
+    padding: 0 5px;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.player-slot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px; /* Biraz küçültüldü */
+    height: 100px; /* Biraz küçültüldü */
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px dashed #b3e5fc;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    /* KRİTİK: Slotları düz duracak şekilde geri döndürür */
+    transform: rotateX(-20deg) translateZ(10px);
+}
+.player-slot:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #81d4fa;
+}
+.player-slot.occupied {
+    border: 2px solid #4CAF50;
+    background-color: transparent;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+.player-slot .player-card {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.player-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+}
+
+.player-card img {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 5px;
+    border: 2px solid gold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.player-name-wrapper {
+    position: absolute;
+    bottom: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 8px 30px;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: fit-content;
+    min-width: 60px;
+    z-index: 10;
+
+    /* Paralelkenar şekli */
+    transform: translateX(-50%) skewX(-15deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.player-name-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    transform: skewX(15deg);
+    z-index: -1;
+    border-radius: 3px;
+}
+
+
+.player-name {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: black;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90px;
+    transform: skewX(15deg);
+}
+
+
+.empty-slot-text {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+.remove-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #e57373;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    line-height: 1;
+    font-size: 0.9em;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    padding: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Takım ve Diziliş Seçimi Alanı (Sidebar) --- */
+.selection-sidebar {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.team-selection { margin-top: 30px; }
+.team-search-input { width: 100%; margin: 10px auto 20px; display: block; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;}
+.list-title { color: #555; margin-top: 20px; text-align: center; }
+.team-logo-list {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+.team-logo-wrapper {
+    position: relative;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+}
+.team-logo-wrapper:hover {
+    border-color: #1976d2;
+    background-color: #f0f8ff;
+}
+.team-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    display: block;
+}
+.team-name-overlay {
+    display: block;
+    font-size: 10px;
+    margin-top: 5px;
+    width: 80px;
+    color: #333;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.selected-team-info {
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #e0f2f1;
+    margin-top: 20px;
+}
+.selected-team-info .team-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.selected-team-info h4 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: left;
+    padding-left: 10px;
+}
+.sidebar-team-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+.change-team-btn {
+    background-color: #ef5350;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.selected-team-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background-color: rgba(255,255,255,0.8);
+    padding: 5px;
+    border-radius: 50%;
+    z-index: 5;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+
+/* --- MODAL STYLES (Değişmedi) --- */
+.player-selection-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+}
+
+.player-selection-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 55px;
+    border-radius: 10px;
+    width: 110%;
+    max-width: 550px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+}
+.player-selection-modal.is-open .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.modal-header h3 { margin: 0; }
+.close-button {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.tabs { display: flex; margin-bottom: 15px; }
+.tab-button {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-bottom: none;
+}
+.tab-button.active {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+    font-weight: bold;
+}
+.tab-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.player-list-container {
+    max-height: 700px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.player-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.player-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    text-align: left;
+}
+.player-list li:last-child { border-bottom: none; }
+.player-list li:hover { background-color: #f5f5f5; }
+.player-list li img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.player-list li span {
+    font-size: 1.4em;
+    color: #555;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.pagination-controls button {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.pagination-controls button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
+}
+.pagination-controls span {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.manual-entry button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* --- Sürükleme Kayması Çözümü (Çalışıyor) --- */
+.dragging-player {
+    position: fixed !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    z-index: 5000;
+}
+.is-capturing {
+    transform: none !important;
+    margin-top: 0 !important;
+    box-shadow: none !important;
+    padding: 20px !important;
+    box-sizing: content-box !important;
+}
+
+@media (max-width: 1400px) {
+    .main-content-wrapper {
+        grid-template-columns: 3fr 1.5fr;
+        gap: 25px;
+        max-width: 1400px;
+    }
+    .field-area-wrapper {
+        min-height: 800px;
+    }
+    .field-container {
+        max-width: 900px;
+        height: 900px;
+        transform: rotateX(20deg) scale(0.92);
+    }
+    .player-slot {
+        width: 80px;
+        height: 80px;
+    }
+    .player-card img {
+        width: 120px;
+        height: 120px;
+    }
+    .player-name {
+        font-size: 0.85em;
+        max-width: 80px;
+    }
+    .empty-slot-text {
+        font-size: 1.1em;
+    }
+    .row {
+        gap: 80px; /* Düzeltildi */
+    }
+}
+
+@media (max-width: 1200px) {
+    .main-content-wrapper {
+        grid-template-columns: 2.5fr 1.5fr;
+        gap: 20px;
+        max-width: 1200px;
+    }
+    .field-area-wrapper {
+        min-height: 700px;
+    }
+    .field-container {
+        max-width: 800px;
+        height: 800px;
+        transform: rotateX(20deg) scale(0.9);
+    }
+    .player-slot {
+        width: 100px;
+        height: 100px;
+    }
+    .player-card img {
+        width: 120px;
+        height: 120px;
+    }
+    .player-name {
+        font-size: 1.1em;
+        max-width: 120px;
+    }
+    .empty-slot-text {
+        font-size: 1em;
+    }
+    .row {
+        gap: 40px;
+        min-height: 130px;
+    }
+    .selected-team-logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+     .squad-builder-container {
+        padding: 10px; /* Kenar boşlukları azaltıldı */
+        overflow-x: hidden; /* Yatay kaymayı kesinlikle engelle */
+    }
+    .page-title {
+        font-size: 1.8em; /* Başlık küçültüldü */
+        margin-bottom: 20px;
+    }
+
+
+    /* --- Ana İçerik Düzeni: Tek Sütuna Geçiş --- */
+    .main-content-wrapper {
+        grid-template-columns: 1fr; /* 2 sütundan 1 sütuna geçiş */
+        gap: 20px; /* Boşluk azaltıldı */
+        max-width: 100%;
+    }
+
+    /* --- Sidebar'ın Konumlanması (Yukarıya Kaydırıldı) --- */
+    .selection-sidebar {
+        /* order: -1 kuralı kaldırıldı veya unset yapıldı. Normal akışta (HTML sırasına göre) aşağıda kalır. */
+        order: unset;
+        position: static;
+        top: auto;
+        padding: 15px;
+    }
+   /* --- Saha Alanı --- */
+    .field-area-wrapper {
+        perspective: none;
+        min-height: 600px; /* Dikey uzama için min-height artırıldı */
+        padding: 0; /* İç dolgu kaldırıldı */
+    }
+
+    .field-container {
+        width: 95%;
+        height: auto;
+        /* 👇 KRİTİK MOBİL DÜZELTME: Dikey Uzun Saha Oranını koru */
+        aspect-ratio: 10 / 16;
+        transform: none;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        margin: 0 auto;
+    }
+
+    /* Saha çizgi kalınlığı azaltılabilir */
+    .soccer-field {
+        border-width: 2px;
+    }
+    .soccer-field::after { /* Orta yuvarlak küçültüldü */
+        width: 120px;
+        height: 120px;
+        border-width: 1px;
+    }
+
+    /* Ceza ve 6 pas alanları oransal olarak küçültüldü */
+    .penalty-box.top, .penalty-box.bottom {
+        width: 80%;
+        height: 25%;
+    }
+    .six-yard-box.top, .six-yard-box.bottom {
+        width: 45%;
+        height: 8%;
+    }
+    /* --- Slot ve Kartlar --- */
+    .row {
+        gap: 10px; /* Slotlar arası boşluk daha da azaltıldı */
+        padding: 0 2px;
+        min-height: 70px; /* Dikey aralık azaltıldı */
+    }
+
+    .player-slot {
+        width: 55px; /* Slot boyutu küçültüldü */
+        height: 55px;
+        transform: none; /* 3D dönüşüm kaldırıldı */
+        border-width: 1px;
+    }
+
+
+    .player-card {
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+    }
+
+    .player-card img {
+        width: 60px; /* Oyuncu resmi daha da küçültüldü */
+        height: 60px;
+        border-width: 1px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .player-name-wrapper {
+        bottom: -5px; /* Daha az aşağı kaydırıldı */
+        min-width: 30px;
+        padding: 1px 3px;
+        transform: translateX(-50%) skewX(-10deg); /* Skew azaltıldı */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .player-name {
+        font-size: 0.6em; /* Yazı boyutu küçültüldü */
+        max-width: 40px;
+        transform: skewX(10deg);
+    }
+
+    .empty-slot-text {
+        font-size: 0.6em;
+        text-shadow: none;
+    }
+
+    .remove-btn {
+        top: -5px;
+        right: -5px;
+        width: 20px;
+        height: 20px;
+        font-size: 0.7em;
+    }
+
+    /* Modal Düzenlemesi (768px) */
+    .modal-content {
+        padding: 15px; /* Modal içi boşluk azaltıldı */
+        max-width: 95%; /* Modal genişliği */
+    }
+    .player-list li img {
+        width: 50px; /* Modal içindeki oyuncu resmi küçültüldü */
+        height: 50px;
+    }
+    .player-list li span {
+        font-size: 1em;
+    }
+
+}

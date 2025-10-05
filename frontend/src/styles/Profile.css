@@ -1,0 +1,142 @@
+/* Genel container */
+.profile-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Başlık */
+.profile-container .form-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Bölümler */
+.form-section {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+/* Input grupları */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.form-input:focus {
+  border-color: #4a90e2;
+}
+
+/* Butonlar */
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #4a90e2;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #357abd;
+}
+
+.btn-secondary {
+  background: #f2f2f2;
+  color: #444;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+.btn-small {
+  padding: 6px 10px;
+  font-size: 13px;
+  margin-left: 8px;
+}
+
+/* E-posta akışı */
+.email-change-section .email-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email-sent-message {
+  background: #f0f9ff;
+  padding: 12px;
+  border: 1px solid #cce7ff;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Mesajlar */
+.message {
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.message.success {
+  background: #e6f7e6;
+  color: #2d7a2d;
+  border: 1px solid #b6e2b6;
+}
+
+.message.error {
+  background: #fdeaea;
+  color: #b33a3a;
+  border: 1px solid #f5b5b5;
+}
+
+/* Submit butonu */
+.submit-button {
+  margin-top: 10px;
+  width: 100%;
+}

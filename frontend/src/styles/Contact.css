@@ -1,0 +1,147 @@
+/* frontend/src/styles/Contact.css */
+
+/* --- Contact Page Specific Styles --- */
+/* Yeni Ekleme: Sayfa içeriğini sınırlandır ve ortala */
+.contact-page {
+    max-width: 1000px;
+    margin: 2rem auto; /* Sayfayı yatayda ortalar */
+    padding: 2rem; /* Kenarlardan boşluk bırakır */
+    line-height: 1.7;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Sayfa Başlığı ve Alt Başlık (İletişim sayfasında özel stiller) */
+.contact-page h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    border-bottom: 3px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.contact-page .page-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+}
+.contact-grid {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.contact-form-container, .contact-info-block {
+    padding: 2rem;
+    background: #f8fafc; /* Açık arka plan */
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+}
+
+.contact-form-container {
+    flex: 2;
+    min-width: 350px;
+}
+
+.contact-info-block {
+    flex: 1;
+    min-width: 250px;
+}
+
+.contact-info-block h2 {
+    color: #0f172a; /* Koyu başlık */
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    border-color: #3b82f6; /* Mavi odak rengi */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    outline: none;
+}
+
+.btn-submit {
+    background-color: #3b82f6; /* Mavi ana buton rengi */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #2563eb;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+
+.info-icon {
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+
+.info-item strong {
+    display: block;
+    font-size: 1rem;
+    color: #334155;
+    margin-bottom: 0.25rem;
+}
+
+.info-item p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.success-message {
+    padding: 1.5rem;
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Mobil İletişim Düzeni */
+@media (max-width: 768px) {
+    .contact-grid {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .contact-page {
+        padding: 1rem; /* Mobil cihazlarda kenar boşluğunu biraz azaltırız */
+        margin: 1rem auto; /* Dikey boşluğu ayarlarız */
+        /* max-width kaldırılmazsa, cihaz genişliğinde görünür */
+        max-width: 95%;
+    }
+
+    .contact-grid {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .contact-form-container, .contact-info-block {
+        padding: 1.5rem; /* Mobil cihazlarda form içi boşluğu ayarlar */
+    }
+}

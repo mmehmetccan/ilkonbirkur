@@ -1,0 +1,115 @@
+/* --- Footer Stilleri (index.css veya App.css içine ekleyin) --- */
+
+.site-footer {
+    background-color: #334155; /* Koyu slate rengi */
+    color: #f1f5f9; /* Açık gri metin */
+    padding: 3rem 2rem 1rem;
+    margin-top: 4rem; /* İçerikle arasına boşluk bırakır */
+    border-top: 5px solid #64748b; /* Üst kısımda ince bir çizgi */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    flex-wrap: wrap; /* Küçük ekranlarda alt alta gelmesini sağlar */
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px; /* Bölümlerin minimum genişliği */
+    margin: 1rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.footer-section h3 {
+    color: #cbd5e1; /* Daha açık başlık rengi */
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-section p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.footer-section.links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section.links a {
+    color: #94a3b8; /* Orta gri bağlantı rengi */
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+    font-size: 0.9rem;
+}
+
+.footer-section.links a:hover {
+    color: #ffffff; /* Üzerine gelindiğinde beyaz olur */
+}
+
+.contact-info span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.contact-info svg {
+    margin-right: 8px;
+    color: #ffffff; /* İkon rengi */
+}
+
+.social-links {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.social-links a {
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+.social-links a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    border-top: 1px solid #475569; /* Koyu ayırıcı çizgi */
+    padding-top: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+
+/* --- Responsive Düzenleme --- */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+    }
+
+    .footer-section {
+        min-width: 100%;
+        margin: 1rem 0;
+    }
+
+    .footer-section.links ul {
+        columns: 2; /* Bağlantıları iki sütuna ayırır */
+    }
+}

@@ -1,0 +1,27 @@
+.pitch {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  background: green;
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+}
+
+.slot {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.empty {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: yellow;
+  color: black;
+  font-weight: bold;
+  border-radius: 50%;
+}

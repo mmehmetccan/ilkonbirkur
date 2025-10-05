@@ -1,0 +1,98 @@
+/* ========================================= */
+/* 1. GENEL KAPSAYICI VE BAŞLIK */
+/* ========================================= */
+
+.create-room-container {
+    max-width: 600px; /* Formu büyük ekranlarda ortala ve sınırla */
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.create-room-container h1 {
+    text-align: center;
+    color: #1a237e;
+    font-size: 2em;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 10px;
+}
+
+/* ========================================= */
+/* 2. FORM YAPISI VE ELEMANLARI */
+/* ========================================= */
+
+.create-room-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Form grupları arasında boşluk */
+}
+
+/* Her bir etiket/giriş grubu */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+/* Tüm giriş ve seçme alanları */
+.create-room-form input[type="text"],
+.create-room-form input[type="number"],
+.create-room-form input[type="password"],
+.create-room-form select {
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #f8f9fa; /* Hafif gri arka plan */
+}
+
+.create-room-form input:focus,
+.create-room-form select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+    background-color: #ffffff;
+}
+
+/* Çoklu Seçim (Ligler) Alanı */
+.create-room-form select[multiple] {
+    height: 150px;
+    padding: 10px;
+}
+
+.create-room-form select option {
+    padding: 8px;
+}
+
+/* ========================================= */
+/* 3. BUTON */
+/* ========================================= */
+
+.create-room-form button[type="submit"] {
+    padding: 14px;
+    margin-top: 15px;
+    background-color: #28a745; /* Yeşil Vurgu */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.create-room-form button[type="submit"]:hover {
+    background-color: #1e7e34;
+    transform: translateY(-1px);
+}

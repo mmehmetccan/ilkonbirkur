@@ -1,0 +1,71 @@
+/* frontend/src/styles/TermsOfService.css */
+
+/* --- Terms of Service Page Specific Styles --- */
+/* Yeni Ekleme: Sayfa içeriğini sınırlandır ve ortala */
+.terms-page {
+    max-width: 900px;
+    margin: 2rem auto; /* Sayfayı yatayda ortalar */
+    padding: 2rem; /* Kenarlardan boşluk bırakır */
+    line-height: 1.7;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Sayfa Başlığı ve Alt Başlık (Kullanım Şartları sayfasında özel stiller) */
+.terms-page h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    border-bottom: 3px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.terms-page .page-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+}
+/* Genel sayfa konteyneri stili App.css'te tanımlanmalıdır. */
+.terms-page h2 {
+    font-size: 1.5rem;
+    color: #3b82f6;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.terms-page section p {
+    margin-bottom: 1rem;
+    color: #334155;
+}
+
+.terms-page ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+    color: #334155;
+}
+
+.terms-page ul li {
+    margin-bottom: 0.5rem;
+}
+
+.last-updated {
+    margin-top: 3rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    font-style: italic;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+}
+@media (max-width: 768px) {
+    .terms-page {
+        padding: 1rem; /* Mobil cihazlarda kenar boşluğunu biraz azaltırız */
+        margin: 1rem auto; /* Dikey boşluğu ayarlarız */
+        /* max-width kaldırılmazsa, cihaz genişliğinde görünür */
+        max-width: 95%;
+    }
+}

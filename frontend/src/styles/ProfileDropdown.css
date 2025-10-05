@@ -1,0 +1,54 @@
+/* 🔹 Profil Dropdown */
+.profile-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-link {
+  color: white;
+  font-weight: 500;
+  user-select: none;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background: white;
+  color: #333;
+  min-width: 180px;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 999;
+}
+
+.profile-dropdown p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.profile-dropdown hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 8px 0;
+}
+
+.logout-btn {
+  background: #e63946;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.logout-btn:hover {
+  background: #d62828;
+}
