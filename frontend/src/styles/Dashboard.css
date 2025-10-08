@@ -18,6 +18,7 @@ body {
     padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
+    transform: scale(0.8);
 }
 
 .loading, .error, .empty {
@@ -94,7 +95,7 @@ h1 {
     align-items: center;
     /* Dikey dolgu 2rem'den 3rem'e çıkarıldı (Üst ve alt boşluk artırıldı) */
     padding: 3rem 2rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     flex-grow: 1;
 }
@@ -179,16 +180,14 @@ h1 {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.85); /* bg-slate-900 opacity-85 */
-  backdrop-filter: blur(4px);
+  background-color: rgba(15, 23, 42, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  z-index: 50;
-  /* Animasyon başlangıcı */
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  overflow-y: auto;
+  padding: 1rem;
 }
 /* Modal açıldığında opacity 1 olacak */
 .modal-overlay { opacity: 1; }
@@ -207,21 +206,19 @@ h1 {
 
 /* Modal başlık */
 .modal-header {
-  position: sticky;
-  top: 0;
-  background: #fff;
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid #f1f5f9;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 10;
+  background: #1e293b;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .modal-header h2 {
     margin: 0;
-    font-size: 1.5rem;
-    color: #1e293b;
+    font-size: 1.2rem;
 }
 
 .modal-close {
@@ -458,26 +455,146 @@ h1 {
 }
 
 /* --- Medya Sorgusu: Mobil Uyumluluk (Opsiyonel) --- */
+@media (max-width: 1024px) {
+  .modal-box {
+    max-width: 90%;
+  }
+
+  .modal-score {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .modal-stats {
+    padding: 1.25rem;
+  }
+
+  .commentary {
+    max-height: 200px;
+  }
+}
+
+/* Mobil uyumu */
 @media (max-width: 768px) {
-    .dashboard {
-        padding: 1rem;
-    }
+  .modal-overlay {
+    padding: 0.5rem;
+    align-items: flex-start;
+  }
 
-    .modal-box {
-        max-width: 100%;
-        margin: 0.5rem;
-    }
+  .modal-box {
+    width: 100%;
+    margin: 1rem 0;
+    border-radius: 1rem;
+    max-width: none;
+  }
 
-    .modal-score {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
+  .modal-header {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
 
-    .modal-score > div {
-        flex-basis: 100%;
-    }
+  .modal-score {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
 
-    .modal-score .score-box {
-        font-size: 2.5rem;
-    }
+  .score-box {
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+  }
+   .main-content {
+    padding: 20px 10px;
+  }
+
+  .dashboard h1 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .matches-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    justify-items: center;
+  }
+
+  .match-card {
+    width: 90%;
+    max-width: 360px;
+  }
+
+
+  .modal-stats h3,
+  .modal-commentary h3 {
+    font-size: 0.95rem;
+  }
+
+  .stat-bar-values {
+    font-size: 0.8rem;
+  }
+
+  .commentary-item {
+    font-size: 0.85rem;
+  }
+
+  .modal-footer {
+    justify-content: center;
+    padding: 0.75rem 1rem;
+  }
+
+  .btn-close {
+    width: 100%;
+  }
+  .match-card-body div {
+    font-size: 1.05rem;
+    gap: 2px;
+  }
+
+  .match-score {
+    font-size: 0.9rem;
+    min-width: 40px;
+  }
+}
+
+/* Küçük ekran (ör. iPhone SE) */
+@media (max-width: 480px) {
+  .modal-box {
+    margin: 0.5rem;
+  }
+
+  .modal-score h3 {
+    font-size: 1rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.05rem;
+  }
+
+  .score-box {
+    font-size: 1.75rem;
+  }
+
+  .modal-commentary {
+    padding: 1rem;
+  }
+  .dashboard h1 {
+    font-size: 1.2rem;
+  }
+
+  .match-card {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .match-card-body {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .btn-details {
+    width: 100%;
+  }
 }

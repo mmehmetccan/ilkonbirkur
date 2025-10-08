@@ -12,6 +12,7 @@
     border: 1px solid #e2e8f0;
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #334155;
+    transform: scale(0.85);
 }
 
 .room-list-container .main-title {
@@ -165,7 +166,15 @@
 .player-count.full {
     color: #d32f2f; /* Kırmızı sayı */
 }
-
+.loading, .error, .empty {
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.125rem;
+    color: #475569;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
 /* ========================================= */
 /* 4. BUTONLAR VE AKSİYONLAR */
 /* ========================================= */

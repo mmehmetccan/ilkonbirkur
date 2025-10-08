@@ -1,23 +1,39 @@
 // frontend/src/pages/CreateRoom.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // useEffect import edildi
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import '../styles/CreateRoom.css';
+
+const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 function CreateRoom() {
     const [roomName, setRoomName] = useState('');
     const [maxPlayers, setMaxPlayers] = useState(2);
     const [password, setPassword] = useState('');
     const [leagues, setLeagues] = useState(['Premier League']);
+
+    // YENİ EKLENEN STATE: Hata veya bilgi mesajlarını tutmak için
+    const [error, setError] = useState(null);
+
     const navigate = useNavigate();
+
+    // YENİ EKLENEN KISIM: Sayfa yüklendiğinde giriş kontrolü yapar
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            // Yönlendirme yapmak yerine hata state'ini günceller
+            setError("Oda oluşturmak için lütfen giriş yapın.");
+        }
+    }, []); // Boş dependency array sayesinde sadece sayfa ilk yüklendiğinde çalışır
 
     const handleCreateRoom = async (e) => {
         e.preventDefault();
 
         const token = localStorage.getItem('token');
         if (!token) {
+            // Bu kontrol yedek olarak kalabilir, güvenlik sağlar.
             alert('Lütfen önce giriş yapın.');
             return;
         }
@@ -31,10 +47,9 @@ function CreateRoom() {
             };
 
             const body = { roomName, maxPlayers, leagues, password: password || undefined };
-            const response = await axios.post('http://localhost:3000/api/rooms/create', body, config);
+            const response = await axios.post(`${BASE_API_URL}/api/rooms/create`, body, config);
 
             alert(response.data.message);
-            // Başarılı olursa kullanıcıyı yeni oluşturulan odaya yönlendir
             navigate(`/room/${response.data.room._id}`);
 
         } catch (error) {
@@ -43,12 +58,18 @@ function CreateRoom() {
         }
     };
 
-    return (
-        <div className="create-room-container"> {/* Class eklendi */}
-            <h1>Yeni Oda Oluştur</h1>
-            <form onSubmit={handleCreateRoom} className="create-room-form"> {/* Class eklendi */}
+    // --- YENİ EKLENEN KISIM: Koşullu Görüntüleme (Conditional Rendering) ---
+    // Eğer bir hata mesajı varsa (giriş yapılmamışsa), formu gösterme, mesajı göster.
+        if (error) return <div className="error">{error}</div>;
 
-                <div className="form-group"> {/* Class eklendi */}
+
+    // Hata yoksa, normal formu göster.
+    return (
+        <div className="create-room-container">
+            <h1>Yeni Oda Oluştur</h1>
+            <form onSubmit={handleCreateRoom} className="create-room-form">
+
+                <div className="form-group">
                     <label htmlFor="roomName">Oda Adı:</label>
                     <input
                         type="text"
@@ -59,7 +80,7 @@ function CreateRoom() {
                     />
                 </div>
 
-                <div className="form-group"> {/* Class eklendi */}
+                <div className="form-group">
                     <label htmlFor="maxPlayers">Maksimum Oyuncu Sayısı:</label>
                     <input
                         type="number"
@@ -72,7 +93,7 @@ function CreateRoom() {
                     />
                 </div>
 
-                <div className="form-group"> {/* Class eklendi */}
+                <div className="form-group">
                     <label htmlFor="password">Oda Şifresi (İsteğe Bağlı):</label>
                     <input
                         type="password"
@@ -81,7 +102,7 @@ function CreateRoom() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <div className="form-group"> {/* Class eklendi */}
+                <div className="form-group">
                     <label>Ligler:</label>
                     <select multiple value={leagues}
                             onChange={(e) => setLeagues(Array.from(e.target.selectedOptions, option => option.value))}>

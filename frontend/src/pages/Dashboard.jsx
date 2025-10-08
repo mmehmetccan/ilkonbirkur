@@ -4,9 +4,9 @@ import { useNavigate,useParams  } from 'react-router-dom';
 import axios from 'axios';
 import { BarChart2, MessageSquare, Clock, Users } from 'lucide-react';
 import '../styles/Dashboard.css';
+const BASE_API_URL = import.meta.env.VITE_API_URL;
 
-const API_URL = 'http://localhost:3000/api/match';
-
+const API_URL = `${BASE_API_URL}/api/match`;
 // --- Alt Bileşen: İstatistik Çubuğu ---
 const StatBar = ({ label, valA, valB, teamA, teamB, isPercentage = false }) => {
     const numericValA = isPercentage ? parseFloat(valA) : parseInt(valA);
@@ -128,8 +128,9 @@ const DashboardMatches = () => {
             setLoading(true);
             const token = localStorage.getItem('token');
             if (!token) {
-                navigate('/login');
-                return;
+            setError("Bu içeriği görmek için lütfen giriş yapın.");
+            setLoading(false);
+            return;
             }
 
             try {

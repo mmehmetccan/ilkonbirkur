@@ -5,8 +5,7 @@ import io from "socket.io-client";
 import '../styles/MatchResult.css';
 import { BarChart2, MessageSquare, Clock, Users } from 'lucide-react'; // Lucide ikonları eklendi
 
-const socket = io("http://localhost:3000");
-
+const socket = io(import.meta.env.VITE_API_URL);
 // --- EKLENEN ALT BİLEŞEN: İstatistik Çubuğu (StatBar) ---
 const StatBar = ({ label, valA, valB, teamA, teamB, isPercentage = false }) => {
     // Dashboard.jsx dosyasından kopyalanmıştır.
@@ -89,7 +88,8 @@ const MatchResult = () => {
         const fetchRoomOnEnd = async () => {
           try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/api/rooms/${roomId}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}`, {
+
               headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -132,7 +132,7 @@ const MatchResult = () => {
     const fetchRoom = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`http://localhost:3000/api/rooms/${roomId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -165,7 +165,7 @@ const MatchResult = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:3000/api/match/${roomId}/start-next-match`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/match/${roomId}/start-next-match`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });

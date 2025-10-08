@@ -1,2 +1,38 @@
-"backend/src/data/*.json" 
-"backend/src/data/*.json" 
+# IDE ve Sistem Dosyaları
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# Bağımlılıklar (Dependencies)
+# Bu klasör 'npm install' veya 'yarn' ile yeniden oluşturulabilir.
+node_modules/
+
+# Üretim (Build) Çıktıları
+build/
+dist/
+
+# Günlük ve Hata Raporları (Log Files)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ortam Değişkenleri (Environment Variables)
+# BU DOSYALAR ASLA GITHUB'A GÖNDERİLMEMELİDİR!
+# Hassas bilgiler (API anahtarları, veritabanı şifreleri vb.) içerirler.
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Örnek bir .env dosyası ekleyerek diğer geliştiricilere yol gösterebilirsiniz.
+# Bu dosya hassas veri İÇERMEZ.
+!/.env.example
+!/.env.sample
+
+# Backend Veri Dosyaları (Eğer sunucuda oluşturuluyor veya hassas ise)
+ backend/src/data/player_market_value.json
+ backend/src/data/players.json
+ backend/src/data/playersss.json

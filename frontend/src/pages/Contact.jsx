@@ -29,7 +29,7 @@ const Contact = () => {
     try {
         // 1. Gerçek API Çağrısı
         // Backend'de tanımladığınız /api/contact rotasına istek gönder
-        const response = await axios.post('http://localhost:3000/api/contact', formData);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/contact`, formData);
 
         // 2. Başarılı Durum
         console.log("Sunucudan gelen yanıt:", response.data.message);

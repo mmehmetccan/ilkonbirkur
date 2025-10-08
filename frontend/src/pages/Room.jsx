@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_API_URL);
 import '../styles/Room.css';
 
 const Room = () => {
@@ -37,7 +37,7 @@ const Room = () => {
             const token = localStorage.getItem("token");
             if (!token) return;
             try {
-                const res = await fetch(`http://localhost:3000/api/rooms/${roomId}`, {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const data = await res.json();
@@ -92,7 +92,7 @@ const Room = () => {
 
     try {
         const token = localStorage.getItem("token");
-        await fetch("http://localhost:3000/api/rooms/kick-player", {
+        await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/kick-player`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const Room = () => {
         if (!room?._id) return;
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:3000/api/rooms/ready", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/ready`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
                 body: JSON.stringify({ roomId: room._id })
@@ -128,7 +128,7 @@ const Room = () => {
 
     try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:3000/api/rooms/leave", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/leave`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

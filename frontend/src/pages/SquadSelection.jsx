@@ -5,7 +5,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import '../styles/SquadSelection.css';
 
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_API_URL);
 
 // Diziliş ve pozisyon slotları (Güncel)
 const fieldPositions = {
@@ -162,14 +162,15 @@ function SquadSelection() {
     // Veri Çekme Mantığı
     useEffect(()=>{
         const fetchPlayers = async()=>{
-            try{const res = await axios.get("http://localhost:3000/data/players.json"); setPlayers(res.data);}
+            try{
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/data/players.json`); setPlayers(res.data);}
             catch(e){console.error("Oyuncu listesi hatası:",e);}
         };
         const fetchRoom = async()=>{
             const token = localStorage.getItem("token");
             if(!token) return;
             try{
-                const res = await fetch(`http://localhost:3000/api/rooms/${roomId}`, { headers:{ Authorization:`Bearer ${token}` } });
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}`, { headers:{ Authorization:`Bearer ${token}` } });
                 const data = await res.json();
                 if(res.ok){
                     setRoom(data);
@@ -261,7 +262,7 @@ function SquadSelection() {
     const handleStartTournament = async()=>{
         try{
             const token = localStorage.getItem("token");
-            await fetch(`http://localhost:3000/api/match/${room._id}/start-tournament`,{
+            await fetch(`${import.meta.env.VITE_API_URL}/api/match/${room._id}/start-tournament`,{
                 method:"POST",
                 headers:{ "Content-Type":"application/json", "Authorization":`Bearer ${token}` }
             });
@@ -280,7 +281,7 @@ function SquadSelection() {
         // ... Mevcut oyuncu seçme mantığı ...
         try{
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/api/rooms/${room._id}/pick-player`,{
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${room._id}/pick-player`,{
                 method:"POST",
                 headers:{ "Content-Type":"application/json", "Authorization":`Bearer ${token}` },
                 body: JSON.stringify({playerName, assignedPosition})
@@ -318,7 +319,7 @@ function SquadSelection() {
 
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/api/rooms/${room._id}/set-formation`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${room._id}/set-formation`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ formation: selected }),

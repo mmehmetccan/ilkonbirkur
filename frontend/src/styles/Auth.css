@@ -3,7 +3,7 @@
 /* Genel Konteyner ve İki Sütunlu Düzen */
 .auth-page-wrapper {
     display: flex; /* Flexbox ile iki sütun oluştur */
-    min-height: 100vh;
+    min-height: 90vh;
     background-color: #f0f2f5; /* Hafif gri arka plan */
     font-family: 'Roboto', sans-serif;
 }
@@ -11,7 +11,7 @@
 /* Sol Sütun: Resim Alanı */
 .auth-image-side {
     flex: 1; /* Sol sütun genişliği kaplar */
-    background: url('../../public/edit.png') center/cover no-repeat; /* KENDİ RESİM DOSYA YOLUNUZU BURAYA YAZIN */
+    background: url('../../public/edit3.png') center/cover no-repeat; /* KENDİ RESİM DOSYA YOLUNUZU BURAYA YAZIN */
     position: relative;
     /* Resmin üzerine hafif bir karartma/kaplama */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -33,7 +33,7 @@
 
 /* Sağ Sütun: Form Alanı */
 .auth-form-side {
-    flex: 0 0 650px; /* Form alanını sabit 450px genişlikte tutar */
+    flex: 0 0 560px; /* Form alanını sabit 450px genişlikte tutar */
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -9,6 +9,7 @@
     min-height: 100vh;
     background-color: #f0f2f5; /* Açık gri arka plan */
     font-family: 'Inter', sans-serif;
+    transform: scale(0.9);
 }
 
 /* Oda Başlığı */

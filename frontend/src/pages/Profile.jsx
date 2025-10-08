@@ -23,7 +23,7 @@ function Profile() {
                     setMessage('Giriş yapmalısınız.');
                     return;
                 }
-                const res = await axios.get('http://localhost:3000/api/users/profile', {
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/profile`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setUser(res.data);
@@ -61,7 +61,7 @@ function Profile() {
         try {
             const token = localStorage.getItem('token');
             // Backend'deki mevcut '/request-email-change' endpoint'i kullanılır
-            const res = await axios.post('http://localhost:3000/api/users/request-email-change', { newEmail }, {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/request-email-change`, { newEmail }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -114,7 +114,7 @@ function Profile() {
                 })
             };
 
-            const res = await axios.put('http://localhost:3000/api/users/profile', payload, {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/users/profile`, payload, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

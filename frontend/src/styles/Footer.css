@@ -1,12 +1,13 @@
-/* --- Footer Stilleri (index.css veya App.css içine ekleyin) --- */
+/* --- Footer Stilleri (YÜKSEKLİĞİ DÜŞÜRÜLDÜ) --- */
 
 .site-footer {
     background-color: #334155; /* Koyu slate rengi */
     color: #f1f5f9; /* Açık gri metin */
-    padding: 3rem 2rem 1rem;
-    margin-top: 4rem; /* İçerikle arasına boşluk bırakır */
+    padding: 0.5rem 2rem; /* Üst ve alt boşluklar düşürüldü */
+    margin-top: 1rem; /* İçerikle arasına olan boşluk düşürüldü */
     border-top: 5px solid #64748b; /* Üst kısımda ince bir çizgi */
     width: 100%;
+
     box-sizing: border-box;
 }
 
@@ -14,33 +15,33 @@
     display: flex;
     justify-content: space-between;
     max-width: 1200px;
-    margin: 0 auto 2rem;
-    flex-wrap: wrap; /* Küçük ekranlarda alt alta gelmesini sağlar */
+    margin: 0 auto 0.5rem; /* İç alt boşluk düşürüldü */
+    flex-wrap: wrap;
 }
 
 .footer-section {
     flex: 1;
-    min-width: 200px; /* Bölümlerin minimum genişliği */
-    margin: 1rem;
+    min-width: 200px;
+    margin: 0.5rem; /* Yan marjin düşürüldü */
 }
 
 .footer-logo {
     font-size: 1.5rem;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem; /* Düşürüldü */
 }
 
 .footer-section h3 {
-    color: #cbd5e1; /* Daha açık başlık rengi */
+    color: #cbd5e1;
     font-size: 1.125rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem; /* Düşürüldü */
 }
 
 .footer-section p {
     font-size: 0.9rem;
     line-height: 1.5;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem; /* Düşürüldü */
 }
 
 .footer-section.links ul {
@@ -49,34 +50,34 @@
 }
 
 .footer-section.links a {
-    color: #94a3b8; /* Orta gri bağlantı rengi */
+    color: #94a3b8;
     text-decoration: none;
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem; /* Düşürüldü */
     transition: color 0.2s;
     font-size: 0.9rem;
 }
 
 .footer-section.links a:hover {
-    color: #ffffff; /* Üzerine gelindiğinde beyaz olur */
+    color: #ffffff;
 }
 
 .contact-info span {
     display: flex;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem; /* Düşürüldü */
     font-size: 0.85rem;
     color: #94a3b8;
 }
 
 .contact-info svg {
     margin-right: 8px;
-    color: #ffffff; /* İkon rengi */
+    color: #ffffff;
 }
 
 .social-links {
     display: flex;
-    gap: 1.2rem;
+    gap: 1rem; /* Düşürüldü */
 }
 
 .social-links a {
@@ -89,9 +90,9 @@
 }
 
 .footer-bottom {
-    border-top: 1px solid #475569; /* Koyu ayırıcı çizgi */
-    padding-top: 1rem;
-    margin-top: 1rem;
+    border-top: 1px solid #475569;
+    padding-top: 0.5rem; /* Düşürüldü */
+    margin-top: 0.5rem; /* Düşürüldü */
     text-align: center;
     font-size: 0.8rem;
     color: #94a3b8;
@@ -106,10 +107,10 @@
 
     .footer-section {
         min-width: 100%;
-        margin: 1rem 0;
+        margin: 0.5rem 0; /* Düşürüldü */
     }
 
     .footer-section.links ul {
-        columns: 2; /* Bağlantıları iki sütuna ayırır */
+        columns: 2;
     }
 }

@@ -1,148 +1,583 @@
-/* ========================================= */
-/* ====== HOME SAYFASI STİLLERİ (Home.jsx) ====== */
-/* ========================================= */
+/* Home.css - Taktik Kurucu için tam stil dosyası (YATAY SEYİR VE ÇAKIRMAMA İÇİN DÜZENLENDİ) */
 
+/* --- Genel Değişkenler --- */
+:root{
+  --bg-top: #1e7c32;
+  --bg-bottom: #0f3f1a;
+  --control-bg: rgba(255,255,255,0.06);
+  --btn-bg: #0ea56b;
+  --btn-bg-hover: #14c47f;
+  --muted: rgba(255,255,255,0.85);
+  --glass: rgba(255,255,255,0.06);
+  --modal-bg: #1c2331; /* Modal için koyu, şık bir arka plan */
+  --border-color: rgba(255,255,255,0.12);
+}
+
+/* Global reset'ler sadece bu sayfada etkili olsun */
+.home-page * { box-sizing: border-box; }
 .home-page {
-    /* Navbar'ın altındaki ana içeriğin dolgusu */
-    padding: 20px 0;
-    text-align: center;
-    max-width: 1400px;
-    margin: 0 auto;
+  min-height: 100vh;
+  padding: 18px;
+  background: linear-gradient(180deg, #062b10 0%, #0b2f12 100%);
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* --- 1. HERO SECTION --- */
-.hero-section {
-    background-color: #2c3e50; /* Koyu arka plan */
-    color: white;
-    padding: 80px 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    margin-bottom: 50px;
-    /* Hero imajı eklemek isterseniz, bu yorum satırını kaldırıp yolunuzu güncelleyin: */
-    /* background: url('../public/hero-field.png') no-repeat center/cover; */
-}
-.hero-content h1{
-    color: white;
-}
-.hero-section h1 {
-    font-size: 3.5em;
-    font-weight: 800;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+/* Başlık */
+.home-page h1 {
+  margin: 0;
+  font-size: 20px;
+  color: #d8fce1;
+  letter-spacing: 0.4px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
-.hero-section h2 {
-    font-size: 1.8em;
-    font-weight: 300;
-    margin-bottom: 40px;
+/* --- YENİ: ÇİZİM BUTON STİLLERİ --- */
+.home-page button.drawing-btn {
+    background: #a8a29e; /* Gri - Kalem Kapalı */
+    color: #292524;
+    box-shadow: 0 4px 12px rgba(168, 162, 158, 0.2);
+    border-bottom: 3px solid #78716c;
 }
-
-/* CTA Düğme Grubu */
-.cta-group {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
+.home-page button.drawing-btn:hover {
+    background: #c3c1be;
+    transform: translateY(-2px);
 }
-
-.cta-button {
-    padding: 15px 35px;
-    font-size: 1.2em;
+.home-page button.drawing-active-btn {
+    background: #fef08a; /* Parlak Sarı - Kalem Açık */
+    color: #a16207;
+    box-shadow: 0 4px 12px rgba(254, 240, 138, 0.5);
     font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    border-bottom: 3px solid #facc15;
+}
+.home-page button.drawing-active-btn:hover {
+    background: #fde047;
 }
 
-/* Birincil CTA (Kadro Kur) */
-.primary-cta {
-    background-color: #4CAF50; /* Yeşil */
-    color: white;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-}
-.primary-cta:hover {
-    background-color: #45a049;
-    transform: translateY(-3px);
-}
-
-/* İkincil CTA (Kayıt Ol) */
-.secondary-cta {
-    background-color: transparent;
-    color: #4CAF50; /* Yeşil */
-    border: 2px solid #4CAF50;
-}
-.secondary-cta:hover {
-    background-color: #4CAF50;
-    color: white;
-    transform: translateY(-3px);
+/* --- Kontroller --- */
+.controls-row {
+  width: 100%;
+  max-width: 1200px; /* Yeni saha genişliğine göre ayarlandı */
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap; /* Küçük ekranlarda kaydırmayı engeller */
 }
 
-/* Üçüncül CTA (Turnuva Yap) */
-.tertiary-cta {
-    background-color: #3498db; /* Canlı Mavi */
-    color: white;
-    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
-    padding: 15px 35px;
+.left-controls, .right-controls, .center-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
 }
-.tertiary-cta:hover {
-    background-color: #2980b9;
-    transform: translateY(-3px);
+
+.controls-row .formation-selector {
+  display: flex;
+  gap: 8px;
+  background: var(--glass);
+  padding: 4px;
+  border-radius: 12px;
+}
+
+/* GÜNCELLENDİ: Genel Buton Stilleri */
+.home-page button {
+  background: var(--btn-bg);
+  color: #fff;
+  border: none;
+  padding: 8px 14px; /* Biraz daha geniş padding */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(14,165,107,0.12);
+  transition: all .15s ease;
+  border-bottom: 3px solid #059669; /* 3D Efekti */
+  display: flex;
+  align-items: center;
+  gap: 8px; /* İkon ve yazı arası boşluk */
+  justify-content: center;
+}
+.home-page button:hover {
+    transform: translateY(-2px);
+    background: var(--btn-bg-hover);
+    box-shadow: 0 6px 20px rgba(14,165,107,0.2);
+}
+.home-page button:active {
+    transform: translateY(1px); /* Tıklama efekti */
+    box-shadow: 0 2px 8px rgba(14,165,107,0.15);
+    border-bottom-width: 2px;
+}
+.home-page button.active {
+    background: linear-gradient(90deg,#06b6d4,#10b981);
+    box-shadow: 0 6px 20px rgba(16,185,129,0.2);
+    border-bottom-color: #0d9488;
+}
+
+.home-page button.secondary {
+  background: var(--control-bg);
+  color: #e6fdf0;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: none;
+  font-size: 13px;
+  padding: 6px 10px;
+  transform: none;
+  border-bottom: none;
+}
+.home-page button.secondary:hover { transform: none; background: rgba(255,255,255,0.12); }
+.home-page button.secondary.active { background: linear-gradient(90deg,#06b6d4,#10b981); box-shadow: none; border: 1px solid transparent; }
+
+/* GÜNCELLENDİ: Video Butonları */
+.home-page button.video-start-btn {
+    background: #22c55e;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+    border-bottom-color: #16a34a;
+}
+.home-page button.video-start-btn:hover { background: #4ade80; }
+
+.home-page button.video-stop-btn {
+    background: #ef4444;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    border-bottom-color: #dc2626;
+}
+.home-page button.video-stop-btn:hover { background: #f87171; }
+
+.home-page button.video-download-btn {
+    background: #0ea5e9;
+    border-bottom-color: #0284c7;
+}
+.home-page button:disabled, .home-page button.video-download-btn:disabled {
+    background: #4b5563;
+    color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    border-bottom: none;
+}
+/* --- VİDEO KAYIT SONU --- */
+
+/* --- Pitch (saha) --- */
+.pitch {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 3 / 2; /* Desktop için yatay */
+  border-radius: 16px;
+  overflow: visible;
+  display: block;
+  box-shadow: 0 30px 60px rgba(2,6,23,0.5);
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: none;
+
+}
+
+/* SVG saha (arka plan çizgileri) */
+.field-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Trails SVG katmanı (çizgiler) */
+.trails-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.markings { stroke-linecap: round; stroke-linejoin: round; }
+.markings rect, .markings line, .markings circle, .markings path {
+  stroke: #fff; fill: none; stroke-width: 3;
+  opacity: 0.95;
+}
+
+/* --- Top (ball) --- */
+.ball {
+  width: 24px; height: 24px;
+  background: radial-gradient(circle at 30% 25%, #ffffff, #f3f4f6 40%, #d1d5db 100%);
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: transform .08s ease;
+  z-index: 4;
+  position: absolute;
+  cursor: grab;
+}
+.ball:active { cursor: grabbing; transform: scale(1.04); }
+
+/* --- Oyuncular genel --- */
+.player {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  will-change: transform;
+  transition: none !important;
+  border: 2px solid rgba(255,255,255,0.9);
+  box-shadow: 0 8px 24px rgba(4,7,20,0.45);
+  z-index: 5;
+  position: absolute;
+}
+.player-label { text-align: center; pointer-events: none; color: #fff; }
+
+/* GÜNCELLENDİ: Oyuncu numarası daha belirgin */
+.player .num {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 14px;
+    /* Yazıyı daha okunaklı yapan gölge */
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.player.team-a { background: linear-gradient(180deg, #2563eb, #1e40af); }
+.player.team-b { background: linear-gradient(180deg, #ef4444, #b91c1c); }
+.player:active { cursor: grabbing; transform: scale(1.05); }
+
+.player.sent-off {
+   opacity: 0.6;
+    border: 2px solid #ef4444;
+    transform: scale(0.9) !important;
+}
+.player.sent-off:active { transform: scale(0.95) !important; }
+
+/* --- Oyuncu Durum Simgeleri (Player Status Icons) --- */
+.player-status-icons {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 4px;
+  z-index: 10;
+  pointer-events: none;
+}
+.player-status-icons .icon {
+  height: 20px;
+  border-radius: 4px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+.icon.yellow-card, .icon.red-card {
+     width: 16px;
+    height: 20px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+.icon.yellow-card {
+   background-color: #fcd34d;
+  color: #333;
+}
+.icon.red-card {
+    background-color: #ef4444;
+  color: #fff;
+}
+.icon.goal-icon {
+  background-color: #e6fdf0;
+  color: #0d9488;
+  font-size: 11px;
+  padding: 2px 5px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
 }
 
 
-/* --- 2. ÖZELLİKLER BÖLÜMÜ --- */
-.features-section {
-    padding-top: 50px;
+/* GÜNCELLENDİ: Modal Stilleri */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 20, 26, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  padding: 18px;
 }
-
-.features-section h3 {
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 30px;
+.modal {
+  width: 580px;
+  max-width: calc(100% - 48px);
+  background: #283042;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(2,6,23,0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #e9fdf0;
 }
-
-.features-grid {
+.modal h3 {
+    margin: 0 0 16px 0;
+    font-size: 20px;
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+.modal label {
+    display: block;
+    font-size: 13px; /* Etiketler daha küçük */
+    color: #b7e3c1;
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-transform: uppercase; /* BÜYÜK HARF */
+    letter-spacing: 0.5px;
+}
+.modal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: rgba(0,0,0,0.2);
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 16px;
+  transition: all 0.2s;
+}
+.modal input[type="text"]:focus {
+  border-color: #06b6d4;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.4);
+  background: #283042;
+}
+.modal-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.modal-controls-grid label {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  text-align: center;
+  width: 100%;
+  color: #e6fdf0;
+}
+.modal .control-card {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 0 40px;
+    flex-direction: column;
+    align-items: center;
+}
+.modal .input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 0;
+}
+.modal .input-group .card-count {
+  width: 40px; /* Daha geniş */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border-radius: 8px;
+  font-size: 18px; /* Daha büyük */
+  background: #3e475c;
+  border: 1px solid var(--border-color);
+  color: #fff;
+}
+.modal .icon-button {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s;
+    background: #3e475c;
+    box-shadow: none;
+    transform: none;
+    border: 1px solid transparent;
+}
+.modal .icon-button:hover {
+    background: #4b5563;
+    transform: scale(1.05);
+}
+.modal .input-group .card-count.goal {
+  color: #34d399; /* Daha parlak yeşil */
+}
+.modal .icon.yellow-card-lg, .modal .icon.red-card-lg {
+    width: 24px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+.modal .icon.yellow-card-lg { background-color: #fcd34d; }
+.modal .icon.red-card-lg { background-color: #ef4444; }
+
+.modal .icon-button.active-yellow {
+  background: #fde68a;
+  border: 2px solid #fcd34d;
+  box-shadow: 0 0 10px rgba(252, 211, 77, 0.6);
+}
+.modal .icon-button.active-red {
+  background: #fca5a5;
+  border: 2px solid #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+}
+.modal button.small {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 300;
+  border-radius: 8px;
+  transform: none;
+  box-shadow: none;
+}
+.modal button.small:hover { transform: none; }
+.modal button.small.secondary {
+    background: #3e475c;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #e6fdf0;
+}
+.modal button.small.secondary:hover { background: #4b5563; }
+
+.modal-actions {
+     display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    padding-top: 10px;
+}
+.modal .btn { padding: 10px 16px; border-radius: 8px; font-size: 15px; }
+.modal .btn.primary { background: linear-gradient(90deg,#06b6d4,#10b981); border-bottom: none; }
+.modal .btn.secondary {
+    background: #3e475c;
+    color: #e6fdf0;
+    box-shadow: none;
+    transform: none;
+    border-bottom: none;
+}
+.modal .btn.secondary:hover { transform: none; background: #4b5563; }
+.footer-note {
+  font-size: 13px;
+  color: rgba(255,255,255,0.72);
+  margin-top: 6px;
 }
 
-.feature-card {
-    flex: 1;
-    background: #f8f9fa;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: left;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border-bottom: 4px solid #4CAF50;
+/* ======================================= */
+/* ====== RESPONSIVE TASARIM ====== */
+/* ======================================= */
+@media (max-width: 1080px) {
+  .home-page h1 { font-size: 1.7rem; }
+  .controls-row { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .home-page button { font-size: 14px; padding: 9px 14px; }
+  .player { width: 52px; height: 52px; font-size: 14px; }
+  .ball { width: 22px; height: 22px; }
 }
-
-.feature-card h4 {
-    color: #2c3e50;
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-
-/* MOBİL GÖRÜNÜM İYİLEŞTİRMELERİ */
 @media (max-width: 900px) {
-    .hero-section {
-        padding: 50px 20px;
-    }
-    .hero-section h1 {
-        font-size: 2.5em;
-    }
-    .hero-section h2 {
-        font-size: 1.4em;
-    }
-    .cta-group {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .features-grid {
-        flex-direction: column;
-        padding: 0 20px;
-    }
+  .pitch {
+    aspect-ratio: 3/4 !important;
+    max-width: 100% !important;
+    max-height: 70vh !important;
+    width: 100% !important;
+    height: auto !important;
+    position: relative;
+  }
+  .home-page { padding: 10px; gap: 8px; }
+  .home-page h1 { font-size: 1.2rem; margin-bottom: 5px; }
+  .controls-row { flex-direction: column; gap: 8px; }
+  .formation-selector { order: -1; margin-bottom: 5px; }
+  .left-controls, .center-controls, .right-controls { justify-content: center; width: 100%; gap: 6px; }
+  .home-page button { padding: 6px 8px; font-size: 0.75rem; min-height: 36px; }
+
+  /* .player için transform: scale() kaldırıldı, boyutlar direkt ayarlandı */
+  .player {
+    width: 32px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    /* transform: scale(0.8);  <-- BU SATIR KALDIRILDI */
+    /* transform-origin: center; <-- BU SATIR KALDIRILDI */
+  }
+
+  .player .num { font-size: 10px !important; line-height: 1 !important; }
+
+  /* .ball için transform: scale() kaldırıldı, boyutlar direkt ayarlandı */
+  .ball {
+    width: 16px !important;
+    height: 16px !important;
+    /* transform: scale(0.8); <-- BU SATIR KALDIRILDI */
+    /* transform-origin: center; <-- BU SATIR KALDIRILDI */
+  }
+
+  .player-status-icons { top: -6px; right: -6px; gap: 2px; }
+  .player-status-icons .icon { height: 14px; font-size: 8px; }
+  .icon.yellow-card, .icon.red-card { width: 10px; height: 14px; }
+  .icon.goal-icon { font-size: 8px; padding: 1px 2px; }
+  .modal { width: 95% !important; margin: 10px; padding: 15px; }
+  .modal h3 { font-size: 1.1rem; }
+  .modal-controls-grid { grid-template-columns: 1fr; gap: 12px; padding: 8px; }
+  .modal .icon-button { width: 40px; height: 40px; }
+  .modal .small { width: 28px; height: 28px; font-size: 16px; }
+  .modal .card-count { width: 28px; height: 28px; font-size: 14px; }
+  .footer-note { font-size: 0.7rem; text-align: center; margin-top: 10px; }
+}
+@media (max-width: 768px) {
+  .pitch { aspect-ratio: 3/4 !important; max-width: 100% !important; max-height: 70vh !important; width: 100% !important; height: auto !important; position: relative; }
+  .home-page h1 { font-size: 1.2rem; margin-bottom: 5px; }
+  .home-page { padding: 10px; gap: 8px; }
+  .controls-row { flex-direction: column; gap: 8px; }
+  .formation-selector { order: -1; margin-bottom: 5px; }
+  .left-controls, .center-controls, .right-controls { justify-content: center; width: 100%; gap: 6px; }
+  .home-page button { padding: 6px 8px; font-size: 0.75rem; min-height: 36px; }
+  .player { width: 32px !important; height: 32px !important; line-height: 32px !important; transform: scale(0.8); transform-origin: center; }
+  .player .num { font-size: 10px !important; line-height: 1 !important; }
+  .ball { width: 16px !important; height: 16px !important; transform: scale(0.8); transform-origin: center; }
+  .player-status-icons { top: -6px; right: -6px; gap: 2px; }
+  .player-status-icons .icon { height: 14px; font-size: 8px; }
+  .icon.yellow-card, .icon.red-card { width: 10px; height: 14px; }
+  .icon.goal-icon { font-size: 8px; padding: 1px 2px; }
+  .modal { width: 95% !important; margin: 10px; padding: 15px; }
+  .modal h3 { font-size: 1.1rem; }
+  .modal-controls-grid { grid-template-columns: 1fr; gap: 12px; padding: 8px; }
+  .modal .icon-button { width: 40px; height: 40px; }
+  .modal .small { width: 28px; height: 28px; font-size: 16px; }
+  .modal .card-count { width: 28px; height: 28px; font-size: 14px; }
+  .footer-note { font-size: 0.7rem; text-align: center; margin-top: 10px; }
+}
+@media (max-width: 480px) {
+  .pitch { max-height: 60vh !important; }
+  .home-page h1 { font-size: 1.1rem; }
+  .home-page button { padding: 6px 8px; font-size: 0.75rem; min-height: 36px; }
+}
+@media (max-width: 360px) {
+  .player { width: 28px !important; height: 28px !important; line-height: 28px !important; }
+  .player .num { font-size: 9px !important; }
+  .ball { width: 14px !important; height: 14px !important; }
+  .home-page button { padding: 5px 6px; font-size: 0.7rem; min-height: 32px; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .pitch { max-height: 80vh !important; max-width: 70vw !important; }
+  .controls-row { flex-direction: row; flex-wrap: wrap; }
+  .home-page { padding: 5px; gap: 5px; }
 }

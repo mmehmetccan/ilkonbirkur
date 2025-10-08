@@ -19,7 +19,7 @@ function Login() {
         setMessageType(''); // Mesaj tipini sıfırla
 
         try {
-            const response = await axios.post('http://localhost:3000/api/users/login', { email, password });
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, { email, password });
 
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify({
@@ -39,7 +39,7 @@ function Login() {
     return (
         // ✅ Yeni Ana Konteyner
         <div className="auth-page-wrapper">
-            
+
             {/* ✅ Sol Taraf: Resim Alanı */}
             <div className="auth-image-side">
                 {/* Burası CSS ile yönetilen arka plan resmini gösterir */}

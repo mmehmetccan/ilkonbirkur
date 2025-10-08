@@ -78,10 +78,11 @@ h4 { color: #555; margin-bottom: 15px; font-size: 1.2em; }
     display: grid;
     grid-template-columns: 3.5fr 1.5fr;
     gap: 30px;
-    max-width: 1800px;
+    max-width: 1500px;
     margin: 0 auto;
     text-align: left;
     align-items: flex-start;
+    transform: scale(0.9);
 }
 
 /* 1. SAHA ALANI: 3D Perspektifi Tanımla */
@@ -304,33 +305,35 @@ h4 { color: #555; margin-bottom: 15px; font-size: 1.2em; }
 }
 
 .player-card img {
-    width: 105px;
-    height: 105px;
+width: 100px; /* Çerçeveden daha büyük */
+    height: 100px; /* Çerçeveden daha büyük */
     border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 5px;
-    border: 2px solid gold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    object-fit: contain; /* Resmin tamamı görünsün, kesilmesin */
+    position: relative;
+    z-index: 2; /* Auranın önünde olsun */
+
+    /* Oyuncuyu yukarı taşıyarak 'taşma' efekti yaratır. Icardi'nin saçı artık görünecek! */
+    margin-top: -20px;
+
+    /* Arkaplanı temizlenmiş resimler için mükemmel gölge efekti */
+    filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.6));
+    transition: transform 0.2s ease-in-out;
 }
 
 .player-name-wrapper {
     position: absolute;
-    bottom: -55px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
-    padding: 8px 30px;
-    border-radius: 3px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    width: fit-content;
-    min-width: 60px;
-    z-index: 10;
-
-    /* Paralelkenar şekli */
-    transform: translateX(-50%) skewX(-15deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    bottom: -15px; /* Kartın altına gelecek */
+    width: auto;
+    padding: 3px 12px;
+    background-color: rgba(10, 25, 47, 0.85); /* Koyu, yarı şeffaf arkaplan */
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    z-index: 3;
+    white-space: nowrap; /* İsmin tek satırda kalmasını sağlar */
 }
 .player-name-wrapper::before {
     content: '';
@@ -396,6 +399,7 @@ h4 { color: #555; margin-bottom: 15px; font-size: 1.2em; }
     top: 20px;
     width: 100%;
     box-sizing: border-box;
+    transform: scale(0.9);
 }
 .team-selection { margin-top: 30px; }
 .team-search-input { width: 100%; margin: 10px auto 20px; display: block; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;}
@@ -493,13 +497,15 @@ h4 { color: #555; margin-bottom: 15px; font-size: 1.2em; }
 
 
 /* --- MODAL STYLES (Değişmedi) --- */
+/* --- MODAL STYLES (Düzenlenmiş - Daha Kompakt ve Modern) --- */
+
 .player-selection-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.65);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -516,69 +522,94 @@ h4 { color: #555; margin-bottom: 15px; font-size: 1.2em; }
 
 .modal-content {
     background: #fff;
-    padding: 55px;
-    border-radius: 10px;
-    width: 110%;
-    max-width: 550px;
-
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-    transform: translateY(-50px);
+    padding: 30px 35px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    transform: translateY(-40px);
     transition: transform 0.3s ease;
 }
+
 .player-selection-modal.is-open .modal-content {
     transform: translateY(0);
 }
 
+/* HEADER */
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-}
-.modal-header h3 { margin: 0; }
-.close-button {
-    background: #f44336;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
+    margin-bottom: 20px;
+    background-color: white;
 }
 
-.tabs { display: flex; margin-bottom: 15px; }
-.tab-button {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    border-bottom: none;
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.4em;
+    color: #333;
 }
+
+.close-button {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+.close-button:hover {
+    background: #c0392b;
+}
+
+/* TABS */
+.tabs {
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.95em;
+}
+
 .tab-button.active {
     background-color: #fff;
-    border-bottom: 1px solid #fff;
-    font-weight: bold;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
 }
+
 .tab-button:disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
 }
 
+/* SEARCH */
 .search-input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 8px;
+    margin-bottom: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 0.95em;
 }
 
+/* PLAYER LIST */
 .player-list-container {
-    max-height: 700px;
+    max-height: 500px;
     overflow-y: auto;
     border: 1px solid #eee;
-    border-radius: 5px;
-    margin-bottom: 15px;
+    border-radius: 6px;
+    margin-bottom: 12px;
 }
 
 .player-list {
@@ -586,28 +617,37 @@ h4 { color: #555; margin-bottom: 15px; font-size: 1.2em; }
     padding: 0;
     margin: 0;
 }
+
 .player-list li {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 8px 10px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
-    transition: background-color 0.1s;
-    text-align: left;
+    transition: background-color 0.15s ease;
 }
-.player-list li:last-child { border-bottom: none; }
-.player-list li:hover { background-color: #f5f5f5; }
+
+.player-list li:last-child {
+    border-bottom: none;
+}
+
+.player-list li:hover {
+    background-color: #f7f9fb;
+}
+
 .player-list li img {
-    width: 80px;
-    height: 80px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
 }
+
 .player-list li span {
-    font-size: 1.4em;
-    color: #555;
+    font-size: 1.1em;
+    color: #444;
 }
+
 
 .pagination-controls {
     display: flex;

@@ -6,7 +6,7 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import * as htmlToImage from 'html-to-image'; // html-to-image kütüphanesi eklendi
 import '../styles/CustomSquad.css'; // YENİ: CSS dosyasını import et
 
-const socket = io("http://localhost:3000"); // Kendi socket sunucunuza göre ayarlayın
+const socket = io(import.meta.env.VITE_API_URL); // Kendi socket sunucunuza göre ayarlayın
 
 // Saha dizilişleri ve pozisyon slotları (4-2-3-1 DÜZELTİLDİ)
 const fieldPositions = {
@@ -187,7 +187,7 @@ function CustomSquad() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/players/initial");
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/players/initial`);
 
                 const playersData = response.data.players;
                 const teamsData = response.data.teams;

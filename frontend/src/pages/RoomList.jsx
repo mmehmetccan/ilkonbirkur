@@ -32,11 +32,11 @@ function RoomList() {
     const fetchRooms = async () => {
         try {
             if (!token) {
-                setError('Lütfen giriş yapın.');
+            setError("Bu içeriği görmek için lütfen giriş yapın.");
                 setLoading(false);
                 return;
             }
-            const response = await axios.get('http://localhost:3000/api/rooms', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/rooms`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             setRooms(response.data);
@@ -65,7 +65,7 @@ function RoomList() {
             const body = { roomId, password: passwordInput };
 
             const response = await axios.post(
-                "http://localhost:3000/api/rooms/join",
+                `${import.meta.env.VITE_API_URL}/api/rooms/join`,
                 body,
                 config
             );
@@ -97,7 +97,7 @@ function RoomList() {
 
     if (loading) return <div>Odalar yükleniyor...</div>;
 
-    if (error) return <div>Hata: {error}</div>;
+    if (error) return <div className="error">{error}</div>;
 
     const filteredRooms = rooms
         .slice() // kopyasını al

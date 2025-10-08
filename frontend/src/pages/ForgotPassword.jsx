@@ -10,7 +10,7 @@ function ForgotPassword() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/api/users/forgot-password', { email });
+const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/forgot-password`, { email });
             setMessage(response.data.message);
         } catch (error) {
             setMessage(error.response?.data?.message || 'Hata oluştu.');

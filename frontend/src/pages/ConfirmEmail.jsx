@@ -20,7 +20,7 @@ function ConfirmEmail() {
 
             try {
                 // Backend'deki GET /api/users/confirm-email/:token endpoint'ine istek at
-                const res = await axios.get(`http://localhost:3000/api/users/confirm-email/${token}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/confirm-email/${token}`);
 
                 setStatus('Başarılı');
                 setMessage(res.data.message || 'E-posta adresiniz başarıyla güncellendi.');

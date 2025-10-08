@@ -7,9 +7,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 50px; /* Navbar yüksekliğini küçülttük */
 
     /* background: #718395; Eski rengi: Koyu, düz renk */
-    padding: 44px 70px;
+    padding: 20px 50px;
     color: #f8f9fa;
     position: sticky;
     top: 0;
@@ -28,8 +29,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    height: 80px; /* 🔹 Logo alanı büyüdü */
-    margin-left: 90px; /* 🔹 Menüye yakın, ortalanmış görünüm */
+    height: 80px;
+    margin-left: 90px;
     flex-shrink: 0;
 }
 
@@ -64,11 +65,10 @@
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 20px;
     align-items: center;
     margin: 0;
     padding: 0;
-
 }
 /* 🔥 DEĞİŞİKLİK 1: Menü elemanı (li) için font boyutu artırıldı ve margin/padding düzenlendi */
 .nav-links li{
@@ -78,7 +78,7 @@
     align-items: center;
     margin: 0 15px; /* Yatayda daha iyi aralık */
     padding: 0; /* İç dolgu kaldırıldı, linke taşıyoruz */
-    font-size: 1.2rem; /* 💡 Font boyutu küçültüldü (2rem çok büyüktü, 1.2rem daha uygun) */
+    font-size: 1.0rem; /* 💡 Font boyutu küçültüldü (2rem çok büyüktü, 1.2rem daha uygun) */
 
 }
 
@@ -94,7 +94,7 @@
 }
 
 .nav-links a:hover {
-    color: #1F3A5F ; /* 💡 YENİ HOVER RENGİ: Sarı vurgu */
+    color: #254877; /* 💡 YENİ HOVER RENGİ: Sarı vurgu */
     border-bottom: 2px solid #1F3A5F ; /* Sarı vurgu çizgisi */
 }
 
@@ -111,14 +111,14 @@
 }
 
 .profile-button {
-    background: #007bff;
+    background: #27ac29;
     border: none;
     color: white;
     padding: 12px 24px; /* 🔹 Daha büyük buton */
     border-radius: 6px;
     cursor: pointer;
     font-weight: 700;
-    font-size: 1.05rem; /* 🔹 Yazı da biraz büyüdü */
+    font-size: 0.95rem; /* 🔹 Yazı da biraz büyüdü */
     letter-spacing: 0.3px;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
     transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
@@ -197,9 +197,9 @@
 /* login-btn ve register-btn stilleri... */
 
 .login-btn, .register-btn {
-    border: 1px solid #ced4da;
+    border: 1px solid #217521;
     background: transparent;
-    color: #f8f9fa;
+    color: #27ac29;
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
@@ -208,18 +208,18 @@
 }
 
 .login-btn:hover {
-    background: #007bff;
+    background: #2aa826;
     color: white;
-    border-color: #007bff;
+    border-color: #287324;
 }
 
 .register-btn {
-    border-color: #28a745;
-    color: #28a745;
+    border-color: #2889a7;
+    color: #2898a7;
 }
 
 .register-btn:hover {
-    background: #28a745;
+    background: #2ca7c1;
     color: white;
 }
 
@@ -231,7 +231,7 @@
     display: none; /* Varsayılan olarak gizli */
     background: none;
     border: none;
-    color: #ffffff;
+    color: #115e17;
     font-size: 2rem;
     cursor: pointer;
     z-index: 1100;
@@ -378,6 +378,18 @@
     .mobile-menu {
         display: flex;
     }
+    .nav-logo {
+        justify-content: flex-start;
+        margin-left: 90px;
+        height: 80px;
+    }
+
+    .navbar-logo-img {
+        height: 110px;
+        max-width: 260px;
+        margin-left: 60px;
+        padding-right: 60px;
+    }
 
 }
 
@@ -391,4 +403,19 @@
         display: flex !important;
     }
 
+
+}
+@media screen and (max-width: 400px) {
+    .nav-logo {
+        justify-content: flex-start;
+        margin-left: 90px;
+        height: 80px;
+    }
+
+    .navbar-logo-img {
+        height: 110px;
+        max-width: 260px;
+        margin-left: 50px;
+        padding-right: 60px;
+    }
 }
