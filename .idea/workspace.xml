@@ -5,41 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b806064-63ed-4ca2-8f7b-c4db132211ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/public/edit2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/edit3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/tablet-frame.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ConfirmEmail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ConfirmEmail.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Contact.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Contact.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/CreateRoom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CreateRoom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ForgotPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ForgotPassword.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MatchResult.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MatchResult.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ResetPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ResetPassword.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Room.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Room.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/RoomList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RoomList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/roomController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/roomController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/playerRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/playerRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/SquadSelection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/SquadSelection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/CreateRoom.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/CreateRoom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/CustomSquad.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/CustomSquad.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Footer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Room.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Room.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/RoomList.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/RoomList.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/SquadSelection.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/SquadSelection.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -123,11 +123,13 @@ exports.setReady = async (req, res) => {
     const allPlayersReady = room.players.every(p => p.isReady);
 
     if (roomIsFull && allPlayersReady && room.status === "waiting") {
-      room.status = "drafting"; // veya draft_finished durumuna geçebilir
+      room.status = "drafting";
     }
 
+    // DÜZELTME: Mongoose'a 'players' dizisinin değiştiğini bildiriyoruz.
+    room.markModified('players');
 
-    await room.save();
+    await room.save(); // <-- Artık değişikliği kaydedecek
 
     // Güncel oda bilgisini tüm istemcilere gönder
     const updatedRoom = await Room.findById(roomId).populate('players.user', 'username');

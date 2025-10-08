@@ -162,10 +162,16 @@ function SquadSelection() {
     // Veri Çekme Mantığı
     useEffect(()=>{
         const fetchPlayers = async()=>{
-            try{
-                const res = await axios.get(`${import.meta.env.VITE_API_URL}/data/players.json`); setPlayers(res.data);}
-            catch(e){console.error("Oyuncu listesi hatası:",e);}
-        };
+    try{
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/players/all-players`);
+
+        // HATA: res.data'nın tamamını almak yerine, içindeki .players dizisini almalıyız.
+        setPlayers(res.data || []);
+    }
+    catch (e) {
+        console.error("Oyuncu listesi hatası:", e);
+    }
+};
         const fetchRoom = async()=>{
             const token = localStorage.getItem("token");
             if(!token) return;
