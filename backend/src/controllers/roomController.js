@@ -133,6 +133,10 @@ exports.setReady = async (req, res) => {
 
     // Güncel oda bilgisini tüm istemcilere gönder
     const updatedRoom = await Room.findById(roomId).populate('players.user', 'username');
+
+        console.log(`[SOCKET_DEBUG] Oda ID ${roomId} için 'updateRoom' yayılıyor. req.io var mı? ${!!req.io}`);
+
+
     if (req.io) {
       req.io.to(roomId).emit("updateRoom", updatedRoom);
     }

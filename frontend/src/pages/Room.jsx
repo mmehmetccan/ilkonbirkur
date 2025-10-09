@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 
-const socket = io(import.meta.env.VITE_API_URL);
+const socket = io({
+        
+    // Varsayılan olarak WebSocket kullanmayı dener (HTTP yerine)
+    transports: ['websocket', 'polling']
+});
 import '../styles/Room.css';
 
 const Room = () => {
@@ -32,45 +36,84 @@ const Room = () => {
 
        }
      };
-    useEffect(() => {
-        const fetchRoom = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) return;
-            try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    setRoom(data);
-                    redirectBasedOnStatus(data); // Oda ilk yüklendiğinde kontrol et
+    // Room.jsx içinde, eski iki useEffect bloğunun yerine bu tek bloğu kullanın
 
-                }
-            } catch (err) {
-                console.error("Oda bilgisi alınırken hata:", err);
+
+// Room.jsx'te, birinci useEffect
+useEffect(() => {
+    if (!roomId) return;
+    
+    // Yalnızca dinlemeyi ve odaya katılmayı yönet
+    socket.emit("joinRoom", roomId);
+
+    // KRİTİK: Önceki dinleyiciyi temizle
+    socket.off("updateRoom"); 
+    
+    socket.on("updateRoom", (updatedRoom) => {
+        // Event geldiğinde state'i güncelle (Bu anlık yenilemeyi sağlayacak)
+        setRoom(updatedRoom);
+        redirectBasedOnStatus(updatedRoom);
+    });
+
+    // Component ayrıldığında temizle
+    return () => {
+        socket.off("updateRoom");
+        // İsteğe bağlı: socket.emit("leaveRoom", roomId);
+    };
+
+    // Bu blok sadece roomId ve socket objesi değiştiğinde çalışmalı
+}, [roomId]);
+
+
+
+// Room.jsx'te, ikinci useEffect
+// Room.jsx içinde, mevcut iki useEffect bloğunun yerine bu tek bloğu kullanın
+useEffect(() => {
+    // 1. Oda verisini çeken API fonksiyonu
+    const fetchRoom = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        try {
+            // Önemli: Dinamik URL kullanılıyor.
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await res.json();
+            if (res.ok) {
+                // Not: setRoom(data); satırının altında 'data' objesini kullanmalısınız.
+                setRoom(data);
+                redirectBasedOnStatus(data); 
             }
-        };
-
-        socket.emit("joinRoom", roomId);
-        socket.on("updateRoom", (updatedRoom) => {
-            setRoom(updatedRoom);
-            redirectBasedOnStatus(updatedRoom);
-
-        });
-
-        fetchRoom();
-
-        return () => {
-            socket.off("updateRoom");
-        };
-    }, [roomId]);
-
-    // ✅ KRİTİK DÜZELTME: `room` durumu her değiştiğinde bu kod çalışır.
-    useEffect(() => {
-        if (room) {
-            redirectBasedOnStatus(room);
+        } catch (err) {
+            console.error("Oda bilgisi alınırken hata:", err);
         }
-    }, [room, navigate]);
+    };
+    
+    // 2. Socket.IO Dinleme Bloğu (KRİTİK)
+    // Önceki dinleyiciyi temizle: Bu, anlık güncelleme sorununu çözen ana faktördür.
+    socket.off("updateRoom"); 
+    
+    // Dinleyiciyi yeniden kaydet
+    socket.on("updateRoom", (updatedRoom) => {
+        setRoom(updatedRoom);
+        redirectBasedOnStatus(updatedRoom);
+    });
+    
+    // 3. Odaya katılma sinyalini gönder ve veriyi çek
+    socket.emit("joinRoom", roomId);
+    fetchRoom();
+
+    // 4. Component Ayrıldığında Dinleyiciyi Kaldır
+    return () => {
+        socket.off("updateRoom");
+        // İsteğe bağlı: socket.emit("leaveRoom", roomId);
+    };
+    
+// Bağımlılık dizisi sadece roomId değiştiğinde çalışmalıdır.
+}, [roomId, navigate]); 
+
+// NOT: İkinci (sadece room'u dinleyen) useEffect'i sildiğinizden emin olun.
+
 
 
 

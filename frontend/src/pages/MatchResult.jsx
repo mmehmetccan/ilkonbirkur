@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import '../styles/MatchResult.css';
 import { BarChart2, MessageSquare, Clock, Users } from 'lucide-react'; // Lucide ikonları eklendi
 
-const socket = io(import.meta.env.VITE_API_URL);
+const socket = io();
 // --- EKLENEN ALT BİLEŞEN: İstatistik Çubuğu (StatBar) ---
 const StatBar = ({ label, valA, valB, teamA, teamB, isPercentage = false }) => {
     // Dashboard.jsx dosyasından kopyalanmıştır.

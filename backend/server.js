@@ -12,12 +12,23 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
 const io = new Server(server, {
     cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
-    }
+        origin: [
+            "https://ilkonbirkur.com",
+            "http://ilkonbirkur.com",
+            "http://localhost:5173",
+            "http://localhost:3000"
+        ],
+        methods: ["GET", "POST"],
+        credentials: true,
+        transports: ['websocket', 'polling'] // Fallback ekleyin
+    },
+    pingTimeout: 60000,
+    pingInterval: 25000
 });
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -31,6 +42,8 @@ app.use((req, res, next) => {
   req.io = io;
   next();
 });
+
+
 app.set('io', io);
 
 // Statik dosyalar için middleware

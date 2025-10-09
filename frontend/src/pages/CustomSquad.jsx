@@ -6,7 +6,7 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import * as htmlToImage from 'html-to-image'; // html-to-image kütüphanesi eklendi
 import '../styles/CustomSquad.css'; // YENİ: CSS dosyasını import et
 
-const socket = io(import.meta.env.VITE_API_URL); // Kendi socket sunucunuza göre ayarlayın
+const socket = io(); // Kendi socket sunucunuza göre ayarlayın
 
 // Saha dizilişleri ve pozisyon slotları (4-2-3-1 DÜZELTİLDİ)
 const fieldPositions = {
