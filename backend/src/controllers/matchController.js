@@ -147,7 +147,7 @@ for (let minute = 1; minute <= 90; minute++) {
     if (Math.random() < shotChance) {
       if (isA) stats.teamA.shotsOnTarget++; else stats.teamB.shotsOnTarget++;
 
-      if (Math.random() < 0.55) { // %55 gol
+      if (Math.random() < 0.55) {
         if (isA) score.A++; else score.B++;
         commentary.push(`⚽ Dakika ${minute}: GOLLL! ${atkName} - ${attacker.short_name}`);
         io?.to(roomId).emit("matchEvent",
@@ -183,7 +183,7 @@ for (let minute = 1; minute <= 90; minute++) {
   const foulSquad = isA ? teamA_squad : teamB_squad;
   const foulName = isA ? teamAName : teamBName;
 
-  const fouler = getRandomAttacker(foulSquad); // faul yapan oyuncu seç
+  const fouler = getRandomAttacker(foulSquad); 
   if (isA) stats.teamA.fouls++; else stats.teamB.fouls++;
 
   commentary.push(`❌ Dakika ${minute}: ${foulName} - ${fouler.short_name} faul yaptı.`);
@@ -261,7 +261,6 @@ exports.getFinishedMatches = async (req, res) => {
 
                 return {
                     matchId: match._id,
-                    // match.roomId?.roomName silinen odalar için null dönecektir.
                     roomName: match.roomId?.roomName || 'Turnuva (Oda Silindi)',
                     score: match.result?.score,
                     goalsA: match.result?.goalsA,
@@ -388,7 +387,7 @@ if (!playerA_data || !playerB_data) {
 
 
       const io = req.app.get("io");
-      const ROOM_DELETION_DELAY_MS = 5 * 60 * 1000; // 5 dakika
+      const ROOM_DELETION_DELAY_MS = 5 * 60 * 1000; 
 
       io?.to(roomId).emit("roomEvent", {
           type: "tournament_finished",
@@ -427,8 +426,8 @@ exports.getRecentMatches = async (req, res) => {
     const { roomId } = req.params;
     try {
         const recentMatches = await MatchResult.find({ roomId: roomId })
-            .sort({ playedAt: -1 }) // En yeni başta
-            .limit(20) // Sadece 20 tanesini getir
+            .sort({ playedAt: -1 }) 
+            .limit(20) 
             .populate('teamA', 'username')
             .populate('teamB', 'username');
 
