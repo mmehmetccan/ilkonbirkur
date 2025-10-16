@@ -97,6 +97,7 @@ useEffect(() => {
         const roomIsFull = currentRoom.players.length === currentRoom.maxPlayers;
 
         if (roomIsFull && allPlayersReady) {
+
             navigate(`/room/${currentRoom._id}/squad-selection`);
         }
     };

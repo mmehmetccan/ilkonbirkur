@@ -240,7 +240,6 @@ const MatchResult = () => {
             </div>
           </div>
 
-          {/* ESKİ İSTATİSTİK DİV'LERİ STATBAR İLE DEĞİŞTİRİLDİ */}
           <div className="live-stats">
             <StatBar label="Topa Sahip Olma" valA={liveStats.teamA.possession} valB={liveStats.teamB.possession} teamA={nextMatchTeams?.teamA_name} teamB={nextMatchTeams?.teamB_name} isPercentage={true}/>
             <StatBar label="Şut (Toplam)" valA={liveStats.teamA.shots} valB={liveStats.teamB.shots} teamA={nextMatchTeams?.teamA_name} teamB={nextMatchTeams?.teamB_name}/>
@@ -274,7 +273,6 @@ const MatchResult = () => {
                   <div className="match-stats-summary">
                     <h4>İstatistikler</h4>
 
-                    {/* ESKİ TABLO STATBAR İLE DEĞİŞTİRİLDİ */}
                     <div className="match-stats-bars">
                       <StatBar label="Topa Sahip Olma" valA={m.result.stats.teamA.possession}
                                valB={m.result.stats.teamB.possession} teamA={teamA} teamB={teamB} isPercentage={true}/>

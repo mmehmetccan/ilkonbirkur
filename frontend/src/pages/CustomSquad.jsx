@@ -309,14 +309,12 @@ function CustomSquad() {
                          <div className="formation-selection"><h3>Diziliş Seçin:</h3><div className="formation-grid">{Object.keys(fieldPositions).map((f) => (<button key={f} className={`formation-button ${formation === f ? 'active-formation' : ''}`} onClick={() => setFormation(f)}>{f}</button>))}</div></div>
 
 
-                        {/* GÜNCELLENMİŞ BUTONLAR */}
                          <button onClick={() => setShowShareModal(true)} className="share-button" style={{backgroundColor: '#27ae60', borderColor: '#27ae60'}}>
                              💾 Kaydet ve Paylaş
                          </button>
                          <button onClick={handleShare} className="share-button">
                              📸 İlk 11'i PNG Olarak İndir
                          </button>
-                         {/* ... (takım seçimi JSX'i aynı kalır) ... */}
                          <>
                              {!selectedTeam && ( <div className="team-selection"><h4>Bir Takım Seçin:</h4><input type="text" placeholder="Takım Adı Ara..." value={teamSearchTerm} onChange={(e) => setTeamSearchTerm(e.target.value)} className="search-input team-search-input" /> {teamSearchTerm.length === 0 && (<h4 className="list-title">Popüler Takımlar:</h4>)} {teamSearchTerm.length > 1 && searchedTeams.length === 0 && (<p>Aradığınız takım bulunamadı.</p>)} <div className="team-logo-list">{teamsToDisplay.map(team => ( <div key={team.clubId} className="team-logo-wrapper" onClick={() => handleSelectTeam(team)}> <img src={team.logoUrl ? `https://images.weserv.nl/?url=${encodeURIComponent(team.logoUrl)}` : '/default_team_logo.png'} alt={team.clubName} className="team-logo" onError={(e) => { e.target.onerror = null; e.target.src = '/default_team_logo.png'; }} /> <span className="team-name-overlay">{team.clubName}</span> </div> ))}</div> </div> )}
                              {selectedTeam && ( <div className="selected-team-info"><div className="team-header"><img src={selectedTeam.logoUrl ? `https://images.weserv.nl/?url=${encodeURIComponent(selectedTeam.logoUrl)}` : '/default_team_logo.png'} alt={selectedTeam.clubName} className="sidebar-team-logo" onError={(e) => { e.target.onerror = null; e.target.src = '/default_team_logo.png'; }} /><h4>Seçilen Takım: {selectedTeam.clubName}</h4><button onClick={() => {setSelectedTeam(null); setTeamPlayers([]);}} className="change-team-btn">Takımı Değiştir</button></div><p>Oyuncu seçimi için saha slotuna tıklayın.</p></div> )}
@@ -324,7 +322,6 @@ function CustomSquad() {
                     </div>
                 </div>
 
-                {/* ... (player-selection-drawer JSX'i aynı kalır) ... */}
                 <div className={`player-selection-drawer ${showPlayerDrawer ? 'is-open' : ''}`}>
                     <div className="drawer-content">
                         <div className="drawer-header">
@@ -385,7 +382,6 @@ function CustomSquad() {
 
             </div>
 
-            {/* YENİ EK: PAYLAŞMA MODALI */}
             {showShareModal && (
                 <div className="share-modal-overlay">
                     <div className="share-modal-content">
@@ -420,7 +416,6 @@ function CustomSquad() {
                 </div>
             )}
 
-            {/* YENİ BÖLÜM: En Son Paylaşılan Kadrolar */}
             <div className="latest-squads-section">
                 <h2 className="section-title">Son Paylaşılan Kadrolar</h2>
                 <div className="squads-grid">

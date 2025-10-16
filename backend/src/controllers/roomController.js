@@ -120,6 +120,10 @@ exports.setReady = async (req, res) => {
     await room.save();
 
     const updatedRoom = await Room.findById(roomId).populate('players.user', 'username');
+
+        console.log(`[SOCKET_DEBUG] Oda ID ${roomId} için 'updateRoom' yayılıyor. req.io var mı? ${!!req.io}`);
+
+
     if (req.io) {
           console.log(`--- SOCKET EVENT: 'updateRoom' olayı ODA ${roomId}'ya gönderiliyor.`);
       req.io.to(roomId).emit("updateRoom", updatedRoom);

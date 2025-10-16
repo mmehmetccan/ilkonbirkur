@@ -5,7 +5,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import '../styles/SquadSelection.css';
 
-const socket = io(import.meta.env.VITE_API_URL);
+const socket = io();
 
 const fieldPositions = {
   "4-3-3": {
