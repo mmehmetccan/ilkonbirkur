@@ -2,23 +2,20 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// Stil dosyanızı (örn: Auth.css veya Profile.css) projenize uygun şekilde import edin
 import '../styles/Profile.css';
 
 function Profile() {
     const [user, setUser] = useState({});
     const [formData, setFormData] = useState({});
     const [message, setMessage] = useState('');
-    const [isPasswordChange, setIsPasswordChange] = useState(false); // Şifre değiştirme alanlarını gizle/göster
+    const [isPasswordChange, setIsPasswordChange] = useState(false);
     const [newEmail, setNewEmail] = useState('');
-    // 0: Kapalı, 1: Yeni Email Girişi, 3: Link Gönderildi (Doğrulama Bekleniyor)
     const [emailChangeStep, setEmailChangeStep] = useState(0);
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
-                // Token yoksa kullanıcıyı login sayfasına yönlendirmeniz gerekebilir
                 if (!token) {
                     setMessage('Giriş yapmalısınız.');
                     return;
@@ -50,7 +47,6 @@ function Profile() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // E-posta Onay Linki Gönderme İşlemi
     const handleSendConfirmationLink = async () => {
         setMessage('');
         if (!newEmail || newEmail === user.email) {
@@ -60,12 +56,10 @@ function Profile() {
 
         try {
             const token = localStorage.getItem('token');
-            // Backend'deki mevcut '/request-email-change' endpoint'i kullanılır
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/request-email-change`, { newEmail }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
-            // Başarılı olduğunda kullanıcıya gelen kutusunu kontrol etmesini söyle
             setMessage(res.data.message + ' Lütfen gelen kutunuzu kontrol edin.');
             setEmailChangeStep(3); // Link gönderildi durumuna geç
 
@@ -79,7 +73,6 @@ function Profile() {
         e.preventDefault();
         setMessage('');
 
-        // Şifre değiştirme alanları açıksa, kontrolleri yap
         if (isPasswordChange) {
             if (!formData.currentPassword) {
                 setMessage('Mevcut şifrenizi girmelisiniz.');
@@ -93,7 +86,7 @@ function Profile() {
                 setMessage('Yeni şifreler eşleşmiyor.');
                 return;
             }
-            if (formData.newPassword.length < 6) { // Minimum şifre uzunluğu kontrolü
+            if (formData.newPassword.length < 6) {
                 setMessage('Yeni şifre en az 6 karakter olmalıdır.');
                 return;
             }
@@ -107,10 +100,9 @@ function Profile() {
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 phoneNumber: formData.phoneNumber,
-                // Şifre değiştirme alanlarını sadece isPasswordChange aktifse ve değerleri varsa ekle
                 ...(isPasswordChange && {
                     currentPassword: formData.currentPassword,
-                    password: formData.newPassword // Backend 'password' olarak bekliyor
+                    password: formData.newPassword
                 })
             };
 
@@ -118,8 +110,6 @@ function Profile() {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
-            // Başarılı olursa form verilerini temizle ve kullanıcıyı güncelle
-            // E-posta değişimi ayrı bir akış olduğu için sadece temel bilgileri ve şifreyi güncelle
             setUser(res.data);
             setFormData(prev => ({
                 ...prev,
@@ -127,7 +117,6 @@ function Profile() {
                 firstName: res.data.firstName,
                 lastName: res.data.lastName,
                 phoneNumber: res.data.phoneNumber,
-                // Şifre alanlarını temizle
                 currentPassword: '',
                 newPassword: '',
                 confirmNewPassword: ''
@@ -146,7 +135,6 @@ function Profile() {
             <h2 className="form-title">Hesap Bilgilerini Düzenle</h2>
             <form onSubmit={handleSubmit} className="auth-form">
 
-                {/* TEMEL BİLGİLER */}
                 <div className="form-section">
                     <h3 className="section-title">Temel Bilgiler</h3>
                     <div className="form-group">
@@ -167,19 +155,16 @@ function Profile() {
                     </div>
                 </div>
 
-                {/* E-POSTA DEĞİŞTİRME AKIŞI */}
                 <div className="form-section email-change-section">
                     <h3 className="section-title">E-posta Adresi</h3>
                     <p className="current-email">Mevcut E-posta: <strong>{user.email || 'Yükleniyor...'}</strong></p>
 
-                    {/* Durum 0: Değiştir Butonu */}
                     {emailChangeStep === 0 && (
                         <button type="button" className="btn-secondary" onClick={() => setEmailChangeStep(1)}>
                             E-posta Değiştir
                         </button>
                     )}
 
-                    {/* Durum 1: Yeni E-posta Girişi */}
                     {emailChangeStep === 1 && (
                         <div className="email-input-group">
                             <div className="form-group">
@@ -201,7 +186,6 @@ function Profile() {
                         </div>
                     )}
 
-                    {/* Durum 3: Link Gönderildi Mesajı */}
                     {emailChangeStep === 3 && (
                          <div className="email-sent-message">
                             <p className="success-message">Onay linki **{newEmail}** adresine gönderildi. Lütfen gelen kutunuzu kontrol edin ve linke tıklayarak e-posta adresinizi doğrulayın.</p>
@@ -212,7 +196,6 @@ function Profile() {
                     )}
                 </div>
 
-                {/* ŞİFRE DEĞİŞTİRME ALANLARI */}
                 <div className="form-section password-change-section">
                     <h3 className="section-title">Şifre</h3>
 
@@ -263,7 +246,6 @@ function Profile() {
                     )}
                 </div>
 
-                {/* GÜNCELLE BUTONU VE MESAJLAR */}
                 {message && <p className={`message ${message.includes('başarılı') || message.includes('gönderildi') ? 'success' : 'error'}`}>{message}</p>}
 
                 <button type="submit" className="btn-primary submit-button">

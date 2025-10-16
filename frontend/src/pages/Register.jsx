@@ -2,11 +2,10 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom'; // Link eklendi
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Auth.css';
 
 function Register() {
-    // ... (state, handleChange, handleSubmit kısmı aynı kalacak)
     const [formData, setFormData] = useState({
         username: '',
         firstName: '',
@@ -38,15 +37,11 @@ function Register() {
     };
 
     return (
-        // ✅ Yeni Ana Konteyner
         <div className="auth-page-wrapper">
 
-            {/* ✅ Sol Taraf: Resim Alanı */}
             <div className="auth-image-side">
-                {/* Burası CSS ile yönetilen arka plan resmini gösterir */}
             </div>
 
-            {/* ✅ Sağ Taraf: Form Alanı */}
             <div className="auth-form-side">
                 <div className="auth-container">
                     <h2>Kayıt Ol</h2>
@@ -102,7 +97,6 @@ function Register() {
                             />
                         </div>
                         <div className="form-group">
-                            {/* ✅ Telefon Numarası Alanına Not Eklendi */}
                             <label>
                                 Telefon Numarası:
                                 <span className="optional-note">(Zorunlu Değildir)</span>

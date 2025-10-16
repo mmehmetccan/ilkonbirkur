@@ -7,7 +7,6 @@ const playersPath = path.resolve("./src/data/players.json");
 const players = JSON.parse(fs.readFileSync(playersPath, "utf8"));
 
 export const pickPlayer = async (req, res) => {
-    // assignedPosition parametresini ekleyin
     const { playerName, assignedPosition } = req.body;
     const { roomId } = req.params;
     const userId = req.user._id;
@@ -29,8 +28,8 @@ export const pickPlayer = async (req, res) => {
           LW: ["LW", "LM"],
           LM: ["LW", "LM"],
 
-          ST: ["ST", "CF"], // örnek
-          CB: ["CB", "RCB", "LCB"], // örnek
+          ST: ["ST", "CF"],
+          CB: ["CB", "RCB", "LCB"],
         };
 
         const player = players.find(
@@ -52,7 +51,6 @@ export const pickPlayer = async (req, res) => {
             return res.status(400).json({ message: "Zaten 11 oyuncu seçtiniz" });
         }
 
-        // Oyuncu objesine assignedPosition'ı ekleyin ve veritabanına kaydedin
         const playerWithAssignedPosition = { ...player, assignedPosition };
         currentPlayer.team.squad.push(playerWithAssignedPosition);
 
@@ -70,7 +68,6 @@ export const pickPlayer = async (req, res) => {
 
         const updatedRoom = await Room.findById(roomId).populate('players.user', 'username');
 
-       // Socket.IO ile güncellemeyi gönderin
         if (req.io) {
             req.io.to(roomId).emit("updateRoom", updatedRoom);
 
@@ -93,7 +90,6 @@ export const setFormation = async (req, res) => {
     const room = await Room.findById(roomId);
     if (!room) return res.status(404).json({ message: "Oda bulunamadı." });
 
-    // KRİTİK DÜZELTME: Diziliş bilgisini doğru Map yapısına kaydet
     room.formation.set(userId, formation);
 
     await room.save();

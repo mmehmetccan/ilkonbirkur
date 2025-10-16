@@ -2,16 +2,14 @@
 
 import nodemailer from 'nodemailer';
 
-// Ortam değişkenlerini doğrudan kullanıyoruz
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
-    secure: false, // Gmail için SSL/TLS (587 portunda STARTTLS kullandığımız için false)
+    secure: false,
     auth: {
-        user: process.env.EMAIL_USER, // ikonbirkur@gmail.com
-        pass: process.env.EMAIL_PASS  // Uygulama Şifresi
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     },
-    // STARTTLS'yi etkinleştirin (587 portu için kritik)
     tls: {
         rejectUnauthorized: false 
     }
@@ -20,12 +18,10 @@ const transporter = nodemailer.createTransport({
 export const sendContactEmail = async (req, res) => {
     const { name, email, subject, message } = req.body;
 
-    // Mail içeriği
     const mailOptions = {
-        // Gönderen Adres: Kullanıcıdan gelen maili reply-to olarak kullanmak daha güvenli.
-        from: `"${name}" <${process.env.EMAIL_USER}>`, 
-        to: process.env.EMAIL_USER, // Alıcı: ikonbirkur@gmail.com
-        replyTo: email, // Bu sayede yanıtladığınızda doğrudan kullanıcıya gider
+        from: `"${name}" <${process.env.EMAIL_USER}>`,
+        to: process.env.EMAIL_USER,
+        replyTo: email,
 
         subject: `[İletişim Formu] ${subject}`,
         html: `
@@ -44,10 +40,7 @@ export const sendContactEmail = async (req, res) => {
         res.status(200).json({ message: 'Mesaj başarıyla gönderildi!' });
     } catch (error) {
         console.error('E-posta Gönderme Hatası:', error);
-        // Hatanın detayını frontend'e göndermeyin, sadece genel bir hata mesajı verin
         res.status(500).json({ message: 'E-posta gönderilirken sunucu hatası oluştu. Lütfen konsolu kontrol edin.' });
     }
 };
 
-// Bu kontrolcüyü kullanmak için, ilgili Express rotasını tanımladığınızdan emin olun:
-// app.post('/api/contact', sendContactEmail);

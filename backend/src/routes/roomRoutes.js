@@ -22,11 +22,9 @@ router.post("/kick-player", protect, kickPlayer);
 
 router.get('/:roomId', protect, getRoomById);
 
-// ÖNEMLİ: `/ready` rotasını `/roomId` rotasından önce tanımlayın
 router.post("/ready", protect, setReady);
 router.post('/:roomId/set-formation', protect, setFormation);
 
-// Player seçme rotasını da düzeltin
 router.post("/:roomId/pick-player", protect, pickPlayer);
 
 router.post("/invite", protect, inviteFriend);

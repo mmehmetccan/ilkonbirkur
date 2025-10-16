@@ -1,10 +1,8 @@
 // frontend/src/pages/Contact.jsx
 
 import React, { useState } from 'react';
-import axios from 'axios'; // 🚨 BU SATIR KRİTİKTİR!
-
+import axios from 'axios';
 import { Mail, MapPin, Phone } from 'lucide-react';
-// Stil için: 'App.css' veya ana stil dosyanıza ekleyebilirsiniz.
 import '../styles/Contact.css'
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -15,7 +13,7 @@ const Contact = () => {
     });
 
     const [isSent, setIsSent] = useState(false);
-    const [isError, setIsError] = useState(false); // Hata durumunu yönetmek için yeni state
+    const [isError, setIsError] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,35 +21,26 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSent(false); // Önceki durumu sıfırla
-    setIsError(false); // Hata durumunu sıfırla
+    setIsSent(false);
+    setIsError(false);
 
     try {
-        // 1. Gerçek API Çağrısı
-        // Backend'de tanımladığınız /api/contact rotasına istek gönder
+
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/contact`, formData);
 
-        // 2. Başarılı Durum
         console.log("Sunucudan gelen yanıt:", response.data.message);
 
-        // Başarılı mesajı göster
         setIsSent(true);
 
-        // Formu temizle
         setFormData({ name: '', email: '', subject: '', message: '' });
 
     } catch (error) {
-        // 3. Başarısız Durum (API hatası veya ağ hatası)
         console.error("Mesaj gönderme hatası:", error);
 
-        // Hata mesajını aktif et
         setIsError(true);
 
-        // Hata detayını göster (sadece geliştirme için)
-        // alert('Mesaj gönderilirken bir hata oluştu: ' + (error.response?.data?.message || 'Ağ bağlantınızı veya sunucuyu kontrol edin.'));
     }
 
-    // Mesajları 5 saniye sonra kaldır
     setTimeout(() => {
         setIsSent(false);
         setIsError(false);
@@ -66,7 +55,6 @@ Ekibimiz en kısa sürede sizinle iletişime geçecektir.</p>
 
             <div className="contact-grid">
 
-                {/* Contact Form */}
                 <div className="contact-form-container">
                     <h2>Send a Direct Message</h2>
                     {isSent ? (
@@ -114,7 +102,6 @@ Ekibimiz en kısa sürede sizinle iletişime geçecektir.</p>
                     )}
                 </div>
 
-                {/* Contact Information */}
                 <div className="contact-info-block">
                     <h2>Our Contact Details</h2>
                     <div className="info-item">
@@ -124,13 +111,7 @@ Ekibimiz en kısa sürede sizinle iletişime geçecektir.</p>
                             <p>ilkonbirkur@gmail.com</p>
                         </div>
                     </div>
-                    <div className="info-item">
-                        <Phone size={24} className="info-icon" />
-                        <div>
-                            <strong>Phone</strong>
-                            <p>+90 5XX XXX XX XX</p>
-                        </div>
-                    </div>
+
                     <div className="info-item">
                         <MapPin size={24} className="info-icon" />
                         <div>

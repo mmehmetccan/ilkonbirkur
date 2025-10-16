@@ -3,16 +3,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 import '../styles/MatchResult.css';
-import { BarChart2, MessageSquare, Clock, Users } from 'lucide-react'; // Lucide ikonları eklendi
+import { BarChart2, MessageSquare, Clock, Users } from 'lucide-react';
 
 const socket = io(import.meta.env.VITE_API_URL);
-// --- EKLENEN ALT BİLEŞEN: İstatistik Çubuğu (StatBar) ---
 const StatBar = ({ label, valA, valB, teamA, teamB, isPercentage = false }) => {
-    // Dashboard.jsx dosyasından kopyalanmıştır.
     const numericValA = isPercentage ? parseFloat(valA) : parseInt(valA);
     const numericValB = isPercentage ? parseFloat(valB) : parseInt(valB);
     const total = isPercentage ? 100 : numericValA + numericValB;
-    // Toplam 0 ise %50 göster
     let percentA = isPercentage ? numericValA : (total > 0 ? (numericValA / total) * 100 : 50);
 
     return (
@@ -27,7 +24,6 @@ const StatBar = ({ label, valA, valB, teamA, teamB, isPercentage = false }) => {
                 <span className={numericValA > numericValB ? 'highlight-a' : ''}>
                     {valA}{isPercentage ? '%' : ''}
                 </span>
-                {/* HATA DÜZELTİLDİ: 'numericA' yerine 'numericValA' kullanıldı */}
                 <span className={numericValB > numericValA ? 'highlight-b' : ''}>
                     {valB}{isPercentage ? '%' : ''}
                 </span>
@@ -297,7 +293,6 @@ const MatchResult = () => {
                     <h4>Anlatım Özeti</h4>
                     <ul className="commentary-summary-list">
                       {m.result.commentary.map((text, index) => {
-                        // Yorumdaki ikona göre dinamik sınıf ekleme (Örnek Mantık)
                         let icon = '';
                         let className = '';
 
@@ -313,7 +308,6 @@ const MatchResult = () => {
                           icon = <span>🧤</span>;
                         }
 
-                        // İkonu metinden temizleyip başa al
                         const cleanedText = text.replace(/⚽|🟥|⬆️|🧤/, '').trim();
 
                         return (

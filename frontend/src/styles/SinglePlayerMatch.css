@@ -1,0 +1,632 @@
+/* =====================================================
+   SINGLE PLAYER MATCH - GÜNCELLENMİŞ STİLLER
+   Saha boyutu ve slot hizalamaları düzeltildi.
+===================================================== */
+
+.spm-container {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* === GENEL BAŞLIKLAR VE YÜKLENİYOR EKRANI === */
+.spm-container h1, .spm-container h2 {
+  text-align: center;
+  color: #1c1c1c;
+}
+
+.spm-loading-container {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* === TAKIM SEÇİMİ === */
+.spm-league-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.spm-drawer-search-input { display: block; width: 100%; max-width: 500px; margin: 10px auto 20px; padding: 12px 14px; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem; transition: border-color 0.3s; }
+.spm-drawer-search-input:focus { border-color: #2b9348; }
+.spm-league-section { background-color: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.spm-league-title { color: #2b9348; font-weight: 600; font-size: 1.5rem; border-bottom: 2px solid #eaeaea; margin-bottom: 10px; }
+.spm-team-buttons-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.spm-team-button { background-color: #f5f5f5; border: 1px solid #ccc; border-radius: 8px; padding: 10px 15px; cursor: pointer; font-weight: 500; transition: all 0.2s ease; }
+.spm-team-button:hover { background-color: #2b9348; color: #fff; transform: translateY(-2px); }
+
+
+/* =====================================================
+   YENİ SAHA VE OYUNCU STİLLERİ (HİZALAMA DÜZELTİLDİ)
+===================================================== */
+
+.spm-squad-builder {
+  text-align: center;
+  padding: 10px;
+}
+
+.spm-opponent {
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+/* SAHA ALANI */
+.spm-field-area-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  perspective: 1500px;
+  background-color: #e8e5e5;
+  border-radius: 12px;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+/* DÜZELTME 1: SAHA UZATILDI */
+.spm-field-container {
+  width: 100%;
+  aspect-ratio: 7 / 5; /* Daha uzun bir saha için oran değiştirildi */
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+  transform: rotateX(20deg) scale(0.98);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+}
+
+.spm-soccer-field {
+  width: 100%;
+  height: 120%;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-sizing: border-box;
+  border-radius: 15px;
+  /* Gereksiz arka plan resmi kaldırıldı, sadece gradient kaldı */
+  background-image: repeating-linear-gradient(to bottom, #38761D 0%, #38761D 9%, #4a9e34 9%, #4a9e34 18% );
+}
+
+/* Saha Çizgileri */
+.spm-soccer-field::before { content: ""; position: absolute; top: 50%; left: 5px; width: calc(100% - 10px); height: 2px; background: white; transform: translateY(-50%); z-index: 1; }
+.spm-soccer-field::after { content: ""; position: absolute; top: 50%; left: 50%; width: 15%; height: 20%; border: 2px solid white; border-radius: 50%; transform: translate(-50%, -50%); z-index: 1; }
+.spm-penalty-box, .spm-six-yard-box { position: absolute; left: 50%; transform: translateX(-50%); border: 3px solid #fff; z-index: 2; pointer-events: none; box-sizing: border-box; background: transparent; }
+.spm-penalty-box.top { width: 50%; height: 25%; top: 0; border-top: none; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
+.spm-penalty-box.bottom { width: 50%; height: 25%; bottom: 0; border-bottom: none; border-top-left-radius: 15px; border-top-right-radius: 15px; }
+.spm-six-yard-box.top { width: 25%; height: 8%; top: 0; border-top: none; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+.spm-six-yard-box.bottom { width: 25%; height: 8%; bottom: 0; border-bottom: none; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+
+/* Oyuncu Sıraları */
+.spm-row {
+  display: flex;
+  justify-content: space-around; /* Oyuncuları satır içinde eşit dağıtır */
+  width: 100%;
+  padding: 0 40px;
+    margin-bottom: 40px;
+  box-sizing: border-box;
+  z-index: 10;
+  align-items: center;
+  height: 20%; /* Her satırın yüksekliği */
+}
+
+/* DÜZELTME 2: SLOT BOYUTU DÜZELTİLDİ */
+.spm-player-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40px;  /* Hatalı 20px değeri 100px olarak düzeltildi */
+  height: 40px; /* Hatalı 20px değeri 100px olarak düzeltildi */
+
+  background-color: transparent;
+  border-radius: 50%;
+  border: 2px dashed #b3e5fc;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  transform: rotateX(-20deg) translateZ(10px);
+}
+.spm-player-slot:hover { background-color: rgba(255, 255, 255, 0.1); border-color: #81d4fa; }
+.spm-player-slot.occupied { border: 2px solid #4CAF50; background-color: transparent; box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); }
+
+/* DÜZELTME 3: OYUNCU KARTI VE RESMİ HİZALANDI */
+.spm-player-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  background-color: transparent;
+  padding: 0;
+}
+.spm-player-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  margin-top: -20px; /* Bu 3D efekti için kalabilir */
+  filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.6));
+  transition: transform 0.2s ease-in-out;
+}
+.spm-player-name-wrapper { position: absolute; bottom: -45px; width: auto; padding: 3px 12px; background-color: rgba(10, 25, 47, 0.85); color: white; font-weight: bold; font-size: 1em; border-radius: 5px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 2px 4px rgba(0,0,0,0.5); z-index: 3; white-space: nowrap; }
+.spm-player-name { font-size: 1em; font-weight: 700; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90px; }
+.spm-empty-slot-text { color: #fff; font-weight: 600; font-size: 1.2em; text-shadow: 1px 1px 2px rgba(0,0,0,0.7); }
+.spm-remove-btn { position: absolute; top: -10px; right: -10px; background: #e57373; color: white; border: none; border-radius: 50%; width: 26px; height: 26px; line-height: 1; font-size: 0.9em; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3); padding: 0; z-index: 20; display: flex; justify-content: center; align-items: center; }
+.spm-selected-team-logo {
+  display: none; /* Bu satır elementi tamamen gizler */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 50%;
+  z-index: 5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}.dragging-player { z-index: 5000 !important; }
+
+/* Diziliş Seçim Butonları */
+.spm-formation-selection { max-width: 1000px; margin: 0 auto 20px auto; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.spm-formation-selection h3 { margin-top: 0; margin-bottom: 10px; color: #333; }
+.spm-formation-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.spm-formation-button { cursor: pointer; border: 1px solid #ccc; transition: all 0.2s ease-in-out; padding: 8px 15px; border-radius: 20px; background-color: #f5f5f5; font-weight: 600; font-size: 0.9em; }
+.spm-formation-button:hover { border-color: #2b9348; transform: translateY(-2px); background-color: #e8f5e9; }
+.spm-formation-button.active { background-color: #2b9348; color: white; border-color: #2b9348; box-shadow: 0 4px 10px rgba(43, 147, 72, 0.4); }
+.spm-pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 0.5rem; /* Butonlar arası boşluk */
+  user-select: none; /* Metin seçmeyi engelle */
+}
+
+.spm-pagination-controls button {
+  border: 1px solid #444;
+  background-color: #282c34;
+  color: #c7c7c7;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 6px;
+  min-width: 40px; /* Butonların genişliği eşit olsun */
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spm-pagination-controls button:hover:not(:disabled) {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* Aktif sayfa butonu */
+.spm-pagination-controls button.active {
+  background-color: #007bff;
+  color: #ffffff;
+  border-color: #0056b3;
+  cursor: default;
+}
+
+/* İleri/Geri butonları için özel stil */
+.spm-pagination-controls button:disabled {
+  background-color: #1e1e1e;
+  color: #555;
+  border-color: #333;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+/* OYUNCU SEÇİM PANELİ (DRAWER) - Değişiklik Yok */
+.spm-drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; transition: opacity 0.3s ease; }
+.spm-player-selection-drawer { position: fixed; top: 0; right: 0; width: 50%; max-width: 600px; height: 100%; background: #1e2024; color: #fff; box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3); z-index: 1001; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); display: flex; flex-direction: column; }
+.spm-player-selection-drawer.is-open { transform: translateX(0); }
+.spm-drawer-content { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+.spm-drawer-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; background: #2a2d32; border-bottom: 1px solid #3a3e45; }
+.spm-drawer-header h3 { margin: 0; color: #fff; font-size: 1.6em; }
+.spm-drawer-header p { margin: 5px 0 0; color: #a0a7b3; font-size: 1em; }
+.spm-drawer-header p span { color: #4CAF50; font-weight: bold; }
+.spm-close-drawer-btn { background: none; border: none; color: #a0a7b3; font-size: 2.5rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
+.spm-close-drawer-btn:hover { color: #fff; }
+.spm-drawer-controls { padding: 20px 25px; background: #2a2d32; border-bottom: 1px solid #3a3e45; }
+.spm-drawer-search-input-dark { width: 100%; padding: 12px 15px; background: #1e2024; border: 1px solid #3a3e45; border-radius: 8px; color: #fff; font-size: 1em; margin-bottom: 20px; }
+.spm-position-filters { display: flex; justify-content: space-around; gap: 10px; }
+.spm-filter-button { padding: 8px 12px; border: none; background: #3a3e45; color: #a0a7b3; border-radius: 6px; cursor: pointer; transition: all 0.2s; flex-grow: 1; }
+.spm-filter-button.active { background: #007bff; color: #fff; font-weight: bold; }
+.spm-player-grid-container { flex-grow: 1; overflow-y: auto; padding: 25px; }
+.spm-player-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 20px; }
+.spm-player-card-item { background: #2a2d32; border-radius: 10px; padding: 10px; text-align: center; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; border: 1px solid #3a3e45; }
+.spm-player-card-item:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); border-color: #4CAF50; }
+.spm-player-card-item img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; background: #3a3e45; }
+.spm-player-card-info { display: flex; flex-direction: column; }
+.spm-player-card-name { font-size: 0.9em; font-weight: bold; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spm-player-card-position { font-size: 0.8em; color: #a0a7b3; }
+.spm-no-player-found { text-align: center; padding: 40px; color: #a0a7b3; }
+.spm-drawer-footer { padding: 20px 25px; background: #2a2d32; border-top: 1px solid #3a3e45; display: flex; justify-content: center; align-items: center; gap: 20px; }
+.spm-pagination-controls { display: flex; align-items: center; gap: 10px; color: #fff; }
+.spm-pagination-controls button { background: #3a3e45; color: #fff; border: none; border-radius: 6px; width: 35px; height: 35px; cursor: pointer; }
+.spm-pagination-controls button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* SONUÇ SAYFASI VE BUTONLAR - Değişiklik Yok */
+.spm-match-result-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f2f3f6; /* Daha koyu ana arka plan */
+  border-radius: 12px;
+  border: 1px solid #333a45;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.spm-match-result-container .played-match-header {
+  background-color: transparent; /* Arka planı kaldırdık */
+  padding: 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #333a45;
+  padding-bottom: 1.5rem;
+}
+
+.spm-match-result-container .team-name {
+  font-size: 1.5rem; /* Yazı boyutu büyüdü */
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.spm-match-result-container .final-score {
+  font-size: 3.5rem; /* Skor daha belirgin */
+  font-weight: 700;
+  color: #fff;
+  background: none; /* Arka planı kaldırdık */
+  border: none;
+  padding: 0 2rem;
+}
+
+.match-details-wrapper {
+  background-color: transparent;
+  padding: 0;
+}
+
+.match-details-wrapper h4 {
+  text-align: left; /* Başlıklar sola hizalı */
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  color: #00aaff; /* Başlık rengi */
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #00aaff;
+  display: inline-block; /* Sadece metin kadar alt çizgi */
+}
+
+/* --- Geliştirilmiş StatBar Stilleri --- */
+.stat-bar {
+  margin-bottom: 0.5rem;
+}
+
+.stat-bar-header {
+  font-size: 1rem;
+  color: #7f848c;
+}
+
+.stat-bar-header span:nth-child(2) {
+  font-weight: 600;
+  color: #7f848c;
+}
+
+.stat-bar-values {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.stat-bar-progress {
+  height: 10px;
+  border-radius: 5px;
+  background-color: #2c313a; /* Arka plan çubuğu */
+}
+
+.stat-bar-progress .stat-a { background-color: #007bff; } /* Mavi */
+.stat-bar-progress .stat-b { background-color: #ffc107; } /* Sarı */
+
+.stat-bar-values .highlight-a { color: #007bff; }
+.stat-bar-values .highlight-b { color: #ffc107; }
+
+/* --- Geliştirilmiş Anlatım Özeti Stilleri --- */
+
+
+/* --- Buton Stili --- */
+.spm-match-result-container .spm-share-button {
+  margin-top: 2rem;
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 0.9rem;
+}
+.spm-share-button {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto 0 auto; /* Üstten boşluk bırakarak diğer elementlerden ayırır */
+  padding: 14px 25px;
+  font-family: 'Poppins', sans-serif; /* Ana font ile uyumlu */
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(45deg, #2b9348, #55a630); /* Göz alıcı yeşil gradient */
+  border: none;
+  border-radius: 12px; /* Köşeleri yuvarlatılmış modern görünüm */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(43, 147, 72, 0.3); /* Hafif bir gölge */
+  letter-spacing: 0.5px; /* Harf aralığı */
+}
+
+.spm-share-button:hover:not(:disabled) {
+  transform: translateY(-3px); /* Hover efekti */
+  box-shadow: 0 8px 25px rgba(43, 147, 72, 0.4);
+  background: linear-gradient(45deg, #25803e, #4a962a); /* Hover'da daha koyu gradient */
+}
+
+.spm-share-button:active:not(:disabled) {
+  transform: translateY(-1px); /* Tıklama anı efekti */
+  box-shadow: 0 4px 12px rgba(43, 147, 72, 0.3);
+}
+
+.spm-share-button:disabled {
+  background: #b0bec5; /* Pasif durum rengi */
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+/* RESPONSIVE AYARLAMALAR - Değişiklik Yok */
+@media (max-width: 1200px) { .main-content-wrapper { grid-template-columns: 2.5fr 1.5fr; } }
+@media (max-width: 992px) { .main-content-wrapper { grid-template-columns: 1fr; } .selection-sidebar { position: static; } .field-container { transform: none; max-width: 500px; margin: 0 auto;} }
+@media (max-width: 768px) {
+
+    .spm-squad-builder-container {
+        padding: 10px;
+        background: #0d4d1e;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden;
+        overflow-y: visible !important; /* Taşmalar görünür */
+    }
+
+    .spm-page-title {
+        font-size: 1.5em;
+        color: #fff;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .spm-main-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        overflow: visible !important;
+    }
+
+    /* === SAHA === */
+    .spm-field-area-wrapper {
+        width: 100%;
+        max-width: 420px;
+        height: 560px;
+        background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+        border-radius: 12px;
+        padding: 5px;
+        perspective: 800px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: visible !important; /* 🔥 Oyuncular saha dışına taşabilir */
+        position: relative;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .spm-field-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border-radius: 10px;
+        transform: rotateX(14deg) scale(0.97);
+        transform-origin: center bottom;
+        background: repeating-linear-gradient(
+            to bottom,
+            #388e3c 0%,
+            #388e3c 9%,
+            #43a047 9%,
+            #43a047 18%
+        );
+        border: 3px solid #fff;
+        overflow: visible !important; /* 🔥 isim ve resimler saha dışına çıkabilir */
+        z-index: 2;
+    }
+
+    /* === ÇİZGİLER === */
+    /* Mobil görünümde z-index'ler zaten doğru sıralanmış (çizgiler düşük, oyuncular yüksek) */
+    .spm-soccer-field {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+
+    .spm-soccer-field::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 90%;
+        height: 2px;
+        background: #fff;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    .spm-soccer-field::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100px;
+        height: 100px;
+        border: 2px solid white;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .spm-penalty-box.top,
+    .spm-penalty-box.bottom {
+        position: absolute;
+        width: 58%;
+        height: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 2px solid #fff;
+        border-radius: 8px;
+        z-index: 2;
+    }
+
+    .spm-penalty-box.top { top: 0; border-top: none; }
+    .spm-penalty-box.bottom { bottom: 0; border-bottom: none; }
+
+    /* === OYUNCU SIRALARI === */
+    .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 13%;
+        padding: 0 3px;
+        z-index: 10;
+        box-sizing: border-box;
+        gap: 4px;
+        overflow: visible;
+        position: relative;
+    }
+
+    .row.DEF {
+        justify-content: space-evenly !important;
+        padding: 0 5px;
+        gap: 3px;
+    }
+
+    /* === OYUNCU SLOTU === */
+    .player-slot {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        border: 2px dashed rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.08);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: rotateX(-14deg);
+        position: relative;
+        overflow: visible !important;
+        z-index: 15;
+    }
+
+    .player-slot.occupied {
+        border: 2px solid #4CAF50;
+        background-color: rgba(255, 255, 255, 0.12);
+    }
+
+    /* === OYUNCU KARTI === */
+    .player-card {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: visible !important;
+        z-index: 20;
+    }
+
+    .player-card img {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        object-fit: contain;
+        margin-top: -6px;
+        filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
+        z-index: 21;
+    }
+
+    .player-name-wrapper {
+        position: absolute;
+        bottom: -18px; /* 🔥 İsim saha dışına taşabilir */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(10, 25, 47, 0.9);
+        color: #fff;
+        font-size: 0.7em;
+        font-weight: 600;
+        padding: 2px 5px;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        white-space: nowrap;
+        z-index: 25;
+    }
+
+    .player-name {
+        font-size: 0.75em;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .remove-btn {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        width: 18px;
+        height: 18px;
+        background: #e53935;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 0.65em;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 30;
+    }
+
+    .spm-selection-sidebar {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        position: relative;
+        z-index: 1;
+    }
+
+    /* YENİ TASARIM: Drawer'ı mobilde tam ekran yap */
+    .spm-player-selection-drawer {
+        width: 100%;
+    }
+
+}
+
+/* DİKKAT: Dosyanın sonunda fazladan bir '}' parantezi vardı,
+   bu bir yazım hatasıydı ve kaldırıldı.
+*/

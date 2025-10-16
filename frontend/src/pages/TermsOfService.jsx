@@ -1,7 +1,7 @@
 // frontend/src/pages/TermsOfService.jsx
 
 import React from 'react';
-import '../styles/TermsOfService.css'; // Dosya yolunuza göre güncelleyin!
+import '../styles/TermsOfService.css';
 
 const TermsOfService = () => {
     return (

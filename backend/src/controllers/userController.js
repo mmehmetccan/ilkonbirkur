@@ -5,12 +5,10 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
-// Token oluşturma
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
-// Kayıt
 const registerUser = async (req, res) => {
     const { username, firstName, lastName, email, password, phoneNumber } = req.body;
     const userExists = await User.findOne({ email });
@@ -19,7 +17,6 @@ const registerUser = async (req, res) => {
         return res.status(400).json({ message: 'Bu email zaten kullanılıyor.' });
     }
 
-    // Kullanıcı adı benzersizlik kontrolü (Eğer şemada zorunlu ve benzersiz ise)
     const usernameExists = await User.findOne({ username });
     if (usernameExists) {
         return res.status(400).json({ message: 'Bu kullanıcı adı zaten kullanılıyor.' });
@@ -45,7 +42,6 @@ const registerUser = async (req, res) => {
     }
 };
 
-// Login
 const authUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -62,9 +58,7 @@ const authUser = async (req, res) => {
     }
 };
 
-// Hesap bilgileri (sadece giriş yapan görebilir)
 const getMyAccount = async (req, res) => {
-    // req.user, authMiddleware tarafından eklenir
     const user = await User.findById(req.user.id).select('-password');
     if (!user) return res.status(404).json({ message: "Kullanıcı bulunamadı" });
     res.json(user);
@@ -110,7 +104,6 @@ const forgotPassword = async (req, res) => {
 };
 
 
-// Şifre sıfırlama (linkten)
 const resetPassword = async (req, res) => {
     try {
         const user = await User.findOne({
@@ -124,7 +117,6 @@ const resetPassword = async (req, res) => {
              return res.status(400).json({ message: 'Şifre en az 6 karakter olmalıdır.' });
         }
 
-        // Yeni şifreyi kaydet
         user.password = req.body.password;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
@@ -138,14 +130,12 @@ const resetPassword = async (req, res) => {
 };
 
 
-// E-posta değiştirme isteği (mail doğrulamalı)
 const requestEmailChange = async (req, res) => {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: "Kullanıcı bulunamadı" });
 
     const { newEmail } = req.body;
 
-    // ❗ İYİLEŞTİRME: Yeni e-posta adresinin başkası tarafından kullanılıp kullanılmadığını kontrol et
     const emailExists = await User.findOne({ email: newEmail });
     if (emailExists && emailExists._id.toString() !== user._id.toString()) {
         return res.status(400).json({ message: "Bu e-posta adresi zaten kullanılıyor." });
@@ -181,12 +171,10 @@ const requestEmailChange = async (req, res) => {
     }
 };
 
-// E-posta güncelleme onayı
 const confirmEmailChange = async (req, res) => {
     try {
         const decoded = jwt.verify(req.params.token, process.env.JWT_SECRET);
 
-        // E-posta zaten kullanılıyor mu kontrolü (Güvenlik katmanı)
         const emailExists = await User.findOne({ email: decoded.newEmail });
         if (emailExists && emailExists._id.toString() !== decoded.id) {
             return res.status(400).json({ message: "Bu e-posta adresi zaten kullanılıyor." });
@@ -204,9 +192,7 @@ const confirmEmailChange = async (req, res) => {
     }
 };
 
-// Hesabım - Kullanıcı bilgilerini getir
 const getProfile = async (req, res) => {
-    // req.user auth middleware'den gelir
     res.json({
         _id: req.user._id,
         username: req.user.username,
@@ -217,47 +203,38 @@ const getProfile = async (req, res) => {
     });
 };
 
-// Hesap bilgilerini güncelle (email, şifre vs.)
 const updateProfile = async (req, res) => {
     const user = await User.findById(req.user._id);
     let successMessage = "Profil bilgileri başarıyla güncellendi.";
     let passwordChanged = false;
 
     if (user) {
-        // --- ŞİFRE DEĞİŞTİRME KONTROLÜ (GÜVENLİK) ---
-        // Yeni şifre frontend'den 'password' veya 'newPassword' olarak gelebilir.
+
         const newPasswordValue = req.body.password || req.body.newPassword;
 
         if (req.body.currentPassword || newPasswordValue) {
 
-            // 1. Mevcut şifre zorunluluğu
             if (!req.body.currentPassword) {
                 return res.status(400).json({ message: "Şifre değiştirmek için mevcut şifrenizi girmelisiniz." });
             }
 
-            // 2. Mevcut şifre doğruluğu kontrolü
             const isMatch = await user.matchPassword(req.body.currentPassword);
             if (!isMatch) {
                 return res.status(401).json({ message: "Mevcut şifreniz yanlış." });
             }
 
-            // 3. Yeni şifre zorunluluğu
             if (!newPasswordValue) {
                  return res.status(400).json({ message: "Yeni şifrenizi girmelisiniz." });
             }
 
-            // 4. Yeni şifre uzunluk kontrolü
             if (newPasswordValue.length < 6) {
                  return res.status(400).json({ message: "Yeni şifre en az 6 karakter olmalıdır." });
             }
 
-            // Yeni şifreyi kaydet
             user.password = newPasswordValue;
             passwordChanged = true;
         }
 
-        // --- DİĞER ALANLARIN GÜNCEL KONTROLÜ ---
-        // E-posta alanı sadece requestEmailChange/confirmEmailChange ile güncellenmelidir.
         user.username = req.body.username || user.username;
         user.firstName = req.body.firstName || user.firstName;
         user.lastName = req.body.lastName || user.lastName;
@@ -265,12 +242,10 @@ const updateProfile = async (req, res) => {
 
         const updatedUser = await user.save();
 
-        // Şifre değiştiyse özel mesajı ayarla
         if (passwordChanged) {
             successMessage = "Şifreniz başarıyla değiştirildi!"; // ✅ Özel mesaj
         }
 
-        // --- CEVAP DÖNDÜRME ---
         res.json({
             _id: updatedUser._id,
             username: updatedUser.username,

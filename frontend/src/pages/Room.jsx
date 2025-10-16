@@ -10,7 +10,7 @@ const Room = () => {
     const { roomId } = useParams();
     const navigate = useNavigate();
     const [room, setRoom] = useState(null);
-    const userInfo = JSON.parse(localStorage.getItem("user")); // localStorage'da "user" olarak tutulduğu için bu şekilde düzeltildi
+    const userInfo = JSON.parse(localStorage.getItem("user"));
 
    const redirectBasedOnStatus = (currentRoom) => {
         if (!currentRoom || !userInfo) return;
@@ -32,58 +32,71 @@ const Room = () => {
 
        }
      };
-    useEffect(() => {
-        const fetchRoom = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) return;
-            try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    setRoom(data);
-                    redirectBasedOnStatus(data); // Oda ilk yüklendiğinde kontrol et
 
-                }
-            } catch (err) {
-                console.error("Oda bilgisi alınırken hata:", err);
+
+useEffect(() => {
+    if (!roomId) return;
+
+    socket.emit("joinRoom", roomId);
+
+    socket.off("updateRoom");
+
+    socket.on("updateRoom", (updatedRoom) => {
+        setRoom(updatedRoom);
+        redirectBasedOnStatus(updatedRoom);
+    });
+
+    return () => {
+        socket.off("updateRoom");
+    };
+
+}, [roomId]);
+
+
+
+useEffect(() => {
+    const fetchRoom = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        try {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setRoom(data);
+                redirectBasedOnStatus(data);
             }
-        };
-
-        socket.emit("joinRoom", roomId);
-        socket.on("updateRoom", (updatedRoom) => {
-            setRoom(updatedRoom);
-            redirectBasedOnStatus(updatedRoom);
-
-        });
-
-        fetchRoom();
-
-        return () => {
-            socket.off("updateRoom");
-        };
-    }, [roomId]);
-
-    // ✅ KRİTİK DÜZELTME: `room` durumu her değiştiğinde bu kod çalışır.
-    useEffect(() => {
-        if (room) {
-            redirectBasedOnStatus(room);
+        } catch (err) {
+            console.error("Oda bilgisi alınırken hata:", err);
         }
-    }, [room, navigate]);
+    };
+
+    socket.off("updateRoom");
+
+    socket.on("updateRoom", (updatedRoom) => {
+        setRoom(updatedRoom);
+        redirectBasedOnStatus(updatedRoom);
+    });
+
+    socket.emit("joinRoom", roomId);
+    fetchRoom();
+
+    return () => {
+        socket.off("updateRoom");
+    };
+
+}, [roomId, navigate]);
 
 
 
-    // ✅ Yeni eklenen fonksiyon: Yönlendirme koşullarını denetler
+
+
     const checkAndNavigate = (currentRoom) => {
-        // Oda dolduysa VE tüm oyuncular hazırsa 'drafting' moduna geçiş yap
         const allPlayersReady = currentRoom.players.every(p => p.isReady);
         const roomIsFull = currentRoom.players.length === currentRoom.maxPlayers;
 
         if (roomIsFull && allPlayersReady) {
-            // Eğer odanın durumu henüz 'drafting' değilse, backend'e sinyal gönder
-            // Ancak, bu işlemi backend tarafında yapmak daha doğru olur.
-            // Sadece yönlendirmeyi burada yapıyoruz.
             navigate(`/room/${currentRoom._id}/squad-selection`);
         }
     };
@@ -100,7 +113,6 @@ const Room = () => {
             },
             body: JSON.stringify({ roomId: room._id, playerId })
         });
-        // Socket.IO ile güncelleme zaten yapılacak
     } catch (err) {
         console.error("Oyuncu çıkarma hatası:", err.message);
     }
@@ -139,7 +151,6 @@ const Room = () => {
 
         if (!res.ok) throw new Error("Odadan ayrılırken hata oluştu.");
 
-        // Başarılıysa kullanıcıyı ana sayfaya veya oda listesine yönlendir
         navigate("/rooms");
 
     } catch (err) {

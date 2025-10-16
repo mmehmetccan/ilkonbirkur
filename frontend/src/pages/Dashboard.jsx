@@ -7,7 +7,6 @@ import '../styles/Dashboard.css';
 const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 const API_URL = `${BASE_API_URL}/api/match`;
-// --- Alt Bileşen: İstatistik Çubuğu ---
 const StatBar = ({ label, valA, valB, teamA, teamB, isPercentage = false }) => {
     const numericValA = isPercentage ? parseFloat(valA) : parseInt(valA);
     const numericValB = isPercentage ? parseFloat(valB) : parseInt(valB);
@@ -39,7 +38,6 @@ const StatBar = ({ label, valA, valB, teamA, teamB, isPercentage = false }) => {
     );
 };
 
-// --- Alt Bileşen: Maç Detay Modalı ---
 const MatchDetailModal = ({ match, onClose }) => {
     if (!match) return null;
     const isTeamAWinner = match.goalsA > match.goalsB;
@@ -113,16 +111,14 @@ const MatchDetailModal = ({ match, onClose }) => {
     );
 };
 
-// --- Ana Bileşen ---
 const DashboardMatches = () => {
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedMatch, setSelectedMatch] = useState(null);
     const navigate = useNavigate();
-    const { roomId } = useParams(); // URL'den oda ID'sini alıyoruz
+    const { roomId } = useParams();
 
-    // ✅ GÜNCELLENMİŞ VE TEK BİR useEffect BLOĞU
     useEffect(() => {
         const fetchMatches = async () => {
             setLoading(true);
@@ -136,20 +132,16 @@ const DashboardMatches = () => {
             try {
                 let response;
 
-                // Eğer URL'de bir roomId varsa, MatchResult'tan yeni endpoint'i çağır
                 if (roomId) {
-                    // YENİ VE DOĞRU ENDPOINT: /api/match/:roomId/recent
                     response = await axios.get(`${API_URL}/${roomId}/recent`, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                 } else {
-                    // Eğer roomId yoksa (genel dashboard), genel endpoint'i kullanmaya devam et
                     response = await axios.get(`${API_URL}/finished-matches`, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                 }
 
-                // Backend (matchController.js) veriyi zaten doğru formatta (teamA, teamB, goalsA/B, stats vb.) gönderiyor.
                 setMatches(response.data);
                 setError(null);
 
@@ -162,7 +154,7 @@ const DashboardMatches = () => {
         };
 
         fetchMatches();
-    }, [roomId, navigate]); // roomId veya navigate değiştiğinde tekrar çalışır
+    }, [roomId, navigate]);
 
 
     if (loading) return <div className="loading">Maçlar yükleniyor...</div>;

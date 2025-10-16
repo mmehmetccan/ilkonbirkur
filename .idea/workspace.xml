@@ -5,10 +5,62 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b806064-63ed-4ca2-8f7b-c4db132211ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/scripts/importData.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/controllers/intinalDataController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/controllers/sharedSquadController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/controllers/singlePlayerController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/controllers/squadBuilderController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/models/SharedSquad.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/models/Team.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/routes/sharedSquadRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/routes/singlePlayerRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/routes/squadBuilderRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/services/simulationService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/googlee934748c19165a30 (1).html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/SharedSquadDetail.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/SharedSquadsFeed.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/SinglePlayerMatch.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/styles/SharedSquads.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/styles/SinglePlayerMatch.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/contactController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/contactController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/initialDataController.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/matchController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/matchController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/pickPlayerController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/pickPlayerController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/controllers/roomController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/roomController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/importPlayers.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/importPlayers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/middleware/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/middleware/authMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/MatchResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/MatchResult.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/Player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/matchRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/matchRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/routes/playerRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/playerRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/roomRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/roomRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/userRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ConfirmEmail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ConfirmEmail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Contact.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Contact.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/CreateRoom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CreateRoom.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MatchResult.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MatchResult.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Room.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Room.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/RoomList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RoomList.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/SquadSelection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/SquadSelection.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/TermsOfService.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/TermsOfService.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/CustomSquad.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/CustomSquad.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/SquadSelection.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/SquadSelection.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,11 +101,11 @@
       <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PC\Desktop\ilkonbirkur\frontend" />
       <recent name="C:\Users\PC\Desktop\ilkonbirkur\frontend\public" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\frontend\public" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src\data" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\backend" />
-      <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src" />
     </key>
   </component>
   <component name="RunManager">
@@ -146,6 +198,15 @@
       <workItem from="1759672704988" duration="19535000" />
       <workItem from="1759759190252" duration="26898000" />
       <workItem from="1759930897529" duration="9139000" />
+      <workItem from="1760013197954" duration="3735000" />
+      <workItem from="1760053675589" duration="5222000" />
+      <workItem from="1760301686642" duration="10568000" />
+      <workItem from="1760379670171" duration="14993000" />
+      <workItem from="1760462704781" duration="4823000" />
+      <workItem from="1760475573982" duration="3456000" />
+      <workItem from="1760549453799" duration="18224000" />
+      <workItem from="1760573210731" duration="242000" />
+      <workItem from="1760573643449" duration="7841000" />
     </task>
     <servers />
   </component>

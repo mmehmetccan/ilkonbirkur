@@ -5,7 +5,7 @@ const { startNextMatch, startTournament,getFinishedMatches,getRecentMatches } = 
 
 router.post('/:roomId/start-tournament', protect, startTournament);
 router.post('/:roomId/start-next-match', protect, startNextMatch);
-router.get('/finished-matches', protect, getFinishedMatches); // YENİ ROTA
+router.get('/finished-matches', protect, getFinishedMatches);
 router.get('/:roomId/recent', protect, getRecentMatches);
 
 module.exports = router;

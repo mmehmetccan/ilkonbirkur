@@ -12,22 +12,19 @@ const {
     confirmEmailChange, 
     getMyAccount
 } = require("../controllers/userController");
-const { protect } = require("../middleware/authMiddleware"); // Auth middleware'nizin adı
+const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", authUser);
 
-// Şifre Sıfırlama
 router.post("/forgot-password", forgotPassword);
 router.put("/reset-password/:token", resetPassword);
 
-// E-posta Değiştirme
 router.post('/request-email-change', protect, requestEmailChange);
-router.get('/confirm-email/:token', confirmEmailChange); // Kullanıcı linke tıklar, token body'de değil, URL'de (params) gelir.
+router.get('/confirm-email/:token', confirmEmailChange);
 
-// Profil
 router.get("/profile", protect, getProfile);
 router.put("/profile", protect, updateProfile);
 

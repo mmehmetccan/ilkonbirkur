@@ -1,5 +1,4 @@
 /* SquadSelection.css */
-/* Bu stil içeriği, SquadSelection.jsx dosyasının içindeki <style> bloğundan çıkarılmıştır. */
 
 .squad-selection-container {
     display: flex;
@@ -94,7 +93,7 @@
 }
 /* --- 2. Section Title --- */
 .section-title {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #2c3e50;
     margin-top: 0;
@@ -104,7 +103,10 @@
 }
 .section-title span {
     color: #27ae60;
-    font-weight: 800;
+    font-weight: 500;
+}
+.section-title h3{
+    font-size: 0.2rem;
 }
 .select-formation {
     width: 100%;
@@ -395,22 +397,24 @@
     border-radius: 3px;
 }
 /* --- Player Selection Modal --- */
-.player-selection-modal {
+.player-selection-modal.is-open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 1000;
-    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s;
+
+    /* ✅ Eklediklerimiz */
+    opacity: 1 !important;
+    visibility: visible !important;
 }
+
 
 .player-selection-modal.is-open {
     display: flex;

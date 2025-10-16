@@ -12,53 +12,66 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
 const io = new Server(server, {
     cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
-    }
+        origin: [
+            "https://ilkonbirkur.com",
+            "http://ilkonbirkur.com",
+            "http://localhost:5173",
+            "http://localhost:3000"
+        ],
+        methods: ["GET", "POST"],
+        credentials: true,
+        transports: ['websocket', 'polling'] // Fallback ekleyin
+    },
+    pingTimeout: 60000,
+    pingInterval: 25000
 });
+
 
 const PORT = process.env.PORT || 3000;
 
-// Middleware'ler
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
-// ✅ KRİTİK DÜZELTME: Bu middleware bloğunu tüm API rotalarından önce getirin
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 app.use((req, res, next) => {
-  // `req.io` kullanarak Express'e Socket.IO nesnesini ekle
   req.io = io;
   next();
 });
+
+
 app.set('io', io);
 
-// Statik dosyalar için middleware
 app.use('/data', express.static(path.join(__dirname, 'src', 'data')));
 
-// API rotaları
 const userRoutes = require('./src/routes/userRoutes');
 const matchRoutes = require('./src/routes/matchRoutes');
 const roomRoutes = require('./src/routes/roomRoutes');
 const playerRoutes = require('./src/routes/playerRoutes');
 const contactRoutes = require('./src/routes/contactRoutes');
+const squadBuilderRoutes = require('./src/routes/squadBuilderRoutes');
+const sharedSquadRoutes = require('./src/routes/sharedSquadRoutes'); // Bu satırı ekleyin
+const singlePlayerRoutes = require('./src/routes/singlePlayerRoutes'); // Bu satırı ekleyin
 
 const pickPlayerRoutes = require('./src/routes/pickPlayerRoutes');
 
-// MongoDB Atlas Bağlantısı
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB bağlı"))
   .catch(err => console.error("MongoDB bağlanamadı:", err));
 
-// API rotalarını buraya ekleyeceğiz
 app.use('/api/contact', contactRoutes);
 app.use('/api/players', playerRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/match', matchRoutes);
 app.use('/api/rooms', roomRoutes);
+app.use('/api/squad-builder', squadBuilderRoutes);
+app.use('/api/shared-squads', sharedSquadRoutes); // Bu satırı ekleyin
+app.use('/api/single-player', singlePlayerRoutes); // Bu satırı ekleyin
 
 
-// Socket.IO Bağlantısı
 io.on('connection', (socket) => {
     console.log(`Yeni bir kullanıcı bağlandı: ${socket.id}`);
 
@@ -72,7 +85,6 @@ io.on('connection', (socket) => {
     });
 });
 
-// app.listen yerine server.listen kullanın
 server.listen(PORT, () => {
     console.log(`Sunucu http://localhost:${PORT} adresinde çalışıyor.`);
 });

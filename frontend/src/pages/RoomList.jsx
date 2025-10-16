@@ -81,12 +81,12 @@ function RoomList() {
     const renderPasswordInput = (roomId) => (
     <div>
         <input
-            key={roomId} // React yeniden render yaparken eski değeri kullanmasın
+            key={roomId}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
       placeholder="Şifre"
-      autoComplete="new-password" // "off" bazen işe yaramıyor, "new-password" önerilir
+      autoComplete="new-password"
       style={{ marginRight: '5px' }}
     />
         <button onClick={() => handleJoinRoom(roomId, password)}>Giriş Yap</button>
@@ -100,8 +100,8 @@ function RoomList() {
     if (error) return <div className="error">{error}</div>;
 
     const filteredRooms = rooms
-        .slice() // kopyasını al
-        .reverse() // en son eklenen üstte
+        .slice()
+        .reverse()
         .filter(room => room.roomName.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (

@@ -16,12 +16,13 @@ import CustomSquad from './pages/CustomSquad.jsx';
 import ConfirmEmail from './pages/ConfirmEmail';
 import Contact from './pages/Contact.jsx';
 import TermsOfService  from './pages/TermsOfService.jsx';
-import logo from '../public/favicon-96x96.png'; // Veya './assets/logo.png'
+import SharedSquadsFeed from './pages/SharedSquadsFeed';
+import SharedSquadDetail from './pages/SharedSquadDetail';
+import SinglePlayerMatch from './pages/SinglePlayerMatch';
 
-// 👇 DÜZELTİLMİŞ İMPORT: Footer'ı components klasöründen çekmek en iyi uygulamadır.
-// (Eğer sizin dosya yolunuz pages/Footer ise, bu satırı kullanın.)
+import logo from '../public/favicon-96x96.png';
+
 import Footer from './pages/Footer';
-// Eğer pages/Footer olarak bıraktıysanız: import Footer from './pages/Footer';
 
 import './App.css';
 
@@ -56,29 +57,27 @@ function App() {
   }
 
   return (
-    // Ana div, tüm içeriği sarmalayıp Footer'ı en alta sabitlemeye olanak tanır.
     <div className="app-wrapper">
       <nav className="navbar">
         <div className="nav-logo">
           <Link to="/">
                 <img src={logo} alt="ilkonbirkur.com Logo" className="navbar-logo-img" />
-            </Link></div> {/* LOGO Adını güncelledim */}
+            </Link></div>
 
-        {/* Masaüstü Navigasyon Linkleri (Mobil'de CSS ile Gizlenecek) */}
         <ul className="nav-links">
-          <li><Link to="/">Ana Sayfa</Link></li>
+          <li><Link to="/taktik-kurucu">Taktik Kurucu</Link></li>
           <li><Link to="/ilk11kur">İlk 11 Oluşturucu</Link></li>
-          <li><Link to="/rooms">Simülasyon Odaları</Link></li>
-          <li><Link to="/create-room">Oda Oluştur</Link></li>
+          <li><Link to="/squads">Paylaşılan Kadrolar</Link></li>
+          <li><Link to="/hizli-mac">Hazır Takımlara Karşı Simülasyon</Link></li>
+          <li><Link to="/rooms">Online Draft Odaları</Link></li>
           <li><Link to="/dashboard">Son Maçlar</Link></li>
+
         </ul>
 
-        {/* HAMBURGER İKONU (Mobil'de Gösterilecektir) */}
         <button className="menu-toggle" onClick={toggleMenu}>
             {isMenuOpen ? '✕' : '☰'}
         </button>
 
-        {/* Masaüstü Profil/Giriş Bölümü (Mobil'de CSS ile Gizlenecektir) */}
         <div className="profile-section desktop-profile-auth">
           {isLoggedIn ? (
             <div className="profile-dropdown">
@@ -115,18 +114,17 @@ function App() {
           )}
         </div>
 
-        {/* ========================================= */}
-        {/* MOBİL MENÜ YAPISI (mobile-menu) */}
-        {/* ========================================= */}
+
         <ul className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
           {/* 1. Navigasyon Linkleri */}
-          <li><Link to="/" onClick={toggleMenu}>Ana Sayfa</Link></li>
+          <li><Link to="/taktik-kurucu" onClick={toggleMenu}>Ana Sayfa</Link></li>
           <li><Link to="/ilk11kur" onClick={toggleMenu}>İlk 11 Oluşturucu</Link></li>
-          <li><Link to="/rooms" onClick={toggleMenu}>Odalar</Link></li>
-          <li><Link to="/create-room" onClick={toggleMenu}>Oda Oluştur</Link></li>
-          <li><Link to="/dashboard" onClick={toggleMenu}>Son Maçlar</Link></li>
+          <li><Link to="/hizli-mac">Hazır Takımlara Karşı Simülasyon</Link></li>
 
-          {/* 2. Oturum Açma/Profil Butonları */}
+          <li><Link to="/rooms" onClick={toggleMenu}>Online Draft Odaları</Link></li>
+          <li><Link to="/dashboard" onClick={toggleMenu}>Son Maçlar</Link></li>
+          <li><Link to="/squads" onClick={toggleMenu}>Paylaşılan Kadrolar</Link></li>
+
           <div className="mobile-auth-buttons">
             {isLoggedIn ? (
                 <>
@@ -157,7 +155,6 @@ function App() {
 
       </nav>
 
-      {/* Ana içerik, Navbar ve Footer arasına yerleşir. */}
       <div className="container main-content">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -176,10 +173,13 @@ function App() {
           <Route path="/confirm-email/:token" element={<ConfirmEmail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/squads" element={<SharedSquadsFeed />} />
+                <Route path="/squads/:id" element={<SharedSquadDetail />} />
+                              <Route path="/hizli-mac" element={<SinglePlayerMatch />} /> {/* Bu satırı ekleyin */}
+
         </Routes>
       </div>
 
-      {/* 👇 FOOTER EKLENİYOR: Router dışına eklediğiniz için tüm sayfalarda görünür. */}
       <Footer />
 
     </div>

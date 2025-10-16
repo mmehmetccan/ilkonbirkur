@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/Home.css";
 import * as htmlToImage from 'html-to-image';
 
-// (Dosyanın geri kalanı öncekiyle aynı, sadece handleTouchStart fonksiyonu ve buton JSX'leri değişti)
-// ... Diğer importlar, sabitler ve fonksiyonlar burada ...
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const MOBILE_PITCH = { width: 350, height: 450, pad: 15 };
 const DESKTOP_PITCH = { width: 1200, height: 800, pad: 40 };
@@ -19,7 +17,6 @@ function distance(a, b) {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-// ... horizontalFormations ve verticalFormations verileri burada (değişiklik yok) ...
 const horizontalFormations = {
   "4-4-2": [
     { id: 1, name: "1", x: 60, y: 400, team: "A", trail: [], cards: { yellow: false, red: false }, goals: 0 },
@@ -142,7 +139,6 @@ export default function Home() {
     active: false, type: null, id: null, offsetX: 0, offsetY: 0,
   });
 
-  // YENİ: Mobil çift dokunma (double tap) için son dokunma zamanını saklar
   const lastTapRef = useRef({});
 
   const [isRecording, setIsRecording] = useState(false);
@@ -153,9 +149,7 @@ export default function Home() {
   const pitchCanvasRef = useRef(null);
 
 
-    // GÜNCELLENDİ: Mobil için çift dokunma (double tap) mantığı eklendi
     const handleTouchStart = (e, type, id = null) => {
-        // e.preventDefault(); // Sürükleme ve tıklama çakışmasını önlemek için bazen kapatılabilir
         if (!pitchRef.current) return;
         const touch = e.touches[0];
         const rect = pitchRef.current.getBoundingClientRect();
@@ -165,22 +159,19 @@ export default function Home() {
         if (type === "player") {
             const now = Date.now();
             const lastTapTime = lastTapRef.current[id] || 0;
-            const tapDelay = 300; // ms cinsinden çift dokunma aralığı
+            const tapDelay = 100;
 
             if (now - lastTapTime < tapDelay) {
-                // Bu bir çift dokunma, düzenleme modalını aç
                 openEditModal(id);
-                // Çift dokunma sonrası sürüklemeyi engellemek için referansı temizle
                 lastTapRef.current[id] = 0;
-                e.preventDefault(); // Modal açılırken sayfanın kaymasını engelle
+                e.preventDefault();
                 return;
             } else {
-                // Bu ilk dokunma, zamanını kaydet
                 lastTapRef.current[id] = now;
             }
         }
 
-        e.preventDefault(); // Sürükleme için preventDefault'u burada çağır
+        e.preventDefault();
 
         if (isDrawing) {
             setCurrentLine([{ x: px, y: py }]);
@@ -211,8 +202,6 @@ export default function Home() {
         }
     };
 
-    // handleTouchMove, handleTouchEnd ve diğer fonksiyonlar aynı kalıyor...
-    // ... (Diğer tüm fonksiyonlar - handleTouchMove, clampPos, applyFormation, vb. - değişiklik olmadan burada yer alıyor)
     const handleTouchMove = (e) => {
     if (!draggingRef.current.active || !pitchRef.current) return;
     const touch = e.touches[0];
@@ -283,7 +272,6 @@ export default function Home() {
         }
         setCurrentLine(null);
 
-        // Sürükleme bittiğinde, her ihtimale karşı aktif referansı sıfırla
         if (draggingRef.current.active) {
             draggingRef.current = { active: false, type: null, id: null, offsetX: 0, offsetY: 0 };
         }

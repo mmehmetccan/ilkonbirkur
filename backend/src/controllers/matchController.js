@@ -1,10 +1,8 @@
 // backend/src/controllers/matchController.js
 
 const Room = require('../models/Room');
-const mongoose = require('mongoose'); // Mongoose'u ekleyin
-const MatchResult = require("../models/MatchResult"); // Yeni modeli import et
-
-// --- YARDIMCI FONKSİYONLAR ---
+const mongoose = require('mongoose');
+const MatchResult = require("../models/MatchResult");
 
 function getMainPosition(player) {
   if (!player) return null;
@@ -30,13 +28,12 @@ function calculateTeamPower(team) {
   return Math.pow(avgOverall, 2) * (playerCount / 11);
 }
 
-// --- ŞUT BAŞARI HESABI ---
 
 function calculateShotSuccess(attacker, goalkeeper, isTeamAAttack, teamAPower, teamBPower) {
   const atkOVR = Number(attacker?.overall) || 50;
   const gkOVR = Number(goalkeeper?.overall) || 50;
 
-  let baseChance = 0.25 + (atkOVR - gkOVR) / 200; // %25 taban + skill farkı
+  let baseChance = 0.25 + (atkOVR - gkOVR) / 200;
   const totalPower = teamAPower + teamBPower;
   const powerDiffNorm = (teamAPower - teamBPower) / (totalPower || 1);
 
@@ -46,7 +43,6 @@ function calculateShotSuccess(attacker, goalkeeper, isTeamAAttack, teamAPower, t
 
   let adjusted = baseChance * teamEffect;
 
-  // Kaleci faktörü (yüksek OVR = daha fazla kurtarış)
   const gkFactor = 1 - ((gkOVR - 60) / 50) * 0.4;
   adjusted *= gkFactor;
 
@@ -55,7 +51,6 @@ function calculateShotSuccess(attacker, goalkeeper, isTeamAAttack, teamAPower, t
 
 function getRandomAttacker(squad) {
   if (!squad || squad.length === 0) return { short_name: "Bilinmeyen", overall: 50 };
-  // Kalecileri çıkar
   const pool = squad.filter(p => {
     const pos = getMainPosition(p);
     return pos && !pos.startsWith("GK");
@@ -93,7 +88,6 @@ function resolveCorner(attackingSquad, defendingSquad, teamAPower, teamBPower, i
   return { scored: false };
 }
 
-// --- ANA MAÇ SİMÜLASYON ---
 
 async function simulateMatch(teamA_squad, teamB_squad, playerA_data, playerB_data, io, roomId) {
   const teamAPower = calculateTeamPower(teamA_squad);
@@ -133,7 +127,7 @@ for (let minute = 1; minute <= 90; minute++) {
 
   const chance = Math.random();
 
-  // ---- ŞUT ----
+  //  ŞUT
   if (chance < 0.25) {
     const isA = Math.random() < teamAInfluence;
     const atkSquad = isA ? teamA_squad : teamB_squad;
@@ -149,7 +143,7 @@ for (let minute = 1; minute <= 90; minute++) {
 
     const shotChance = calculateShotSuccess(attacker, gk, isA, teamAPower, teamBPower);
 
-    // İsabetli şut (gol veya kurtarış)
+    // İsabetli şut
     if (Math.random() < shotChance) {
       if (isA) stats.teamA.shotsOnTarget++; else stats.teamB.shotsOnTarget++;
 
@@ -183,7 +177,7 @@ for (let minute = 1; minute <= 90; minute++) {
         score, stats, minute);
     }
 
-  // ---- FAUL ----
+  //  FAUL
   } else if (chance < 0.35) {
      const isA = Math.random() < 0.5;
   const foulSquad = isA ? teamA_squad : teamB_squad;
@@ -197,7 +191,7 @@ for (let minute = 1; minute <= 90; minute++) {
     { type: "foul", minute, team: foulName, player: fouler.short_name },
     score, stats, minute);
 
-  // Kart olasılığı (%30)
+  // Kart olasılığı
   if (Math.random() < 0.3) {
     yellowCards[fouler.short_name] = (yellowCards[fouler.short_name] || 0) + 1;
 
@@ -217,7 +211,7 @@ for (let minute = 1; minute <= 90; minute++) {
     }
   }
 
-  // ---- KORNER ----
+  //  KORNER
   } else if (chance < 0.45) {
     const isA = Math.random() < teamAInfluence;
     if (isA) stats.teamA.corners++; else stats.teamB.corners++;
@@ -256,28 +250,15 @@ for (let minute = 1; minute <= 90; minute++) {
 exports.getFinishedMatches = async (req, res) => {
     try {
         const finishedMatches = await MatchResult.find({})
-            .sort({ playedAt: -1 }) // En yeniyi başa al
-            .limit(20) // Sadece son 20 maçı getir
-            // roomId popülasyonu (Oda silinse bile deneriz, Room verisi için)
+            .sort({ playedAt: -1 })
+            .limit(20)
             .populate('roomId', 'roomName')
-            // Kullanıcı popülasyonu (Kullanıcı silinse bile || 'Bilinmeyen A' ile devam ederiz)
             .populate('teamA', 'username')
             .populate('teamB', 'username');
 
         const formattedMatches = finishedMatches
             .map(match => {
-                // Eğer Room kaydı veritabanından silinmişse, match.roomId null/tanımsız olabilir.
-                // Bu durumda maçı atlamak yerine, oda adı için bir fallback (yedek) değer kullanırız.
 
-                // match.roomId null ise maçı atlamak isterseniz:
-                /*
-                if (!match.roomId) {
-                    console.warn(`Veritabanından silinmiş bir odaya ait maç kaydı atlanıyor: ${match._id}`);
-                    return null;
-                }
-                */
-
-                // Tüm matchleri göstermek için:
                 return {
                     matchId: match._id,
                     // match.roomId?.roomName silinen odalar için null dönecektir.
@@ -288,12 +269,10 @@ exports.getFinishedMatches = async (req, res) => {
                     date: match.playedAt,
                     stats: match.result?.stats,
                     commentary: match.result?.commentary || [],
-                    // Popülasyon başarısız olsa bile (kullanıcı silindiyse) fallback değeri kullan
                     teamA: match.teamA?.username || 'Bilinmeyen A',
                     teamB: match.teamB?.username || 'Bilinmeyen B',
                 };
             })
-            // Eğer yukarıda match.roomId için atlama filtresini kullanırsanız, burayı aktif tutun.
             .filter(match => match !== null);
 
         res.status(200).json(formattedMatches);
@@ -353,14 +332,12 @@ if (!nextMatch) {
   return res.json({ message: "Turnuva bitti.", room });
 }
 
-// Oyuncu verilerini bul
 const playerA_data = room.players.find(p => p.user._id.toString() === nextMatch.teamA.toString());
 const playerB_data = room.players.find(p => p.user._id.toString() === nextMatch.teamB.toString());
 console.log("playerA_data:", playerA_data);
 console.log("playerB_data:", playerB_data);
 console.log("playerA_data.team:", playerA_data.team);
 console.log("playerB_data.team:", playerB_data.team);
-// Eğer eşleşme yoksa hata fırlatma yerine mesaj ver
 if (!playerA_data || !playerB_data) {
   console.error("Eşleşme bulunamadı:", nextMatch);
   return res.status(400).json({ message: "Maç için oyuncu verisi eksik." });
@@ -381,20 +358,17 @@ if (!playerA_data || !playerB_data) {
     if (nextMatch && nextMatch.result) {
         const { teamA, teamB } = nextMatch;
 
-        // 1. MatchResult koleksiyonuna kaydet
         const newMatch = new MatchResult({
             roomId: room._id,
             teamA: teamA,
             teamB: teamB,
-            result: result, // result objesinin tamamı (score, goalsA, commentary vb.)
+            result: result,
         });
         await newMatch.save();
 
-        // 2. Son 20 maç kuralını uygula (Limit kontrolü)
         const matchCount = await MatchResult.countDocuments({ roomId: room._id });
 
         if (matchCount > 20) {
-            // En eski maçı bul (playedAt: 1, yani Artan sıralama)
             const oldestMatch = await MatchResult.findOne({ roomId: room._id })
                 .sort({ playedAt: 1 })
                 .exec();
@@ -406,35 +380,27 @@ if (!playerA_data || !playerB_data) {
         }
     }
 
-// Maç sonucu kaydedildikten sonra, oynanmamış maç kalıp kalmadığını kontrol et.
     const hasNextMatch = room.matchesToPlay.some(m => !m.played);
 
     if (!hasNextMatch) {
       room.status = "finished";
       console.log(`Tüm maçlar tamamlandı. Oda durumu 'finished' olarak güncellendi.`);
 
- // **********************************************************
-      // YENİ EKLENECEK MANTIK BURADA BAŞLIYOR:
-      // **********************************************************
 
       const io = req.app.get("io");
       const ROOM_DELETION_DELAY_MS = 5 * 60 * 1000; // 5 dakika
 
-      // 1. Kullanıcılara anlık bildirim gönder
       io?.to(roomId).emit("roomEvent", {
           type: "tournament_finished",
           message: "Turnuva tamamlanmıştır! Oda 5 dakika içinde otomatik olarak silinecektir."
       });
 
-      // 2. Odayı silmek için zamanlayıcı kur
       setTimeout(async () => {
         try {
-          // Odanın gerçekten hala "finished" durumda olup olmadığını kontrol etmek faydalı olabilir
           const roomToDelete = await Room.findById(roomId);
           if (roomToDelete && roomToDelete.status === 'finished') {
              await Room.deleteOne({ _id: roomId });
              console.log(`Oda ${roomId} (Turnuva bitti) otomatik olarak silindi.`);
-             // Odanın silindiğini kullanıcılara bildir (eğer hala bağlılarsa)
              io?.to(roomId).emit("roomEvent", {
                  type: "room_deleted",
                  message: "Oda otomatik olarak silinmiştir."
@@ -445,9 +411,7 @@ if (!playerA_data || !playerB_data) {
         }
       }, ROOM_DELETION_DELAY_MS);
 
-      // **********************************************************
-      // YENİ EKLENECEK MANTIK BURADA BİTİYOR:
-      // **********************************************************
+
     }
 
     await room.save();
@@ -465,21 +429,19 @@ exports.getRecentMatches = async (req, res) => {
         const recentMatches = await MatchResult.find({ roomId: roomId })
             .sort({ playedAt: -1 }) // En yeni başta
             .limit(20) // Sadece 20 tanesini getir
-            .populate('teamA', 'username') // ✅ username alanını çeker
-            .populate('teamB', 'username'); // ✅ username alanını çeker
+            .populate('teamA', 'username')
+            .populate('teamB', 'username');
 
-        // MatchResult verilerini Frontend'in beklediği formata dönüştür
         const formattedMatches = recentMatches.map(match => ({
             matchId: match._id,
             roomId: match.roomId,
-            roomName: match.roomName || 'Bilinmeyen Oda', // Room verisinden gelmediği için burada sabit bir değer kullanmak gerekebilir
+            roomName: match.roomName || 'Bilinmeyen Oda',
             score: match.result?.score,
             goalsA: match.result?.goalsA,
             goalsB: match.result?.goalsB,
             date: match.playedAt,
             stats: match.result?.stats,
             commentary: match.result?.commentary || [],
-            // Populated User objesinden username'i alıyoruz
             teamA: match.teamA?.username || 'Bilinmeyen A',
             teamB: match.teamB?.username || 'Bilinmeyen B',
         }));

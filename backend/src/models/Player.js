@@ -1,26 +1,12 @@
-// backend/src/models/Player.js
 const mongoose = require('mongoose');
 
 const playerSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    power: {
-        type: Number,
-        required: true
-    },
-    mainPosition: {
-        type: String,
-        required: true
-    },
-    secondaryPositions: {
-        type: [String], // Bir oyuncunun birden fazla yan pozisyonu olabilir
-        default: []
-    }
+    playerId: { type: Number, required: true, unique: true, index: true },
+    playerName: { type: String, required: true },
+    searchName: { type: String, required: true, index: true },
+    imageUrl: { type: String },
+    position: { type: String, required: true },
+    currentClubId: { type: Number, index: true }
 });
 
-const Player = mongoose.model('Player', playerSchema);
-
-module.exports = Player;
+module.exports = mongoose.model('Player', playerSchema);

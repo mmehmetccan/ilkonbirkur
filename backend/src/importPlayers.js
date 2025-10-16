@@ -11,13 +11,12 @@ const importData = async () => {
         await mongoose.connect(process.env.MONGODB_URI);
         console.log('MongoDB\'ye bağlandı...');
 
-        await Player.deleteMany(); // Önceki verileri temizle
+        await Player.deleteMany();
         console.log('Önceki oyuncu verileri silindi.');
 
-        await Player.insertMany(playersData); // JSON dosyasından verileri ekle
+        await Player.insertMany(playersData);
         console.log('Oyuncu verileri başarıyla veritabanına aktarıldı!');
 
-        // Sonraki işlemde oluşabilecek hata için oyuncu verilerinin tamamlandığını bildir
         const count = await Player.countDocuments();
         console.log(`${count} oyuncu veritabanına kaydedildi.`);
 

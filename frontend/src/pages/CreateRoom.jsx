@@ -1,6 +1,6 @@
 // frontend/src/pages/CreateRoom.jsx
 
-import React, { useState, useEffect } from 'react'; // useEffect import edildi
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,26 +14,22 @@ function CreateRoom() {
     const [password, setPassword] = useState('');
     const [leagues, setLeagues] = useState(['Premier League']);
 
-    // YENİ EKLENEN STATE: Hata veya bilgi mesajlarını tutmak için
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
-    // YENİ EKLENEN KISIM: Sayfa yüklendiğinde giriş kontrolü yapar
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            // Yönlendirme yapmak yerine hata state'ini günceller
             setError("Oda oluşturmak için lütfen giriş yapın.");
         }
-    }, []); // Boş dependency array sayesinde sadece sayfa ilk yüklendiğinde çalışır
+    }, []);
 
     const handleCreateRoom = async (e) => {
         e.preventDefault();
 
         const token = localStorage.getItem('token');
         if (!token) {
-            // Bu kontrol yedek olarak kalabilir, güvenlik sağlar.
             alert('Lütfen önce giriş yapın.');
             return;
         }
@@ -58,12 +54,9 @@ function CreateRoom() {
         }
     };
 
-    // --- YENİ EKLENEN KISIM: Koşullu Görüntüleme (Conditional Rendering) ---
-    // Eğer bir hata mesajı varsa (giriş yapılmamışsa), formu gösterme, mesajı göster.
         if (error) return <div className="error">{error}</div>;
 
 
-    // Hata yoksa, normal formu göster.
     return (
         <div className="create-room-container">
             <h1>Yeni Oda Oluştur</h1>

@@ -30,7 +30,7 @@ const roomSchema = new mongoose.Schema({
         defending: Number,
         physic: Number,
         player_face_url: String,
-        assignedPosition: { type: String, required: false } // BU SATIRI EKLEYİn
+        assignedPosition: { type: String, required: false }
       }]
     },
     wins: { type: Number, default: 0 },
@@ -41,9 +41,9 @@ const roomSchema = new mongoose.Schema({
     goalsAgainst: { type: Number, default: 0 }
   }],
   formation: {
-        type: Map, // kullanıcıId -> pozisyon array
+        type: Map,
         of: [String],
-        default: {} // boş Map oluşturur
+        default: {}
 
     },
   maxPlayers: { type: Number, required: true, min: 2, max: 8 },

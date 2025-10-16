@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
-// Şifreyi kaydetmeden önce hash'le
 userSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
         return next();
@@ -27,7 +26,6 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
-// Şifre kontrol metodu
 userSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };

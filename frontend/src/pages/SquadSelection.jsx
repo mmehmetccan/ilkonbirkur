@@ -7,7 +7,6 @@ import '../styles/SquadSelection.css';
 
 const socket = io(import.meta.env.VITE_API_URL);
 
-// Diziliş ve pozisyon slotları (Güncel)
 const fieldPositions = {
   "4-3-3": {
     GK: ["GK"],
@@ -60,7 +59,6 @@ const fieldPositions = {
     FWD: ["ST", "ST"],
   },
 
-  // 2️⃣ 4-5-1 (Defansif Orta Saha Ağırlıklı)
   "4-5-1": {
     GK: ["GK"],
     DEF: ["RB", "CB", "CB", "LB"],
@@ -68,7 +66,6 @@ const fieldPositions = {
     FWD: ["ST"],
   },
 
-  // 3️⃣ 4-3-1-2 (Dar Orta Saha + CAM)
   "4-3-1-2": {
     GK: ["GK"],
     DEF: ["RB", "CB", "CB", "LB"],
@@ -77,7 +74,6 @@ const fieldPositions = {
     FWD: ["ST", "ST"],
   },
 
-  // 4️⃣ 4-2-2-2 (Dengeli Brezilya Stili)
   "4-2-2-2": {
     GK: ["GK"],
     DEF: ["RB", "CB", "CB", "LB"],
@@ -86,7 +82,6 @@ const fieldPositions = {
     FWD: ["ST", "ST"],
   },
 
-  // 5️⃣ 4-3-2-1 (Christmas Tree)
   "4-3-2-1": {
     GK: ["GK"],
     DEF: ["RB", "CB", "CB", "LB"],
@@ -95,7 +90,6 @@ const fieldPositions = {
     FWD: ["ST"],
   },
 
-  // 6️⃣ 5-4-1 (Kapanma Taktiği)
   "5-4-1": {
     GK: ["GK"],
     DEF: ["RB", "CB", "CB", "CB", "LB"],
@@ -104,7 +98,6 @@ const fieldPositions = {
   },
 };
 
-// Oyuncuyu slot anahtarına göre bulur
 const getPlayerForSlot = (squad, generalPos, slotIndex) => {
   const slotKey = `${generalPos}-${slotIndex}`;
   return squad.find((p) => p.assignedPosition === slotKey) || null;
@@ -116,36 +109,31 @@ function SquadSelection() {
     const [players,setPlayers] = useState([]);
     const [room,setRoom] = useState(null);
     const [searchTerm,setSearchTerm] = useState("");
-    const [formation, setFormation] = useState(null); // Kendi seçtiği formasyon (Kaydedilmek üzere)
+    const [formation, setFormation] = useState(null);
     const [mySquad,setMySquad] = useState([]);
     const [selectedSlot,setSelectedSlot] = useState(null);
-    const [visibleSquadId, setVisibleSquadId] = useState(null); // Sahada gösterilen takımın user._id'si
-    const [visibleFormation, setVisibleFormation] = useState(null); // Sahada gösterilen takımın dizilişi
+    const [visibleSquadId, setVisibleSquadId] = useState(null);
+    const [visibleFormation, setVisibleFormation] = useState(null);
 
-    // SAYFALAMA STATE'LERİ
     const [currentPage, setCurrentPage] = useState(1);
     const playersPerPage = 20;
 
-    // YENİ STATE: Modal durumu
     const [showHostWaitModal, setShowHostWaitModal] = useState(false);
 
     const userInfo = JSON.parse(localStorage.getItem("user"));
     const myUserId = userInfo._id;
 
-    // Kadro ID'leri ve İsimlerini birleştir
     const allPlayersInRoom = room ? room.players.map(p => ({
-        id: p.user._id.toString(), // ID eklendi
+        id: p.user._id.toString(),
         name: p.name,
         squad: p.team.squad,
-        formation: room.formation ? room.formation[p.user._id.toString()] : null, // Rakibin kayıtlı formasyonu
+        formation: room.formation ? room.formation[p.user._id.toString()] : null,
     })) : [];
 
-    // Draft/Oda Bilgileri
-    const isHost = room && room.players[0].user._id === myUserId; // Oda sahibi ilk oyuncudur
+    const isHost = room && room.players[0].user._id === myUserId;
     const currentPickerName = room ? room.players[room.draft.currentPick]?.name || 'Bekleniyor' : 'Bekleniyor';
     const isDraftFinished = room ? room.status==='draft_finished' : false;
 
-    // YENİ EFFECT: Draft bittiğinde modalı göster
     useEffect(() => {
         if (isDraftFinished && room) {
             setShowHostWaitModal(true);
@@ -159,13 +147,11 @@ function SquadSelection() {
         return myUserId === currentPickUserId;
     }, [room, myUserId]);
 
-    // Veri Çekme Mantığı
     useEffect(()=>{
         const fetchPlayers = async()=>{
     try{
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/players/all-players`);
 
-        // HATA: res.data'nın tamamını almak yerine, içindeki .players dizisini almalıyız.
         setPlayers(res.data || []);
     }
     catch (e) {
@@ -194,7 +180,6 @@ function SquadSelection() {
     }, [roomId, navigate, myUserId]);
 
 
-    // Socket Mantığı
     useEffect(() => {
         if (!roomId) return;
         socket.emit("joinRoom", roomId);
@@ -211,7 +196,6 @@ function SquadSelection() {
                 const squad = updatedRoom.players.find((p) => p.user._id.toString() === myInfo._id)?.team.squad || [];
                 setMySquad(squad);
 
-                // Formasyon senkronizasyonu
                 if (updatedRoom.formation && updatedRoom.formation[myInfo._id]) {
                     setFormation(updatedRoom.formation[myInfo._id]);
                 }
@@ -228,7 +212,6 @@ function SquadSelection() {
         };
     }, [roomId, navigate]);
 
-    // Görüntülenen takımı ve dizilişi hesapla
     useEffect(() => {
         if (!room || !userInfo) return;
 
@@ -251,7 +234,6 @@ function SquadSelection() {
         }
     }, [room, userInfo, visibleSquadId, formation, myUserId]);
 
-    // Sahada gösterilecek takımın squad ve dizilişini döndüren yardımcı useMemo
     const { currentSquad, currentFormationLayout } = useMemo(() => {
         if (!room || !visibleSquadId) return { currentSquad: [], currentFormationLayout: null };
 
@@ -264,7 +246,6 @@ function SquadSelection() {
     }, [room, visibleSquadId, visibleFormation]);
 
 
-    // Turnuva Başlatma Mantığı
     const handleStartTournament = async()=>{
         try{
             const token = localStorage.getItem("token");
@@ -272,11 +253,9 @@ function SquadSelection() {
                 method:"POST",
                 headers:{ "Content-Type":"application/json", "Authorization":`Bearer ${token}` }
             });
-            // Sunucu updateRoom yayını yapacağı için navigate bu olay içinde tetiklenecek.
         }catch(e){console.error("Turnuva başlatma hatası:",e);}
     };
 
-    // Modal/Slot İşlevleri
     const handleCloseModal = () => {
         setSelectedSlot(null);
         setSearchTerm("");
@@ -284,7 +263,6 @@ function SquadSelection() {
     };
 
     const handlePickPlayer = async(playerName, assignedPosition = null)=>{
-        // ... Mevcut oyuncu seçme mantığı ...
         try{
             const token = localStorage.getItem("token");
             const res = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${room._id}/pick-player`,{
@@ -294,23 +272,28 @@ function SquadSelection() {
             });
             if(!res.ok){ const data=await res.json(); throw new Error(data.message); }
 
-            // API başarılı olursa, sunucu Socket.IO ile güncel odayı yayınlayacak.
-            // Bu nedenle, yerel state güncellemeleri (setMySquad) socket'ten gelen veriyle yapılmalıdır.
-            // Bu kısmı kaldırmak, sadece görsel tutarlılık için gerekliydi, ancak
-            // Socket.IO üzerinden senkronizasyon olduğu için kodunuzdaki bu kısım zaten doğru çalışıyordu:
-            // const pickedPlayer = players.find(p => p.short_name === playerName);
-            // ... setMySquad logic ...
+
         }catch(e){console.error("Oyuncu seçme hatası:",e);}
     };
 
     const handleSelectSlot = (generalPos, slotIndex) => {
-        if (visibleSquadId === myUserId && mySquad.length < 11 && isMyTurn) {
-            setSelectedSlot({ generalPos, slotIndex });
-            setCurrentPage(1);
-        } else if (!isMyTurn) {
-             alert("Şu an sıra sizde değil.");
-        }
-    };
+    console.log("🔍 Slot tıklandı:", { generalPos, slotIndex });
+    console.log("visibleSquadId:", visibleSquadId);
+    console.log("myUserId:", myUserId);
+    console.log("isMyTurn:", isMyTurn);
+    console.log("mySquad.length:", mySquad.length);
+
+    if (visibleSquadId === myUserId && mySquad.length < 11 && isMyTurn) {
+        console.log("✅ Şartlar sağlandı, modal açılıyor...");
+        setSelectedSlot({ generalPos, slotIndex });
+        setCurrentPage(1);
+    } else {
+        console.warn("⚠️ Modal açılmadı. Neden:");
+        if (visibleSquadId !== myUserId) console.warn("Farklı kadro açık!");
+        if (mySquad.length >= 11) console.warn("Zaten 11 oyuncu var!");
+        if (!isMyTurn) console.warn("Sıra sende değil!");
+    }
+};
 
     const handlePickAndAssign = (player) => {
         const assignedPositionKey = `${selectedSlot.generalPos}-${selectedSlot.slotIndex}`;
@@ -318,7 +301,6 @@ function SquadSelection() {
         handleCloseModal();
     };
 
-    // Diziliş seçimi fonksiyonu
     const handleSelectFormation = async (selected) => {
         setFormation(selected);
         setVisibleFormation(selected);
@@ -353,7 +335,6 @@ function SquadSelection() {
 
     if (!room || players.length === 0) return <div>Yükleniyor...</div>;
 
-    // Oyuncu Listesi ve Sayfalama Mantığı
     const pickedPlayerNames = new Set(room.players.flatMap(p=>p.team.squad.map(s=>s.short_name)));
 
     const baseFilteredPlayers = players.filter(p=>
@@ -398,7 +379,6 @@ function SquadSelection() {
                 <span className={isMyTurn ? 'my-turn-name' : ''}> {currentPickerName}</span>
             </p>
 
-            {/* DRAFT BITTI ALANI - HOST BUTONU (YUKARI ALINDI) */}
             {isDraftFinished && isHost && (
                 <div className="start-tournament-wrapper top-placement">
                     <button className="start-tournament-button" onClick={handleStartTournament}>
@@ -408,15 +388,11 @@ function SquadSelection() {
             )}
 
 
-            {/* ==================================== */}
-            {/* ====== ANA İKİ SÜTUNLU DÜZEN ====== */}
-            {/* ==================================== */}
+
             <div className="main-content-layout">
 
-                {/* SOL SÜTUN: SAHA VE FORMASYON */}
                 <div className="field-column">
                     <div className="section-card formation-field-card">
-                        {/* DİZİLİŞ SEÇİMİ/GÖRÜNTÜLEME */}
                         <div className="formation-selection">
                             {visibleSquadId === myUserId ? (
                                 !formation ? (
@@ -435,7 +411,6 @@ function SquadSelection() {
                             )}
                         </div>
 
-                        {/* SAHA DÜZENİ */}
                         {currentFormationLayout ? (
                             <>
                                 <h3 className="section-title">Saha Düzeni</h3>
@@ -489,9 +464,7 @@ function SquadSelection() {
                     </div>
                 </div>
 
-                {/* SAĞ SÜTUN: KADRO LİSTESİ VE TABLAR */}
                 <div className="squad-column">
-                    {/* SEKME (TAB) SİSTEMİ */}
                     <div className="squad-tabs">
                         {allPlayersInRoom.map(p => (
                             <button
@@ -506,7 +479,6 @@ function SquadSelection() {
                         ))}
                     </div>
 
-                    {/* KADRO LİSTESİ */}
                     <div className="section-card my-squad-section squad-list-card">
                         <h3 className="section-title squad-list-title">
                             {visibleSquadId === myUserId ? 'Senin Kadron' : `${allPlayersInRoom.find(p => p.id === visibleSquadId)?.name}'in Kadrosu`}
@@ -530,7 +502,6 @@ function SquadSelection() {
             </div>
 
 
-            {/* OYUNCU SEÇİM MODALI (Değişmedi) */}
             {selectedSlot && (
                 <div className="player-selection-modal is-open">
                     <div className="modal-content">
@@ -569,7 +540,6 @@ function SquadSelection() {
                 </div>
             )}
 
-            {/* HOST BEKLEME MODALI (Değişmedi) */}
             {showHostWaitModal && (
                 <div className="host-wait-modal-overlay">
                     <div className="host-wait-modal-content">
@@ -587,7 +557,6 @@ function SquadSelection() {
                 </div>
             )}
 
-            {/* Draft Bitti Alanı - Rakip Mesajı (Altta kalan mesaj) */}
             {isDraftFinished && !isHost && !showHostWaitModal && (
                  <p className="waiting-message" style={{textAlign: 'center', margin: '20px'}}>Oda sahibi onayı bekleniyor...</p>
             )}
