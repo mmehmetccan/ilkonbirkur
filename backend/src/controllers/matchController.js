@@ -428,6 +428,8 @@ exports.getRecentMatches = async (req, res) => {
         const recentMatches = await MatchResult.find({ roomId: roomId })
             .sort({ playedAt: -1 })
             .limit(20)
+            .sort({ playedAt: -1 })
+            .limit(20) 
             .populate('teamA', 'username')
             .populate('teamB', 'username');
 
