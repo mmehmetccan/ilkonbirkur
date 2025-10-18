@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b806064-63ed-4ca2-8f7b-c4db132211ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/sitemap.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/googlee934748c19165a30.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/controllers/roomController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/roomController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/matchController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/matchController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/services/simulationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/services/simulationService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/googlee934748c19165a30 (1).html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/googlee934748c19165a30.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MatchResult.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MatchResult.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Room.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Room.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/SquadSelection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/SquadSelection.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,9 +36,9 @@
     "Python.main.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/PC/Desktop/Footbalsim/frontend/public",
+    "last_opened_file_path": "C:/Users/PC/Desktop/ilkonbirkur",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -47,6 +50,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PC\Desktop\ilkonbirkur" />
+      <recent name="C:\Users\PC\Desktop\ilkonbirkur\frontend" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\frontend\public" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src\data" />
     </key>
@@ -157,7 +162,9 @@
       <workItem from="1760549453799" duration="18224000" />
       <workItem from="1760573210731" duration="242000" />
       <workItem from="1760573643449" duration="7841000" />
-      <workItem from="1760613322950" duration="444000" />
+      <workItem from="1760613322950" duration="5122000" />
+      <workItem from="1760632426335" duration="4986000" />
+      <workItem from="1760828227586" duration="1126000" />
     </task>
     <servers />
   </component>

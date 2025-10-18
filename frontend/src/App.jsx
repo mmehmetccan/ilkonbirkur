@@ -65,7 +65,7 @@ function App() {
             </Link></div>
 
         <ul className="nav-links">
-          <li><Link to="/taktik-kurucu">Taktik Kurucu</Link></li>
+          <li><Link to="/">Taktik Kurucu</Link></li>
           <li><Link to="/ilk11kur">İlk 11 Oluşturucu</Link></li>
           <li><Link to="/squads">Paylaşılan Kadrolar</Link></li>
           <li><Link to="/hizli-mac">Hazır Takımlara Karşı Simülasyon</Link></li>
@@ -117,10 +117,9 @@ function App() {
 
         <ul className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
           {/* 1. Navigasyon Linkleri */}
-          <li><Link to="/taktik-kurucu" onClick={toggleMenu}>Ana Sayfa</Link></li>
+          <li><Link to="/" onClick={toggleMenu}>taktik-kurucu</Link></li>
           <li><Link to="/ilk11kur" onClick={toggleMenu}>İlk 11 Oluşturucu</Link></li>
-          <li><Link to="/hizli-mac">Hazır Takımlara Karşı Simülasyon</Link></li>
-
+          <li><Link to="/hizli-mac"onClick={toggleMenu}>Hazır Takımlara Karşı Simülasyon</Link></li>
           <li><Link to="/rooms" onClick={toggleMenu}>Online Draft Odaları</Link></li>
           <li><Link to="/dashboard" onClick={toggleMenu}>Son Maçlar</Link></li>
           <li><Link to="/squads" onClick={toggleMenu}>Paylaşılan Kadrolar</Link></li>

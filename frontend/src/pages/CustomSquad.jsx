@@ -116,6 +116,7 @@ function CustomSquad() {
         const categoryForFilter = getGeneralCategoryForFilter(specificPosition);
         setPositionFilter(categoryForFilter);
         setSelectedSlot({ generalPos, slotIndex, specificPosition });
+        setActiveTab("allPlayers"); // <-- EKLENEN SATIR
         setShowPlayerDrawer(true);
     };
     const handlePickAndAssign = (playerFromDb) => {
@@ -336,9 +337,14 @@ function CustomSquad() {
                                 onChange={(e) => setPlayerSearchTerm(e.target.value)}
                                 className="drawer-search-input"
                             />
-                             <div className="tabs">
-                                <button className={`tab-button ${activeTab === 'teamPlayers' ? 'active' : ''}`} onClick={() => setActiveTab("teamPlayers")} disabled={!selectedTeam}>{selectedTeam?.clubName || "Takım"}</button>
-                                <button className={`tab-button ${activeTab === 'allPlayers' ? 'active' : ''}`} onClick={() => setActiveTab("allPlayers")}>Tüm Oyuncular</button>
+                            <div className="tabs">
+                                <button className={`tab-button ${activeTab === 'allPlayers' ? 'active' : ''}`}
+                                        onClick={() => setActiveTab("allPlayers")}>Tüm Oyuncular
+                                </button>
+
+                                <button className={`tab-button ${activeTab === 'teamPlayers' ? 'active' : ''}`}
+                                        onClick={() => setActiveTab("teamPlayers")}
+                                        disabled={!selectedTeam}>{selectedTeam?.clubName || "Takım"}</button>
                             </div>
                             {activeTab === 'teamPlayers' && (
                                 <div className="position-filter-container">

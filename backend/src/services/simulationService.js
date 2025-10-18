@@ -52,10 +52,13 @@ function calculateGoalProbability(attacker, goalkeeper, teamPower, opponentPower
     const shotPower = Number(attacker?.skill_moves) || 65;
     const gkReflexes = Number(goalkeeper?.goalkeeping_reflexes) || 65;
     const gkPositioning = Number(goalkeeper?.goalkeeping_positioning) || 65;
+
     const playerAdvantage = ((finishing + composure + shotPower) / 3 - (gkReflexes + gkPositioning) / 2) / 300;
     let baseChance = 0.25 + playerAdvantage;
+
     const powerAdvantage = (teamPower - opponentPower) / 150;
     let finalChance = baseChance + powerAdvantage;
+
     return Math.max(0.05, Math.min(finalChance, 0.75));
 }
 
