@@ -4,6 +4,7 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import * as htmlToImage from 'html-to-image';
 import '../styles/CustomSquad.css';
 import { useNavigate, Link } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 const fieldPositions = { "4-3-3": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], MID: ["CM", "CM", "CM"], FWD: ["RW", "ST", "LW"] }, "3-5-2": { GK: ["GK"], DEF: ["CB", "CB", "CB"], MID: ["RWB", "CM", "CAM", "CM", "LWB"], FWD: ["ST", "CF"] }, "4-4-2": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], MID: ["RM", "CM", "CM", "LM"], FWD: ["ST", "ST"] }, "4-2-3-1": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], DCM: ["CDM", "CDM"], ACM: ["RM", "CAM", "LM"], FWD: ["ST"] }, "3-4-3": { GK: ["GK"], DEF: ["CB", "CB", "CB"], MID: ["RWB", "CM", "CM", "LWB"], FWD: ["RW", "ST", "LW"] }, "5-3-2": { GK: ["GK"], DEF: ["RWB", "CB", "CB", "CB", "LWB"], MID: ["CM", "CM", "CAM"], FWD: ["ST", "ST"] }, "4-5-1": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], MID: ["RM", "CM", "CDM", "CM", "LM"], FWD: ["ST"] }, "3-4-1-2": { GK: ["GK"], DEF: ["CB", "CB", "CB"], MID: ["RWB", "CM", "CM", "LWB"], ACM: ["CAM"], FWD: ["ST", "CF"] }, "4-3-1-2": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], MID: ["CM", "CDM", "CM"], ACM: ["CAM"], FWD: ["ST", "ST"] }, "4-2-2-2": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], DCM: ["CDM", "CDM"], ACM: ["CAM", "CAM"], FWD: ["ST", "ST"] }, "5-4-1": { GK: ["GK"], DEF: ["RWB", "CB", "CB", "CB", "LWB"], MID: ["RM", "CM", "CM", "LM"], FWD: ["ST"] } };
 const customFormationOrder = { "4-2-3-1": ["GK", "DEF", "DCM", "ACM", "FWD"] };
@@ -195,6 +196,9 @@ function CustomSquad() {
             link.download = fileName.replace(/ /g, '_');
             link.href = dataUrl;
             link.click();
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         } catch (err) {
             console.error('Resim indirme hatası:', err);
             alert("Resim indirilirken bir hata oluştu.");
@@ -265,7 +269,14 @@ function CustomSquad() {
     return (
         <div className="custom-squad">
             <div className="squad-builder-container">
-                <h1 className="page-title">İlk 11 Oluşturucu</h1>
+                <Helmet>
+                <title>İlk 11 Oluşturucu - Kendi Rüya Takımını Kur | ilkonbirkur.com</title>
+                <meta
+                    name="description"
+                    content="Hayalindeki ilk 11'i kur. Popüler takımlardan oyuncu seç, dizilişini (4-4-2, 4-3-3) belirle, kadronu PNG olarak indir veya başkalarıyla paylaş."
+                />
+            </Helmet>
+                <h1 className="page-title">İlk 11 Kur</h1>
                 <div className="main-content-wrapper">
                     <div className="field-area-wrapper" ref={fieldRef}>
                         <div className="field-container">

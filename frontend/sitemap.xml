@@ -10,7 +10,55 @@
 <url>
   <loc>https://ilkonbirkur.com/</loc>
   <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>1.00</priority>
 </url>
 
+  <url>
+  <loc>https://ilkonbirkur.com/ilk11kur</loc>
+  <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+  <url>
+  <loc>https://ilkonbirkur.com/hizli-mac</loc>
+  <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+
+  <url>
+  <loc>https://ilkonbirkur.com/squads</loc>
+  <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+  <url>
+  <loc>https://ilkonbirkur.com/rooms</loc>
+  <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+  <url>
+  <loc>https://ilkonbirkur.com/dashboard</loc>
+  <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+  <url>
+  <loc>https://ilkonbirkur.com/Contact</loc>
+  <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>0.50</priority>
+</url>
+
+
+  <url>
+  <loc>https://ilkonbirkur.com/login</loc>
+  <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+  <url>
+  <loc>https://ilkonbirkur.com/register</loc>
+  <lastmod>2025-10-16T11:39:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
 
 </urlset>

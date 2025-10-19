@@ -16,7 +16,9 @@
     "lucide-react": "^0.544.0",
     "nodemailer": "^7.0.6",
     "react-draggable": "^4.5.0",
+    "react-helmet-async": "^2.0.5",
     "react-tabs": "^6.1.0",
+    "sitemap": "^8.0.0",
     "uuid": "^11.1.0"
   },
   "overrides": {

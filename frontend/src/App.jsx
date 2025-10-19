@@ -119,10 +119,10 @@ function App() {
           {/* 1. Navigasyon Linkleri */}
           <li><Link to="/" onClick={toggleMenu}>taktik-kurucu</Link></li>
           <li><Link to="/ilk11kur" onClick={toggleMenu}>İlk 11 Oluşturucu</Link></li>
-          <li><Link to="/hizli-mac"onClick={toggleMenu}>Hazır Takımlara Karşı Simülasyon</Link></li>
+          <li><Link to="/squads" onClick={toggleMenu}>Paylaşılan Kadrolar</Link></li>
+          <li><Link to="/hizli-mac" onClick={toggleMenu}>Hazır Takımlara Karşı Simülasyon</Link></li>
           <li><Link to="/rooms" onClick={toggleMenu}>Online Draft Odaları</Link></li>
           <li><Link to="/dashboard" onClick={toggleMenu}>Son Maçlar</Link></li>
-          <li><Link to="/squads" onClick={toggleMenu}>Paylaşılan Kadrolar</Link></li>
 
           <div className="mobile-auth-buttons">
             {isLoggedIn ? (
@@ -156,7 +156,7 @@ function App() {
 
       <div className="container main-content">
         <Routes>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
           <Route path="/ilk11kur" element={<CustomSquad />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
@@ -173,8 +173,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/squads" element={<SharedSquadsFeed />} />
-                <Route path="/squads/:id" element={<SharedSquadDetail />} />
-                              <Route path="/hizli-mac" element={<SinglePlayerMatch />} /> {/* Bu satırı ekleyin */}
+          <Route path="/squads/:id" element={<SharedSquadDetail />} />
+          <Route path="/hizli-mac" element={<SinglePlayerMatch />} />
 
         </Routes>
       </div>

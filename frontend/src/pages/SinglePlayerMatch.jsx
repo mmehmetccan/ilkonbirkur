@@ -4,6 +4,7 @@ import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import io from "socket.io-client";
 import "../styles/SinglePlayerMatch.css";
+import { Helmet } from 'react-helmet-async';
 
 const socket = io(import.meta.env.VITE_API_URL);
 
@@ -256,7 +257,8 @@ const SinglePlayerMatch = () => {
 
     const renderTeamSelection = () => (
         <div className="spm-league-container">
-            <h1>Rakip Takım Seç</h1>
+            <h1>Hazır Takımlara Karşı Kendi İlk 11'ini Simüle et</h1>
+            <h2>Rakip Takım Seç:</h2>
             <input type="text" placeholder="Takım ara..." value={teamSearchTerm} onChange={(e) => setTeamSearchTerm(e.target.value)} className="spm-drawer-search-input" />
             {isLoading ? <div className="spm-loading-container">Takımlar yükleniyor...</div> : (
                 <>
@@ -440,6 +442,13 @@ const SinglePlayerMatch = () => {
 
     return (
         <div className="spm-container">
+            <Helmet>
+                <title>Tek Kişilik Maç - Kadro Kur & Simüle Et | ilkonbirkur.com</title>
+                <meta
+                    name="description"
+                    content="ilkonbirkur.com'un tek kişilik maç modunu deneyin. Avrupa'nın dev takımları arasından birini seçin, kendi rüya kadronuzu kurun ve anında canlı simülasyonu izleyin."
+                />
+            </Helmet>
             {gameState === "select_team" && renderTeamSelection()}
             {gameState === "build_squad" && renderSquadBuilder()}
             {gameState === "simulating" && renderLiveMatch()}

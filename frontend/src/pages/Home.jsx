@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/Home.css";
 import * as htmlToImage from 'html-to-image';
+import { Helmet } from 'react-helmet-async';
 
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const MOBILE_PITCH = { width: 350, height: 450, pad: 15 };
@@ -622,286 +623,308 @@ export default function Home() {
     );
 
   return (
-    <div
-      className="home-page"
-      onMouseMove={handlePointerMove}
-      onMouseUp={handlePointerUp}
-      onMouseLeave={handlePointerUp}
-       onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onTouchCancel={handleTouchEnd}
-    >
-      <h1>⚽ Taktik Kurucu ({currentFormation})</h1>
+      <div
+          className="home-page"
 
-      <div className="controls-row">
-        <div className="left-controls">
-          <button onClick={() => toggleTeamCount(false)} className={!use22 ? "active" : ""}>11 Oyuncu</button>
-          <button onClick={() => toggleTeamCount(true)} className={use22 ? "active" : ""}>22 Oyuncu</button>
-        </div>
-
-        <div className="center-controls">
-          <div className="formation-selector">
-            {Object.keys(formations).map(name => (
-              <button
-                key={name}
-                className={`secondary ${currentFormation === name ? "active" : ""}`}
-                onClick={() => applyFormation(name)}
-              >
-                {name}
-              </button>
-            ))}
-          </div>
-          <button onClick={resetFormation}>Dizilişi Sıfırla</button>
-        </div>
-
-        <div className="right-controls">
-          <button onClick={() => setTrailEnabled((s) => !s)}>{trailEnabled ? "İzi Kapat" : "İzi Aç"}</button>
-          <button onClick={clearTrails}>İzleri Sil</button>
-          <button onClick={toggleTeamColors}>Renkleri Değiştir</button>
-
-           {/* GÜNCELLENDİ: Butonlara ikonlar eklendi */}
-          <button onClick={downloadPitchAsPNG}>🖼️ Görüntüyü İndir</button>
-          <button
-            onClick={isDrawing ? stopDrawing : startDrawing}
-            className={isDrawing ? "drawing-active-btn" : "drawing-btn"}
-          >
-            {isDrawing ? "✏️ Kalemi Kapat" : "✏️ Kalemi Aç"}
-          </button>
-          {drawnLines.length > 0 && (
-            <button onClick={clearDrawings} className="secondary">Çizimleri Sil</button>
-          )}
-          {!isRecording ? (
-                <button onClick={startRecording} className="video-start-btn" disabled={isRecording}>🔴 Kaydı Başlat</button>
-            ) : (
-                <button onClick={stopRecording} className="video-stop-btn">⬛ Kaydı Durdur</button>
-            )}
-            <button
-                onClick={downloadVideo}
-                disabled={!recordedVideoURL || isRecording}
-                className="video-download-btn"
-            >
-                💾 Videoyu İndir
-            </button>
-        </div>
-      </div>
-
-      <div className="pitch" ref={pitchRef} style={{width: PITCH.width, height: PITCH.height}}
-        onMouseDown={(e) => isDrawing && handlePointerDown(e, 'drawing')}
-        onTouchStart={(e) => isDrawing && handleTouchStart(e, 'drawing')}
+          onMouseMove={handlePointerMove}
+          onMouseUp={handlePointerUp}
+          onMouseLeave={handlePointerUp}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchEnd}
       >
-        <svg className="field-svg" viewBox={`0 0 ${PITCH.width} ${PITCH.height}`} preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <linearGradient id="grassG" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#3aa14a"/>
-              <stop offset="100%" stopColor="#12722a"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width={PITCH.width} height={PITCH.height} fill="url(#grassG)" rx="18"/>
-          {isMobile ? MobilePitchMarkings : DesktopPitchMarkings}
-        </svg>
-
-        <svg className="trails-svg" viewBox={`0 0 ${PITCH.width} ${PITCH.height}`} preserveAspectRatio="xMidYMid meet">
-          {/* ... trail ve çizim SVG'leri aynı kalıyor ... */}
-           {players.map((pl) =>
-              pl.trail && pl.trail.length > 1 ? (
-                  <polyline
-                      key={`trail-${pl.id}`}
-                      points={pl.trail.map((pt) => `${pt.x},${pt.y}`).join(" ")}
-                      fill="none"
-                      stroke={teamColorsSwapped ? (pl.team === "A" ? "#ef4444" : "#2563eb") : (pl.team === "A" ? "#2563eb" : "#ef4444")}
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      opacity="0.9"
-                  />
-              ) : null
-          )}
-          {ball.trail && ball.trail.length > 1 ? (
-              <polyline
-                  key="ball-trail"
-                  points={ball.trail.map((pt) => `${pt.x},${pt.y}`).join(" ")}
-                  fill="none"
-                  stroke="#f3f4f6"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  opacity="0.9"
+          <Helmet>
+              <title>Ücretsiz Online Futbol Taktik Tahtası - ilkonbirkur.com</title>
+              <meta
+                  name="description"
+                  content="Futbol taktiklerinizi görselleştirin. Ücretsiz online taktik tahtası ile oyuncuları sürükleyin, dizilişleri (4-4-2, 4-3-3) deneyin, çizim yapın ve taktiklerinizi PNG/Video olarak kaydedin."
               />
-          ) : null}
-          {drawnLines.map(line => (
-              <polyline
-                  key={line.id}
-                  points={line.points.map(pt => `${pt.x},${pt.y}`).join(" ")}
-                  fill="none"
-                  stroke="#fef08a" /* Sarı/Beyaz bir renk seçildi */
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  opacity="0.9"
-              />
-          ))}
-          {currentLine && currentLine.length > 1 && (
-              <polyline
-                  points={currentLine.map(pt => `${pt.x},${pt.y}`).join(" ")}
-                  fill="none"
-                  stroke="#fef08a"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  opacity="0.9"
-              />
-          )}
-        </svg>
+          </Helmet>
 
-        <div
-           className="ball"
-            onMouseDown={(e) => isDrawing ? handlePointerDown(e, "drawing") : handlePointerDown(e, "ball")}
-            onTouchStart={(e) => isDrawing ? handleTouchStart(e, "drawing") : handleTouchStart(e, "ball")}
-            style={{
-              transform: `translate3d(${ball.x - ball.r}px, ${ball.y - ball.r}px, 0)`,
-              width: ball.r * 2,
-              height: ball.r * 2,
-              borderRadius: ball.r * 2,
-            }}
-            title="Top (sürükle)"
-        />
+          <h1>⚽ Taktik Kurucu ({currentFormation})</h1>
 
-        {players.map((p) => (
-            <div
-                key={p.id}
-                className={`player ${p.cards && p.cards.red ? 'sent-off' : ''} ${teamColorsSwapped ? (p.team === "A" ? "team-a" : "team-b") : (p.team === "A" ? "team-b" : "team-a")}`}
-                style={{
-                  transform: `translate3d(${p.x}px, ${p.y}px, 0)`,
-                  width: PLAYER_SIZE,
-                  height: PLAYER_SIZE,
-                  lineHeight: `${PLAYER_SIZE}px`,
-                }}
-                onMouseDown={(e) => isDrawing ? handlePointerDown(e, "drawing") : handlePointerDown(e, "player", p.id)}
-                onTouchStart={(e) => isDrawing ? handleTouchStart(e, "drawing", p.id) : handleTouchStart(e, "player", p.id)}
-                onDoubleClick={() => openEditModal(p.id)}
-                title={`${p.name} ${p.cards && p.cards.red ? '(Kırmızı Kart)' : p.cards && p.cards.yellow ? '(Sarı Kart)' : ''} ${p.goals > 0 ? `(${p.goals} Gol)` : ''}`}
-            >
-              <div className="player-label">
-                <div className="num">{p.name}</div>
-              </div>
-              <div className="player-status-icons">
-                {p.cards && p.cards.red && (
-                    <span className="icon red-card" title="Kırmızı Kart"></span>
-                )}
-                {p.cards && !p.cards.red && p.cards.yellow && (
-                    <span className="icon yellow-card" title="Sarı Kart"></span>
-                )}
-                {p.goals > 0 && (
-                    <span className="icon goal-icon" title={`${p.goals} Gol`}>⚽×{p.goals}</span>
-                )}
-              </div>
-            </div>
-        ))}
-      </div>
 
-       {/* ... Modal ve footer kısmı aynı kalıyor ... */}
-      {showModal && editingPlayer && (
-          <div className="modal-overlay" onMouseDown={() => { setShowModal(false); setEditingPlayer(null); }}>
-          <div className="modal" onMouseDown={(e) => e.stopPropagation()}>
-            <h3>Oyuncuyu Düzenle </h3>
-            <label>
-              Oyuncu İsim / Numara
-              <input
-                type="text"
-                value={editingPlayer.name}
-                onChange={(e) => setEditingPlayer((s) => ({ ...s, name: e.target.value }))}
-                placeholder="Örn: 9, Santrafor, M. Salah"
-              />
-            </label>
 
-            <div className="modal-controls-grid">
-
-              <div className="control-card">
-                <label>Sarı Kart</label>
-                <button
-                  onClick={() => setEditingPlayer(s => ({
-                    ...s,
-                    cards: {
-                      yellow: !s.cards.yellow,
-                      red: !s.cards.yellow ? false : s.cards.red
-                    }
-                  }))}
-                  className={`icon-button ${editingPlayer.cards.yellow && !editingPlayer.cards.red ? 'active-yellow' : 'secondary'}`}
-                  title={editingPlayer.cards.yellow && !editingPlayer.cards.red ? 'Sarı Kartı Kaldır' : 'Sarı Kart Ekle'}
-                >
-                  <span className="icon yellow-card-lg"></span>
-                </button>
+          <div className="controls-row">
+              <div className="left-controls">
+                  <button onClick={() => toggleTeamCount(false)} className={!use22 ? "active" : ""}>11 Oyuncu</button>
+                  <button onClick={() => toggleTeamCount(true)} className={use22 ? "active" : ""}>22 Oyuncu</button>
               </div>
 
-              <div className="control-card">
-                <label>Kırmızı Kart</label>
-                <button
-                  onClick={() => setEditingPlayer(s => ({
-                    ...s,
-                    cards: {
-                      red: !s.cards.red,
-                      yellow: false
-                    }
-                  }))}
-                  className={`icon-button ${editingPlayer.cards.red ? 'active-red' : 'secondary'}`}
-                  title={editingPlayer.cards.red ? 'Kırmızı Kartı Kaldır' : 'Kırmızı Kart Ekle'}
-                >
-                  <span className="icon red-card-lg"></span>
-                </button>
+              <div className="center-controls">
+                  <div className="formation-selector">
+                      {Object.keys(formations).map(name => (
+                          <button
+                              key={name}
+                              className={`secondary ${currentFormation === name ? "active" : ""}`}
+                              onClick={() => applyFormation(name)}
+                          >
+                              {name}
+                          </button>
+                      ))}
+                  </div>
+                  <button onClick={resetFormation}>Dizilişi Sıfırla</button>
               </div>
 
-              <div className="control-card">
-                <label>Gol Sayısı</label>
-                <div className="input-group goal-group">
+              <div className="right-controls">
+                  <button onClick={() => setTrailEnabled((s) => !s)}>{trailEnabled ? "İzi Kapat" : "İzi Aç"}</button>
+                  <button onClick={clearTrails}>İzleri Sil</button>
+                  <button onClick={toggleTeamColors}>Renkleri Değiştir</button>
+
+                  {/* GÜNCELLENDİ: Butonlara ikonlar eklendi */}
+                  <button onClick={downloadPitchAsPNG}>🖼️ Görüntüyü İndir</button>
                   <button
-                    onClick={() => setEditingPlayer(s => ({ ...s, goals: Math.max(0, s.goals - 1) }))}
-                    className="small secondary"
-                    title="Azalt"
+                      onClick={isDrawing ? stopDrawing : startDrawing}
+                      className={isDrawing ? "drawing-active-btn" : "drawing-btn"}
                   >
-                    -
+                      {isDrawing ? "✏️ Kalemi Kapat" : "✏️ Kalemi Aç"}
                   </button>
-                  <span className="card-count goal">{editingPlayer.goals}</span>
+                  {drawnLines.length > 0 && (
+                      <button onClick={clearDrawings} className="secondary">Çizimleri Sil</button>
+                  )}
+                  {!isRecording ? (
+                      <button onClick={startRecording} className="video-start-btn" disabled={isRecording}>🔴 Kaydı
+                          Başlat</button>
+                  ) : (
+                      <button onClick={stopRecording} className="video-stop-btn">⬛ Kaydı Durdur</button>
+                  )}
                   <button
-                    onClick={() => setEditingPlayer(s => ({ ...s, goals: s.goals + 1 }))}
-                    className="small secondary"
-                    title="Artır"
+                      onClick={downloadVideo}
+                      disabled={!recordedVideoURL || isRecording}
+                      className="video-download-btn"
                   >
-                    +
+                      💾 Videoyu İndir
                   </button>
-                </div>
               </div>
-            </div>
-
-            <div className="modal-actions">
-              <button className="btn secondary" onClick={() => { setShowModal(false); setEditingPlayer(null); }}>İptal</button>
-              <button className="btn primary" onClick={saveModal}>Kaydet</button>
-            </div>
           </div>
-        </div>
-      )}
-      {recordedVideoURL && (
-            <div className="modal-overlay" onMouseDown={() => setRecordedVideoURL(null)}>
-                <div className="modal" style={{ maxWidth: '90%', }}>
-                    <h3>Video Önizleme</h3>
-                    <video controls src={recordedVideoURL} style={{ width: '100%', borderRadius: '10px' }}></video>
-                    <div className="modal-actions">
-                        <button className="btn secondary" onClick={() => setRecordedVideoURL(null)}>Kapat</button>
-                        <button
-                            onClick={downloadVideo}
-                            onMouseDown={(e) => e.stopPropagation()}
-                            disabled={!recordedVideoURL || isRecording}
-                            className="video-download-btn"
-                        >
-                            💾 Videoyu İndir
-                        </button>
-                    </div>
-                </div>
-            </div>
-      )}
 
-      <footer className="footer-note">
-        {isMobile ? "Oyuncuyu düzenlemek için çift dokunun." : "Oyuncuyu düzenlemek için çift tıklayın."} Saha dışına çıkma engeli açık.
-      </footer>
-    </div>
+          <div className="pitch" ref={pitchRef} style={{width: PITCH.width, height: PITCH.height}}
+               onMouseDown={(e) => isDrawing && handlePointerDown(e, 'drawing')}
+               onTouchStart={(e) => isDrawing && handleTouchStart(e, 'drawing')}
+          >
+              <svg className="field-svg" viewBox={`0 0 ${PITCH.width} ${PITCH.height}`}
+                   preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                      <linearGradient id="grassG" x1="0" x2="0" y1="0" y2="1">
+                          <stop offset="0%" stopColor="#3aa14a"/>
+                          <stop offset="100%" stopColor="#12722a"/>
+                      </linearGradient>
+                  </defs>
+                  <rect x="0" y="0" width={PITCH.width} height={PITCH.height} fill="url(#grassG)" rx="18"/>
+                  {isMobile ? MobilePitchMarkings : DesktopPitchMarkings}
+              </svg>
+
+              <svg className="trails-svg" viewBox={`0 0 ${PITCH.width} ${PITCH.height}`}
+                   preserveAspectRatio="xMidYMid meet">
+                  {/* ... trail ve çizim SVG'leri aynı kalıyor ... */}
+                  {players.map((pl) =>
+                      pl.trail && pl.trail.length > 1 ? (
+                          <polyline
+                              key={`trail-${pl.id}`}
+                              points={pl.trail.map((pt) => `${pt.x},${pt.y}`).join(" ")}
+                              fill="none"
+                              stroke={teamColorsSwapped ? (pl.team === "A" ? "#ef4444" : "#2563eb") : (pl.team === "A" ? "#2563eb" : "#ef4444")}
+                              strokeWidth="4"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              opacity="0.9"
+                          />
+                      ) : null
+                  )}
+                  {ball.trail && ball.trail.length > 1 ? (
+                      <polyline
+                          key="ball-trail"
+                          points={ball.trail.map((pt) => `${pt.x},${pt.y}`).join(" ")}
+                          fill="none"
+                          stroke="#f3f4f6"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          opacity="0.9"
+                      />
+                  ) : null}
+                  {drawnLines.map(line => (
+                      <polyline
+                          key={line.id}
+                          points={line.points.map(pt => `${pt.x},${pt.y}`).join(" ")}
+                          fill="none"
+                          stroke="#fef08a" /* Sarı/Beyaz bir renk seçildi */
+                          strokeWidth="6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          opacity="0.9"
+                      />
+                  ))}
+                  {currentLine && currentLine.length > 1 && (
+                      <polyline
+                          points={currentLine.map(pt => `${pt.x},${pt.y}`).join(" ")}
+                          fill="none"
+                          stroke="#fef08a"
+                          strokeWidth="6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          opacity="0.9"
+                      />
+                  )}
+              </svg>
+
+              <div
+                  className="ball"
+                  onMouseDown={(e) => isDrawing ? handlePointerDown(e, "drawing") : handlePointerDown(e, "ball")}
+                  onTouchStart={(e) => isDrawing ? handleTouchStart(e, "drawing") : handleTouchStart(e, "ball")}
+                  style={{
+                      transform: `translate3d(${ball.x - ball.r}px, ${ball.y - ball.r}px, 0)`,
+                      width: ball.r * 2,
+                      height: ball.r * 2,
+                      borderRadius: ball.r * 2,
+                  }}
+                  title="Top (sürükle)"
+              />
+
+              {players.map((p) => (
+                  <div
+                      key={p.id}
+                      className={`player ${p.cards && p.cards.red ? 'sent-off' : ''} ${teamColorsSwapped ? (p.team === "A" ? "team-a" : "team-b") : (p.team === "A" ? "team-b" : "team-a")}`}
+                      style={{
+                          transform: `translate3d(${p.x}px, ${p.y}px, 0)`,
+                          width: PLAYER_SIZE,
+                          height: PLAYER_SIZE,
+                          lineHeight: `${PLAYER_SIZE}px`,
+                      }}
+                      onMouseDown={(e) => isDrawing ? handlePointerDown(e, "drawing") : handlePointerDown(e, "player", p.id)}
+                      onTouchStart={(e) => isDrawing ? handleTouchStart(e, "drawing", p.id) : handleTouchStart(e, "player", p.id)}
+                      onDoubleClick={() => openEditModal(p.id)}
+                      title={`${p.name} ${p.cards && p.cards.red ? '(Kırmızı Kart)' : p.cards && p.cards.yellow ? '(Sarı Kart)' : ''} ${p.goals > 0 ? `(${p.goals} Gol)` : ''}`}
+                  >
+                      <div className="player-label">
+                          <div className="num">{p.name}</div>
+                      </div>
+                      <div className="player-status-icons">
+                          {p.cards && p.cards.red && (
+                              <span className="icon red-card" title="Kırmızı Kart"></span>
+                          )}
+                          {p.cards && !p.cards.red && p.cards.yellow && (
+                              <span className="icon yellow-card" title="Sarı Kart"></span>
+                          )}
+                          {p.goals > 0 && (
+                              <span className="icon goal-icon" title={`${p.goals} Gol`}>⚽×{p.goals}</span>
+                          )}
+                      </div>
+                  </div>
+              ))}
+          </div>
+
+          {/* ... Modal ve footer kısmı aynı kalıyor ... */}
+          {showModal && editingPlayer && (
+              <div className="modal-overlay" onMouseDown={() => {
+                  setShowModal(false);
+                  setEditingPlayer(null);
+              }}>
+                  <div className="modal" onMouseDown={(e) => e.stopPropagation()}>
+                      <h3>Oyuncuyu Düzenle </h3>
+                      <label>
+                          Oyuncu İsim / Numara
+                          <input
+                              type="text"
+                              value={editingPlayer.name}
+                              onChange={(e) => setEditingPlayer((s) => ({...s, name: e.target.value}))}
+                              placeholder="Örn: 9, Santrafor, M. Salah"
+                          />
+                      </label>
+
+                      <div className="modal-controls-grid">
+
+                          <div className="control-card">
+                              <label>Sarı Kart</label>
+                              <button
+                                  onClick={() => setEditingPlayer(s => ({
+                                      ...s,
+                                      cards: {
+                                          yellow: !s.cards.yellow,
+                                          red: !s.cards.yellow ? false : s.cards.red
+                                      }
+                                  }))}
+                                  className={`icon-button ${editingPlayer.cards.yellow && !editingPlayer.cards.red ? 'active-yellow' : 'secondary'}`}
+                                  title={editingPlayer.cards.yellow && !editingPlayer.cards.red ? 'Sarı Kartı Kaldır' : 'Sarı Kart Ekle'}
+                              >
+                                  <span className="icon yellow-card-lg"></span>
+                              </button>
+                          </div>
+
+                          <div className="control-card">
+                              <label>Kırmızı Kart</label>
+                              <button
+                                  onClick={() => setEditingPlayer(s => ({
+                                      ...s,
+                                      cards: {
+                                          red: !s.cards.red,
+                                          yellow: false
+                                      }
+                                  }))}
+                                  className={`icon-button ${editingPlayer.cards.red ? 'active-red' : 'secondary'}`}
+                                  title={editingPlayer.cards.red ? 'Kırmızı Kartı Kaldır' : 'Kırmızı Kart Ekle'}
+                              >
+                                  <span className="icon red-card-lg"></span>
+                              </button>
+                          </div>
+
+                          <div className="control-card">
+                              <label>Gol Sayısı</label>
+                              <div className="input-group goal-group">
+                                  <button
+                                      onClick={() => setEditingPlayer(s => ({...s, goals: Math.max(0, s.goals - 1)}))}
+                                      className="small secondary"
+                                      title="Azalt"
+                                  >
+                                      -
+                                  </button>
+                                  <span className="card-count goal">{editingPlayer.goals}</span>
+                                  <button
+                                      onClick={() => setEditingPlayer(s => ({...s, goals: s.goals + 1}))}
+                                      className="small secondary"
+                                      title="Artır"
+                                  >
+                                      +
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div className="modal-actions">
+                          <button className="btn secondary" onClick={() => {
+                              setShowModal(false);
+                              setEditingPlayer(null);
+                          }}>İptal
+                          </button>
+                          <button className="btn primary" onClick={saveModal}>Kaydet</button>
+                      </div>
+                  </div>
+              </div>
+          )}
+          {recordedVideoURL && (
+              <div className="modal-overlay" onMouseDown={() => setRecordedVideoURL(null)}>
+                  <div className="modal" style={{maxWidth: '90%',}}>
+                      <h3>Video Önizleme</h3>
+                      <video controls src={recordedVideoURL} style={{width: '100%', borderRadius: '10px'}}></video>
+                      <div className="modal-actions">
+                          <button className="btn secondary" onClick={() => setRecordedVideoURL(null)}>Kapat</button>
+                          <button
+                              onClick={downloadVideo}
+                              onMouseDown={(e) => e.stopPropagation()}
+                              disabled={!recordedVideoURL || isRecording}
+                              className="video-download-btn"
+                          >
+                              💾 Videoyu İndir
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          )}
+
+          <footer className="footer-note">
+              {isMobile ? "Oyuncuyu düzenlemek için çift dokunun." : "Oyuncuyu düzenlemek için çift tıklayın."} Saha
+              dışına çıkma engeli açık.
+          </footer>
+      </div>
   );
 }

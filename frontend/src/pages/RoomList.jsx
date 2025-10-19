@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { Home, Users, Lock, PlusCircle, Search, LogIn, KeyRound } from 'lucide-react';
-
+import { Helmet } from 'react-helmet-async';
 import '../styles/RoomList.css';
 
 function RoomList() {
@@ -105,7 +105,17 @@ function RoomList() {
         .filter(room => room.roomName.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
+
         <div className="room-list-container">
+            <h1>Arkadaşlarınla Kendi İlk 11'ini Oluştur ve Bunu Turnuvaya Çevir</h1>
+
+            <Helmet>
+                <title>Aktif Oyun Odaları - ilkonbirkur.com</title>
+                <meta
+                    name="description"
+                    content="Arkadaşlarınızla veya diğer oyuncularla buluşun. ilkonbirkur.com'daki aktif futbol menajerlik odalarını listeleyin, şifreli odalara katılın veya kendi odanızı oluşturun."
+                />
+            </Helmet>
             <h1 className="main-title">Oda Listesi</h1>
 
             <div className="room-controls">
