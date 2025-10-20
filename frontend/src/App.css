@@ -104,7 +104,7 @@
 .profile-section {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     position: relative;
     /* profile-section'ın flex özelliği bozulmasın diye */
     min-width: 100px;
@@ -191,7 +191,7 @@
 /* ========================================= */
 .auth-buttons {
     display: flex;
-    gap: 10px;
+    gap: 6px;
 }
 
 /* login-btn ve register-btn stilleri... */

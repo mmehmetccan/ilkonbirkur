@@ -12,7 +12,16 @@
   --modal-bg: #1c2331; /* Modal için koyu, şık bir arka plan */
   --border-color: rgba(255,255,255,0.12);
 }
-
+.footer-note {
+  font-size: 14px;
+  color: #e6fdf0; /* Daha parlak, silik olmayan renk */
+  margin-top: 0; /* Üst marjı sıfırla */
+  margin-bottom: 12px; /* Saha ile arasına boşluk koy */
+  text-align: center; /* Ortala */
+  font-weight: 500; /* Biraz daha kalın */
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5); /* Okunabilirlik için gölge */
+  width: 100%;
+}
 /* Global reset'ler sadece bu sayfada etkili olsun */
 .home-page * { box-sizing: border-box; }
 .home-page {
@@ -479,11 +488,7 @@
     border-bottom: none;
 }
 .modal .btn.secondary:hover { transform: none; background: #4b5563; }
-.footer-note {
-  font-size: 13px;
-  color: rgba(255,255,255,0.72);
-  margin-top: 6px;
-}
+
 
 /* ======================================= */
 /* ====== RESPONSIVE TASARIM ====== */

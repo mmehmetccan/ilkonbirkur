@@ -634,7 +634,7 @@ export default function Home() {
           onTouchCancel={handleTouchEnd}
       >
           <Helmet>
-              <title>Ücretsiz Online Futbol Taktik Tahtası - ilkonbirkur.com</title>
+              <title>İlk11Kur - Online İlk 11 Kurma ve Maç Simülasyonu- ilkonbirkur.com</title>
               <meta
                   name="description"
                   content="Futbol taktiklerinizi görselleştirin. Ücretsiz online taktik tahtası ile oyuncuları sürükleyin, dizilişleri (4-4-2, 4-3-3) deneyin, çizim yapın ve taktiklerinizi PNG/Video olarak kaydedin."
@@ -642,7 +642,6 @@ export default function Home() {
           </Helmet>
 
           <h1>⚽ Taktik Kurucu ({currentFormation})</h1>
-
 
 
           <div className="controls-row">
@@ -697,6 +696,10 @@ export default function Home() {
                   </button>
               </div>
           </div>
+          <p className="footer-note">
+              {isMobile ? "Oyuncuyu düzenlemek için çift dokunun." : "Oyuncuyu düzenlemek için çift tıklayın."}
+
+          </p>
 
           <div className="pitch" ref={pitchRef} style={{width: PITCH.width, height: PITCH.height}}
                onMouseDown={(e) => isDrawing && handlePointerDown(e, 'drawing')}
@@ -921,10 +924,7 @@ export default function Home() {
               </div>
           )}
 
-          <footer className="footer-note">
-              {isMobile ? "Oyuncuyu düzenlemek için çift dokunun." : "Oyuncuyu düzenlemek için çift tıklayın."} Saha
-              dışına çıkma engeli açık.
-          </footer>
+
       </div>
   );
 }

@@ -135,9 +135,40 @@ function CustomSquad() {
             return [...newSquad, newPlayerForSquad];
         });
         closeDrawer();
+
+        try {
+            axios.post(`${import.meta.env.VITE_API_URL}/api/stats/increment-assignment`);
+        } catch (statError) {
+            console.error("Oyuncu atama istatistiği gönderilemedi:", statError);
+        }
     };
     const onDragEnd = (result) => { if (!result.destination) return; const { draggableId, destination } = result; setMySquad(prevSquad => { const playerToMove = prevSquad.find(p => p.player_id.toString() === draggableId); if (!playerToMove) return prevSquad; let newSquad = prevSquad.filter(p => p.player_id.toString() !== draggableId); const prevOccupant = newSquad.find(p => p.assignedPosition === destination.droppableId); if (prevOccupant) { prevOccupant.assignedPosition = null; } playerToMove.assignedPosition = destination.droppableId; newSquad.push(playerToMove); return newSquad.filter(p => p.assignedPosition !== null && p.assignedPosition !== undefined); }); };
-    const handleManualEntry = () => { if (!playerSearchTerm || !selectedSlot) return; const assignedPositionKey = `${selectedSlot.generalPos}-${selectedSlot.slotIndex}`; const manualPlayer = { player_id: `manual-${Date.now()}`, player_name: playerSearchTerm, player_image_url: null, club_name: selectedTeam ? selectedTeam.clubName : "Serbest Oyuncu", position: fieldPositions[formation][selectedSlot.generalPos][selectedSlot.slotIndex], assignedPosition: assignedPositionKey, }; setMySquad((prevSquad) => { const slotOccupantIndex = prevSquad.findIndex(p => p.assignedPosition === assignedPositionKey); let newSquad = [...prevSquad]; if (slotOccupantIndex > -1) { newSquad.splice(slotOccupantIndex, 1); } return [...newSquad, manualPlayer]; }); closeDrawer(); };
+    const handleManualEntry = () => { if (!playerSearchTerm || !selectedSlot)
+        return;
+        const assignedPositionKey = `${selectedSlot.generalPos}-${selectedSlot.slotIndex}`;
+        const manualPlayer = {
+            player_id: `manual-${Date.now()}`,
+            player_name: playerSearchTerm,
+            player_image_url: null,
+            club_name: selectedTeam ? selectedTeam.clubName : "Serbest Oyuncu",
+            position: fieldPositions[formation][selectedSlot.generalPos][selectedSlot.slotIndex],
+            assignedPosition: assignedPositionKey,
+        };
+        setMySquad((prevSquad) => {
+            const slotOccupantIndex = prevSquad.findIndex(p => p.assignedPosition === assignedPositionKey);
+            let newSquad = [...prevSquad];
+            if (slotOccupantIndex > -1) { newSquad.splice(slotOccupantIndex, 1);
+            }
+            return [...newSquad, manualPlayer];
+        });
+        closeDrawer();
+        try {
+            axios.post(`${import.meta.env.VITE_API_URL}/api/stats/increment-assignment`);
+        } catch (statError) {
+            console.error("Oyuncu atama istatistiği gönderilemedi:", statError);
+        }
+    };
+
     const handleRemovePlayer = (slotKey) => { setMySquad(mySquad.filter(p => p.assignedPosition !== slotKey)); };
     const closeDrawer = () => { setShowPlayerDrawer(false); setPlayerSearchTerm(""); setPositionFilter("All"); };
 
@@ -270,10 +301,10 @@ function CustomSquad() {
         <div className="custom-squad">
             <div className="squad-builder-container">
                 <Helmet>
-                <title>İlk 11 Oluşturucu - Kendi Rüya Takımını Kur | ilkonbirkur.com</title>
+                <title>Kadro Kur - İlk 11 kur | ilkonbirkur.com</title>
                 <meta
                     name="description"
-                    content="Hayalindeki ilk 11'i kur. Popüler takımlardan oyuncu seç, dizilişini (4-4-2, 4-3-3) belirle, kadronu PNG olarak indir veya başkalarıyla paylaş."
+                    content="Hayalindeki ilk 11'i kur. Kadro Kur Popüler takımlardan oyuncu seç, dizilişini (4-4-2, 4-3-3) belirle, kadronu PNG olarak indir veya başkalarıyla paylaş."
                 />
             </Helmet>
                 <h1 className="page-title">İlk 11 Kur</h1>

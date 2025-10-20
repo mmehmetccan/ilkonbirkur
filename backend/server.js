@@ -23,7 +23,7 @@ const io = new Server(server, {
         ],
         methods: ["GET", "POST"],
         credentials: true,
-        transports: ['websocket', 'polling'] // Fallback ekleyin
+        transports: ['websocket', 'polling']
     },
     pingTimeout: 60000,
     pingInterval: 25000
@@ -53,9 +53,9 @@ const roomRoutes = require('./src/routes/roomRoutes');
 const playerRoutes = require('./src/routes/playerRoutes');
 const contactRoutes = require('./src/routes/contactRoutes');
 const squadBuilderRoutes = require('./src/routes/squadBuilderRoutes');
-const sharedSquadRoutes = require('./src/routes/sharedSquadRoutes'); // Bu satırı ekleyin
-const singlePlayerRoutes = require('./src/routes/singlePlayerRoutes'); // Bu satırı ekleyin
-
+const sharedSquadRoutes = require('./src/routes/sharedSquadRoutes');
+const singlePlayerRoutes = require('./src/routes/singlePlayerRoutes');
+const statsRoutes = require('./src/routes/statsRoutes');
 const pickPlayerRoutes = require('./src/routes/pickPlayerRoutes');
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -68,9 +68,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/match', matchRoutes);
 app.use('/api/rooms', roomRoutes);
 app.use('/api/squad-builder', squadBuilderRoutes);
-app.use('/api/shared-squads', sharedSquadRoutes); // Bu satırı ekleyin
-app.use('/api/single-player', singlePlayerRoutes); // Bu satırı ekleyin
-
+app.use('/api/shared-squads', sharedSquadRoutes);
+app.use('/api/single-player', singlePlayerRoutes);
+app.use('/api/stats', statsRoutes);
 
 io.on('connection', (socket) => {
     console.log(`Yeni bir kullanıcı bağlandı: ${socket.id}`);

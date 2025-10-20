@@ -2,7 +2,7 @@
 
 const { runLiveSimulation } = require('../services/simulationService');
 const playersData = require('../data/players.json');
-
+const AppStat = require('../models/appStatModel');
 const getGeneralPosition = (player) => {
     if (!player || !player.player_positions) return 'MID';
     const pos = player.player_positions;
@@ -102,6 +102,16 @@ exports.simulateSinglePlayerMatch = async (req, res) => {
         opponentRoster.sort((a, b) => b.overall - a.overall);
         const opponentSquad = opponentRoster.slice(0, 11);
 
+        try {
+            await AppStat.findOneAndUpdate(
+                { name: 'global_stats' },
+                { $inc: { totalSimulations: 1 } },
+                { upsert: true, new: true, setDefaultsOnInsert: true }
+            );
+            console.log("Simülasyon sayacı MongoDB'de güncellendi.");
+        } catch (statError) {
+            console.error("MongoDB istatistik (simülasyon) güncelleme hatası:", statError);
+        }
 
         runLiveSimulation(mySquad, opponentSquad, io, socketId);
         res.status(200).json({ message: "Simülasyon başarıyla başlatıldı." });

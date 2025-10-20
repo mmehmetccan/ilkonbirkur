@@ -1,184 +1,193 @@
-/* frontend/src/styles/Auth.css */
-
-/* Genel Konteyner ve İki Sütunlu Düzen */
-.auth-page-wrapper {
-    display: flex; /* Flexbox ile iki sütun oluştur */
-    min-height: 90vh;
-    background-color: #f0f2f5; /* Hafif gri arka plan */
-    font-family: 'Roboto', sans-serif;
+/* =============== GENEL SAYFA =============== */
+.login-page-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top left, #0f172a, #1e293b);
+  font-family: "Poppins", sans-serif;
+  color: #f8fafc;
+  padding: 20px;
 }
 
-/* Sol Sütun: Resim Alanı */
-.auth-image-side {
-    flex: 1; /* Sol sütun genişliği kaplar */
-    background: url('../../public/edit3.png') center/cover no-repeat; /* KENDİ RESİM DOSYA YOLUNUZU BURAYA YAZIN */
-    position: relative;
-    /* Resmin üzerine hafif bir karartma/kaplama */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-/* Opsiyonel: Resim üzerine başlık/logo eklemek için */
-.auth-image-side::before {
-    content: ""; /* Marka adı veya slogan */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 3.5em;
-    font-weight: 900;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
-    z-index: 10;
+/* =============== KART =============== */
+.login-card {
+  display: flex;
+  flex-direction: row;
+  background: rgba(30, 41, 59, 0.85);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  width: 900px;
+  max-width: 95%;
+  backdrop-filter: blur(8px);
 }
 
+/* SOL TARAF - FORM */
+.login-left {
+  flex: 1;
+  padding: 40px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-/* Sağ Sütun: Form Alanı */
-.auth-form-side {
-    flex: 0 0 560px; /* Form alanını sabit 450px genişlikte tutar */
-    display: flex;
+.login-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-left h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #e2e8f0;
+}
+
+.login-form .form-group {
+  margin-bottom: 18px;
+}
+
+.login-form label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: #cbd5e1;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+.login-form input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+}
+
+.login-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s;
+}
+
+.login-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Mesajlar */
+.login-message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.login-message.success {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.login-message.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+/* Linkler */
+.login-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.login-links a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+/* =============== SAĞ TARAF - VİDEO ALANI =============== */
+.login-right {
+  flex: 0.8;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border-left: 1px solid #1e293b;
+}
+
+.video-wrapper {
+  width: 380px;
+  height: 260px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  margin-bottom: 10px;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-caption {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  text-align: center;
+}
+
+/* =============== RESPONSIVE =============== */
+@media (max-width: 768px) {
+  .login-card {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    background-color: white; /* Form kartının arka plan rengi */
-}
+    width: 95%;
+  }
 
+  .login-left {
+    padding: 30px 25px;
+  }
 
-/* Form Kartı Stili */
-.auth-container { /* Formu çevreleyen kart */
-    width: 100%;
-    max-width: 400px;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    background: #ffffff; /* Beyaz kart */
-}
+  .login-right {
+    padding: 20px;
+    border-left: none;
+    border-top: 1px solid #1e293b;
+  }
 
-.auth-container h2 {
-    font-size: 2em;
-    margin-bottom: 25px;
-    color: #2c3e50;
-    font-weight: 700;
-    text-align: center;
-}
-.auth-container .message {
-    padding: 10px;
-    margin-top: 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-    border: 1px solid transparent; /* Sınır için yer açar */
-}
-.auth-container .message-success {
-    color: #0f5132; /* Koyu yeşil metin */
-    background-color: #d1e7dd; /* Açık yeşil arka plan */
-    border-color: #badbcc; /* Sınır rengi */
-}
-
-/* BAŞARISIZ MESAJ: KIRMIZI */
-.auth-container .message-error {
-    color: #842029; /* Koyu kırmızı metin */
-    background-color: #f8d7da; /* Açık kırmızı arka plan */
-    border-color: #f5c2c7; /* Sınır rengi */
-}
-/* Form Grupları */
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: #34495e;
-    font-size: 0.95em;
-}
-
-/* İsteğe Bağlı Alan Notu */
-.optional-note {
-    font-size: 0.85em;
-    color: #95a5a6;
-    font-weight: 400;
-    margin-left: 10px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #bdc3c7;
-    border-radius: 6px;
-    background: #ecf0f1;
-    color: #2c3e50;
-    font-size: 1em;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    box-sizing: border-box;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3); /* Mavi vurgu */
-}
-
-/* Buton Stili */
-.auth-container button[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    background-color: #2ecc71;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-    margin-top: 15px;
-}
-
-.auth-container button[type="submit"]:hover {
-    background-color: #27ae60;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Mesaj Alanı */
-.message {
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 6px;
-    font-weight: 500;
-    background: #e74c3c;
-    color: white;
-    text-align: center;
-}
-
-/* Link Stilleri (Şifremi Unuttum vb.) */
-.auth-container p {
-    margin-top: 15px;
-    font-size: 0.9em;
-    color: #7f8c8d;
-    text-align: center;
-}
-
-.auth-container p a {
-    color: #3498db;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.auth-container p a:hover {
-    color: #2980b9;
-    text-decoration: underline;
-}
-
-
-/* Mobil Uyumlu Tasarım */
-@media (max-width: 900px) {
-    .auth-image-side {
-        display: none; /* Küçük ekranlarda resmi gizle */
-    }
-    .auth-form-side {
-        flex: 1; /* Form alanının tüm genişliği kaplamasını sağla */
-        padding: 20px;
-    }
+  .video-wrapper {
+    width: 220px;
+    height: 120px;
+  }
 }
