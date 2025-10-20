@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b806064-63ed-4ca2-8f7b-c4db132211ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/public/Stadium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/Stadium2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/stadium_frame.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/sitemap.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/RoomList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RoomList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/SinglePlayerMatch.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/SinglePlayerMatch.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/styles/CustomSquad.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/CustomSquad.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +34,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/PC/Desktop/ilkonbirkur&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/PC/Desktop/ilkonbirkur/frontend/public&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -54,14 +46,15 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PC\Desktop\ilkonbirkur\frontend\public" />
       <recent name="C:\Users\PC\Desktop\ilkonbirkur" />
       <recent name="C:\Users\PC\Desktop\ilkonbirkur\frontend" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\frontend\public" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\PC\Desktop\ilkonbirkur\frontend" />
       <recent name="C:\Users\PC\Desktop\ilkonbirkur\frontend\public" />
+      <recent name="C:\Users\PC\Desktop\ilkonbirkur\frontend" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\frontend\public" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\backend\src\data" />
       <recent name="C:\Users\PC\Desktop\Footbalsim\backend" />
@@ -169,7 +162,9 @@
       <workItem from="1760613322950" duration="5122000" />
       <workItem from="1760632426335" duration="4986000" />
       <workItem from="1760828227586" duration="1770000" />
-      <workItem from="1760874447869" duration="8451000" />
+      <workItem from="1760874447869" duration="9220000" />
+      <workItem from="1760911964406" duration="3247000" />
+      <workItem from="1760977684655" duration="99000" />
     </task>
     <servers />
   </component>
