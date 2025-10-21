@@ -148,13 +148,8 @@ function Register() {
         {/* SAĞ TARAF - VİDEO */}
         <div className="login-right">
           <div className="video-wrapper">
-            <video
-              src="../../public/videos/video1.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
+            <video src="/videos/video1.mp4" autoPlay loop muted playsInline/>
+
           </div>
           <p className="video-caption">
             Kayıt ol, kendi 11’ini kur ve oyuna hemen başla!

@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b806064-63ed-4ca2-8f7b-c4db132211ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/video3.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/video1.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/videos/video1.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ForgotPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ForgotPassword.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ResetPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ResetPassword.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +163,7 @@
       <workItem from="1760911964406" duration="3247000" />
       <workItem from="1760977684655" duration="531000" />
       <workItem from="1760996801390" duration="6819000" />
-      <workItem from="1761050647986" duration="1728000" />
+      <workItem from="1761050647986" duration="2044000" />
     </task>
     <servers />
   </component>
