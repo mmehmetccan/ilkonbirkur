@@ -71,6 +71,7 @@ const SinglePlayerMatch = () => {
         teamA: { possession: 50, shots: 0, shotsOnTarget: 0, fouls: 0, corners: 0, saves: 0 },
         teamB: { possession: 50, shots: 0, shotsOnTarget: 0, fouls: 0, corners: 0, saves: 0 }
     });
+    // DEĞİŞİKLİK: Artık state metin değil, obje tutacak
     const [liveCommentary, setLiveCommentary] = useState([]);
 
     const [allPlayersResult, setAllPlayersResult] = useState({ players: [], currentPage: 1, totalPages: 1 });
@@ -92,34 +93,44 @@ const SinglePlayerMatch = () => {
         socket.on("connect", () => console.log("Socket bağlandı:", socket.id));
         socket.on("disconnect", () => console.log("Socket bağlantısı kesildi"));
 
+        // =================================================================
+        // DEĞİŞİKLİK BURADA: Socket dinleyicisi obje olarak kaydediyor
+        // =================================================================
         socket.on("matchEvent", (event, score, stats, minute) => {
             if (score) setLiveScore(score);
             if (stats) setLiveStats(stats);
             if (minute) setCurrentMinute(minute);
 
+            let entry = null; // Kaydedilecek obje
             let msg = "";
+
             switch (event.type) {
                 case "start":
-                    setLiveCommentary(prev => [event.message, ...prev]);
+                    entry = { id: Date.now(), text: event.message, type: "start" };
                     break;
                 case "goal":
                     msg = `⚽ GOLLL! ${event.team} - ${event.scorer}`;
-                    setLiveCommentary(prev => [`${minute}' - ${msg}`, ...prev]);
+                    entry = { id: Date.now(), text: `${minute}' - ${msg}`, type: "goal" };
                     break;
                 case "save":
                     msg = `🧤 Harika kurtarış! Kaleci ${event.player} gole izin vermedi.`;
-                    setLiveCommentary(prev => [`${minute}' - ${msg}`, ...prev]);
+                    entry = { id: Date.now(), text: `${minute}' - ${msg}`, type: "save" };
                     break;
                 case "miss":
                     msg = `⬆️ ${event.team}: ${event.player} topu dışarı yolladı.`;
-                    setLiveCommentary(prev => [`${minute}' - ${msg}`, ...prev]);
+                    entry = { id: Date.now(), text: `${minute}' - ${msg}`, type: "miss" };
                     break;
                 case "end":
                     setIsMatchSimulating(false);
-                    setLiveCommentary(prev => [event.message, ...prev]);
+                    entry = { id: Date.now(), text: event.message, type: "end" };
                     break;
                 default:
                     break;
+            }
+
+            // Eğer geçerli bir olay varsa (entry null değilse) state'e ekle
+            if (entry) {
+                setLiveCommentary(prev => [entry, ...prev]);
             }
         });
 
@@ -129,6 +140,10 @@ const SinglePlayerMatch = () => {
             socket.off("matchEvent");
         };
     }, []);
+    // =================================================================
+    // DEĞİŞİKLİK BİTTİ
+    // =================================================================
+
 
     useEffect(() => {
         const fetchAllTeams = async () => {
@@ -255,29 +270,82 @@ const SinglePlayerMatch = () => {
         return pages;
     };
 
-    const renderTeamSelection = () => (
-        <div className="spm-league-container">
-            <h1>Hazır Takımlara Karşı Kendi İlk 11'ini Simüle et</h1>
-            <h2>Rakip Takım Seç:</h2>
-            <input type="text" placeholder="Takım ara..." value={teamSearchTerm} onChange={(e) => setTeamSearchTerm(e.target.value)} className="spm-drawer-search-input" />
-            {isLoading ? <div className="spm-loading-container">Takımlar yükleniyor...</div> : (
-                <>
-                    {TOP_LEAGUES.map((leagueName) => {
-                        const teamsInLeague = filteredTeams.filter((t) => t.leagueName === leagueName);
-                        if (teamSearchTerm && teamsInLeague.length === 0) return null;
-                        return (
-                            <div key={leagueName} className="spm-league-section">
-                                <h2 className="spm-league-title">{leagueName}</h2>
-                                <div className="spm-team-buttons-grid">
-                                    {teamsInLeague.map((team) => (<button key={team.clubId} className="spm-team-button" onClick={() => handleTeamSelect(team)}>{team.clubName}</button>))}
+    const renderTeamSelection = () => {
+        // 1. Filtrelenmiş takımları liglerine göre grupla
+        const groupedTeams = filteredTeams.reduce((acc, team) => {
+            const leagueName = team.leagueName || 'Diğer'; // Ligi olmayanları "Diğer" olarak grupla
+            if (!acc[leagueName]) {
+                acc[leagueName] = [];
+            }
+            acc[leagueName].push(team);
+            return acc;
+        }, {});
+
+        // 2. Lig isimlerini al ve sırala
+        const sortedLeagueNames = Object.keys(groupedTeams).sort((a, b) => {
+            const aIsTop = TOP_LEAGUES.includes(a);
+            const bIsTop = TOP_LEAGUES.includes(b);
+
+            if (aIsTop && !bIsTop) return -1; // a (top lig) önce gelsin
+            if (!aIsTop && bIsTop) return 1;  // b (top lig) önce gelsin
+
+            // İkisi de top lig ise, TOP_LEAGUES sırasına göre sırala
+            if (aIsTop && bIsTop) {
+                return TOP_LEAGUES.indexOf(a) - TOP_LEAGUES.indexOf(b);
+            }
+
+            // İkisi de top lig değilse, alfabetik sırala
+            return a.localeCompare(b);
+        });
+
+        return (
+            <div className="spm-league-container">
+                <h1>Hazır Takımlara Karşı Kendi İlk 11'ini Simüle et</h1>
+                <h2>Rakip Takım Seç:</h2>
+                <input
+                    type="text"
+                    placeholder="Takım ara..."
+                    value={teamSearchTerm}
+                    onChange={(e) => setTeamSearchTerm(e.target.value)}
+                    className="spm-drawer-search-input"
+                />
+                {isLoading ? <div className="spm-loading-container">Takımlar yükleniyor...</div> : (
+                    <>
+                        {/* 3. HARDCODED TOP_LEAGUES yerine YENİ SIRALANMIŞ LİSTEYİ KULLAN */}
+                        {sortedLeagueNames.map((leagueName) => {
+                            // Takımları gruplanmış objeden al
+                            const teamsInLeague = groupedTeams[leagueName];
+
+                            return (
+                                <div key={leagueName} className="spm-league-section">
+                                    <h2 className="spm-league-title">{leagueName}</h2>
+                                    <div className="spm-team-buttons-grid">
+                                        {teamsInLeague.map((team) => (
+                                            <button
+                                                key={team.clubId}
+                                                className="spm-team-button"
+                                                onClick={() => handleTeamSelect(team)}
+                                            >
+                                                {team.clubName}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
+                            );
+                        })}
+
+                        {/* Arama sonucunda hiç takım bulunamazsa mesaj göster */}
+                        {filteredTeams.length === 0 && !isLoading && (
+                            <div className="spm-no-player-found" style={{padding: '20px', textAlign: 'center'}}>
+                                <p>Aradığınız kritere uygun takım bulunamadı.</p>
                             </div>
-                        );
-                    })}
-                </>
-            )}
-        </div>
-    );
+                        )}
+                    </>
+                )}
+            </div>
+        );
+    };
+
 
     const renderSquadBuilder = () => (
         <div className="spm-squad-builder">
@@ -369,29 +437,44 @@ const SinglePlayerMatch = () => {
                 </div>
             </div>
 
-            <div className="live-stats">
-                <StatBar label="Topa Sahip Olma" valA={liveStats.teamA.possession} valB={liveStats.teamB.possession} teamA="Sen" teamB="Rakip" isPercentage={true}/>
-                <StatBar label="Şut (Toplam)" valA={liveStats.teamA.shots} valB={liveStats.teamB.shots} teamA="Sen" teamB="Rakip"/>
-                <StatBar label="Şut (İsabet)" valA={liveStats.teamA.shotsOnTarget} valB={liveStats.teamB.shotsOnTarget} teamA="Sen" teamB="Rakip"/>
-                <StatBar label="Korner" valA={liveStats.teamA.corners} valB={liveStats.teamB.corners} teamA="Sen" teamB="Rakip"/>
-                <StatBar label="Kurtarış" valA={liveStats.teamA.saves} valB={liveStats.teamB.saves} teamA="Sen" teamB="Rakip"/>
-                <StatBar label="Faul" valA={liveStats.teamA.fouls} valB={liveStats.teamB.fouls} teamA="Sen" teamB="Rakip"/>
+            <div className="spm-live-details-wrapper">
+
+                <div className="live-stats">
+                    <StatBar label="Topa Sahip Olma" valA={liveStats.teamA.possession} valB={liveStats.teamB.possession} teamA="Sen" teamB="Rakip" isPercentage={true}/>
+                    <StatBar label="Şut (Toplam)" valA={liveStats.teamA.shots} valB={liveStats.teamB.shots} teamA="Sen" teamB="Rakip"/>
+                    <StatBar label="Şut (İsabet)" valA={liveStats.teamA.shotsOnTarget} valB={liveStats.teamB.shotsOnTarget} teamA="Sen" teamB="Rakip"/>
+                    <StatBar label="Korner" valA={liveStats.teamA.corners} valB={liveStats.teamB.corners} teamA="Sen" teamB="Rakip"/>
+                    <StatBar label="Kurtarış" valA={liveStats.teamA.saves} valB={liveStats.teamB.saves} teamA="Sen" teamB="Rakip"/>
+                    <StatBar label="Faul" valA={liveStats.teamA.fouls} valB={liveStats.teamB.fouls} teamA="Sen" teamB="Rakip"/>
+                </div>
+
+                {/* Sağ Taraf: Canlı Anlatım */}
+                <div className="spm-live-commentary-box">
+                    <h3>📝 Canlı Anlatım</h3>
+                    {/* ======================================================== */}
+                    {/* DEĞİŞİKLİK BURADA: Sınıf adı event'in türüne göre atanıyor */}
+                    {/* ======================================================== */}
+                    <ul className="spm-commentary-list">
+                        {liveCommentary.map((entry) => (
+                            <li key={entry.id} className={`commentary-item event-${entry.type}`}>
+                                {entry.text}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
             </div>
 
-            <div className="live-commentary-box">
-                <h3>📝 Canlı Anlatım</h3>
-                <ul className="commentary-list">
-                    {liveCommentary.map((c, i) => (
-                        <li key={i} className="commentary-item">{c}</li>
-                    ))}
-                </ul>
-            </div>
 
             {currentMinute >= 90 && !isMatchSimulating && (
                 <button onClick={handlePlayAgain} className="spm-share-button">Tekrar Oyna</button>
             )}
         </div>
     );
+    // =================================================================
+    // DEĞİŞİKLİK BİTTİ
+    // =================================================================
+
 
     const renderPlayerDrawer = () => (
         <>
@@ -413,7 +496,6 @@ const SinglePlayerMatch = () => {
                         {isLoadingPlayers ? <div className="spm-loading-container">Oyuncular Yükleniyor...</div> : (
                             allPlayersResult.players.length > 0 ? (
                                 <div className="spm-player-grid">
-                                    {/* YENİ: Oyuncuları listelemeden önce kadroda olup olmadıklarını kontrol et */}
                                     {allPlayersResult.players
                                         .filter(p => !squadPlayerIds.has(p.player_id))
                                         .map((p) => (
