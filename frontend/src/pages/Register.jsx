@@ -59,7 +59,7 @@ function Register() {
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="kullaniciadi"
+                placeholder="kullanıcı adi"
                 required
               />
             </div>
@@ -149,7 +149,7 @@ function Register() {
         <div className="login-right">
           <div className="video-wrapper">
             <video
-              src="../../public/video1.mp4"
+              src="../../public/videos/video1.mp4"
               autoPlay
               loop
               muted

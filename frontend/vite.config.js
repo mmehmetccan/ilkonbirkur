@@ -23,4 +23,5 @@ export default defineConfig({
       'react-dom': path.resolve(ROOT_PATH, 'node_modules', 'react-dom'),
     },
   },
+  assetsInclude: ['**/*.mp4'],
 });

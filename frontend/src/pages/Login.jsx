@@ -96,16 +96,11 @@ function Login() {
 
         <div className="login-right">
           <div className="video-wrapper">
-            <video
-              src="../../public/video1.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
+            <video src="/videos/video1.mp4" autoPlay loop muted playsInline/>
+
           </div>
           <p className="video-caption">
-             Kendi 11'ini kur ve rakiplerine meydan oku!
+          Kendi 11'ini kur ve rakiplerine meydan oku!
           </p>
         </div>
       </div>

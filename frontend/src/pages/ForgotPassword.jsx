@@ -65,7 +65,7 @@ const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/for
         <div className="login-right">
           <div className="video-wrapper">
             <video
-              src="../../public/video1.mp4"
+              src="../../public/videos/video1.mp4"
               autoPlay
               loop
               muted
