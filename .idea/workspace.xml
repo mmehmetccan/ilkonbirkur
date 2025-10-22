@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7b806064-63ed-4ca2-8f7b-c4db132211ee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/services/simulationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/services/simulationService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Footer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/SinglePlayerMatch.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/SinglePlayerMatch.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/SquadSelection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/SquadSelection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/SinglePlayerMatch.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/SinglePlayerMatch.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CustomSquad.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ResetPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ResetPassword.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +165,8 @@
       <workItem from="1760911964406" duration="3247000" />
       <workItem from="1760977684655" duration="531000" />
       <workItem from="1760996801390" duration="6819000" />
-      <workItem from="1761050647986" duration="6529000" />
+      <workItem from="1761050647986" duration="7453000" />
+      <workItem from="1761142296936" duration="712000" />
     </task>
     <servers />
   </component>

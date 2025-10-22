@@ -6,12 +6,116 @@ import '../styles/CustomSquad.css';
 import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 
-const fieldPositions = { "4-3-3": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], MID: ["CM", "CM", "CM"], FWD: ["RW", "ST", "LW"] }, "3-5-2": { GK: ["GK"], DEF: ["CB", "CB", "CB"], MID: ["RWB", "CM", "CAM", "CM", "LWB"], FWD: ["ST", "CF"] }, "4-4-2": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], MID: ["RM", "CM", "CM", "LM"], FWD: ["ST", "ST"] }, "4-2-3-1": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], DCM: ["CDM", "CDM"], ACM: ["RM", "CAM", "LM"], FWD: ["ST"] }, "3-4-3": { GK: ["GK"], DEF: ["CB", "CB", "CB"], MID: ["RWB", "CM", "CM", "LWB"], FWD: ["RW", "ST", "LW"] }, "5-3-2": { GK: ["GK"], DEF: ["RWB", "CB", "CB", "CB", "LWB"], MID: ["CM", "CM", "CAM"], FWD: ["ST", "ST"] }, "4-5-1": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], MID: ["RM", "CM", "CDM", "CM", "LM"], FWD: ["ST"] }, "3-4-1-2": { GK: ["GK"], DEF: ["CB", "CB", "CB"], MID: ["RWB", "CM", "CM", "LWB"], ACM: ["CAM"], FWD: ["ST", "CF"] }, "4-3-1-2": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], MID: ["CM", "CDM", "CM"], ACM: ["CAM"], FWD: ["ST", "ST"] }, "4-2-2-2": { GK: ["GK"], DEF: ["RB", "CB", "CB", "LB"], DCM: ["CDM", "CDM"], ACM: ["CAM", "CAM"], FWD: ["ST", "ST"] }, "5-4-1": { GK: ["GK"], DEF: ["RWB", "CB", "CB", "CB", "LWB"], MID: ["RM", "CM", "CM", "LM"], FWD: ["ST"] } };
-const customFormationOrder = { "4-2-3-1": ["GK", "DEF", "DCM", "ACM", "FWD"] };
-const mapPositionToGeneral = (pos) => { if (!pos) return "MID"; const gk = ["GK", "Goalkeeper"]; const def = ["CB", "LB", "RB", "LWB", "RWB", "Defender - Centre-Back", "Defender - Left-Back", "Defender - Right-Back", "Defender"]; const dcm = ["CDM", "Defensive Midfielder", "Midfielder - Defensive Midfield"]; const acm = ["CAM", "LM", "RM", "Attacking Midfielder", "Midfielder - Attacking Midfield", "Midfielder - Right Midfield", "Midfielder - Left Midfield"]; const mid = ["CM", "Central Midfielder", "Midfielder - Central Midfield", "Wing-Back - Left Wing-Back", "Wing-Back - Right Wing-Back", "Midfielder"]; const fwd = ["ST", "CF", "LW", "RW", "Attack - Centre-Forward", "Attack - Left Winger", "Attack - Right Winger", "Attacker - Left Wing", "Attacker - Right Wing", "Forward", "Attacker"]; if (gk.some(p => pos.includes(p))) return "GK"; if (def.some(p => pos.includes(p))) return "DEF"; if (dcm.some(p => pos.includes(p))) return "DCM"; if (acm.some(p => pos.includes(p))) return "ACM"; if (mid.some(p => pos.includes(p))) return "MID"; if (fwd.some(p => pos.includes(p))) return "FWD"; return "MID"; };
-const getGeneralCategoryForFilter = (pos) => { const generalPosition = mapPositionToGeneral(pos); if (["DCM", "ACM", "MID"].includes(generalPosition)) { return "MID"; } return generalPosition; };
-const getPlayerForSlot = (squad, generalPos, slotIndex) => { const slotKey = `${generalPos}-${slotIndex}`; return squad.find((p) => p.assignedPosition === slotKey) || null; };
-const getDisplayedSurname = (fullName) => { if (!fullName) return "Bilinmiyor"; const parts = fullName.split(" "); return parts.length > 1 ? parts[parts.length - 1] : parts[0]; };
+const fieldPositions = { "4-3-3":
+        { GK: ["GK"],
+            DEF: ["RB", "CB", "CB", "LB"],
+            MID: ["CM", "CM", "CM"],
+            FWD: ["RW", "ST", "LW"] },
+    "3-5-2":
+        { GK: ["GK"],
+            DEF: ["CB", "CB", "CB"],
+            MID: ["RWB", "CM", "CAM", "CM", "LWB"],
+            FWD: ["ST", "CF"] },
+    "4-4-2":
+        { GK: ["GK"],
+            DEF: ["RB", "CB", "CB", "LB"],
+            MID: ["RM", "CM", "CM", "LM"],
+            FWD: ["ST", "ST"] },
+    "4-2-3-1":
+        { GK: ["GK"],
+            DEF: ["RB", "CB", "CB", "LB"],
+            DCM: ["CDM", "CDM"],
+            ACM: ["RM", "CAM", "LM"],
+            FWD: ["ST"] },
+    "3-4-3":
+        { GK: ["GK"],
+            DEF: ["CB", "CB", "CB"],
+            MID: ["RWB", "CM", "CM", "LWB"],
+            FWD: ["RW", "ST", "LW"] },
+    "5-3-2":
+        { GK: ["GK"],
+            DEF: ["RWB", "CB", "CB", "CB", "LWB"],
+            MID: ["CM", "CM", "CAM"],
+            FWD: ["ST", "ST"] },
+    "4-5-1":
+        {GK: ["GK"],
+        DEF: ["RB", "CB", "CB", "LB"],
+        MID: ["RM", "CM", "CDM", "CM", "LM"],
+        FWD: ["ST"] },
+    "3-4-1-2":
+        { GK: ["GK"],
+            DEF: ["CB", "CB", "CB"],
+            MID: ["RWB", "CM", "CM", "LWB"],
+            ACM: ["CAM"],
+            FWD: ["ST", "CF"] },
+    "4-3-1-2":
+        { GK: ["GK"],
+            DEF: ["RB", "CB", "CB", "LB"],
+            MID: ["CM", "CDM", "CM"],
+            ACM: ["CAM"],
+            FWD: ["ST", "ST"] },
+    "4-2-2-2":
+        { GK: ["GK"],
+            DEF: ["RB", "CB", "CB", "LB"],
+            DCM: ["CDM", "CDM"],
+            ACM: ["CAM", "CAM"],
+            FWD: ["ST", "ST"] },
+    "5-4-1":
+        { GK: ["GK"],
+            DEF: ["RWB", "CB", "CB", "CB", "LWB"],
+            MID: ["RM", "CM", "CM", "LM"],
+            FWD: ["ST"] }
+};
+
+const customFormationOrder = {
+    "4-2-3-1": ["GK", "DEF", "DCM", "ACM", "FWD"]
+};
+
+
+const mapPositionToGeneral = (pos) => {
+    if (!pos) return "MID";
+    const gk = ["GK", "Goalkeeper"];
+    const def = ["CB", "LB", "RB", "LWB", "RWB", "Defender - Centre-Back", "Defender - Left-Back", "Defender - Right-Back", "Defender"];
+    const dcm = ["CDM", "Defensive Midfielder", "Midfielder - Defensive Midfield"];
+    const acm = ["CAM", "LM", "RM", "Attacking Midfielder", "Midfielder - Attacking Midfield", "Midfielder - Right Midfield", "Midfielder - Left Midfield"];
+    const mid = ["CM", "Central Midfielder", "Midfielder - Central Midfield", "Wing-Back - Left Wing-Back", "Wing-Back - Right Wing-Back", "Midfielder"];
+    const fwd = ["ST", "CF", "LW", "RW", "Attack - Centre-Forward", "Attack - Left Winger", "Attack - Right Winger", "Attacker - Left Wing", "Attacker - Right Wing", "Forward", "Attacker"];
+    if (gk.some(p => pos.includes(p)))
+        return "GK";
+    if (def.some(p => pos.includes(p)))
+        return "DEF";
+    if (dcm.some(p => pos.includes(p)))
+        return "DCM";
+    if (acm.some(p => pos.includes(p)))
+        return "ACM";
+    if (mid.some(p => pos.includes(p)))
+        return "MID";
+    if (fwd.some(p => pos.includes(p)))
+        return "FWD";
+
+    return "MID";
+};
+
+const getGeneralCategoryForFilter = (pos) => {
+    const generalPosition = mapPositionToGeneral(pos);
+
+    if (["DCM", "ACM", "MID"].includes(generalPosition)) {
+        return "MID";
+    }
+    return generalPosition;
+};
+
+const getPlayerForSlot = (squad, generalPos, slotIndex) => {
+    const slotKey = `${generalPos}-${slotIndex}`;
+    return squad.find((p) => p.assignedPosition === slotKey) || null;
+};
+
+
+const getDisplayedSurname = (fullName) => {
+    if (!fullName) return "Bilinmiyor";
+    const parts = fullName.split(" ");
+    return parts.length > 1 ? parts[parts.length - 1] : parts[0];
+};
 
 function CustomSquad() {
     const navigate = useNavigate();
@@ -198,7 +302,12 @@ function CustomSquad() {
                 fieldElement.classList.add('is-capturing');
                 fieldElement.style.transform = 'scale(0.8)';
 
-                htmlToImage.toPng(fieldElement, { quality: 0.98, scrollX: 0, scrollY: 0 })
+                htmlToImage.toPng(fieldElement, {
+                    quality: 1,
+                    pixelRatio: 2.5,
+                    scrollX: 0,
+                    scrollY: 0
+                })
                     .then((dataUrl) => {
                         fieldElement.style.transform = '';
                         wrapperElement.style.perspective = originalWrapperPerspective;
@@ -222,7 +331,7 @@ function CustomSquad() {
     const handleShare = async () => {
         try {
             const dataUrl = await generateSquadImage();
-            const fileName = `Ilk11_Stabil_${formation}_${selectedTeam?.clubName || 'Kadro'}.png`;
+            const fileName = `Ilkonbirkur_${formation}_${selectedTeam?.clubName || 'Kadro'}.png`;
             const link = document.createElement('a');
             link.download = fileName.replace(/ /g, '_');
             link.href = dataUrl;

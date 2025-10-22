@@ -107,8 +107,8 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
     try {
         const user = await User.findOne({
-            resetPasswordToken: req.params.token, // düz token
-            resetPasswordExpire: { $gt: Date.now() } // süresi geçmemiş
+            resetPasswordToken: req.params.token,
+            resetPasswordExpire: { $gt: Date.now() }
         });
 
         if (!user) return res.status(400).json({ message: 'Token geçersiz veya süresi dolmuş.' });
